@@ -18,4 +18,12 @@ export class CaracteristicasService {
     return this.http.get<Modelo<Caracteristica[]>>(environment.apiUrl + this.url);
   }
 
+  destroy(id : Number) : Observable<Modelo<Object>> {
+    return this.http.delete<Modelo<Object>>(environment.apiUrl + this.url + '/' + id);
+  }
+
+  create(data: Object) : Observable<Modelo<Caracteristica>> {
+    return this.http.post<Modelo<Caracteristica>>(environment.apiUrl + this.url, data);
+  }
+
 }

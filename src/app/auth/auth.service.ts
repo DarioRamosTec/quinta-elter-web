@@ -15,14 +15,14 @@ export class AuthService {
   private authenticated : Boolean = true // false
   private verified : Boolean = true // false
   private activated : Boolean = true // false
-  private role : Number = 1 // 0
+  private role : Number = 3 // 1
   
   private url : String = "auth"
 
   constructor(private cookieService : CookieService, private http: HttpClient) { }
 
   getToken() : String {
-    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTcxMDEzODMyNSwiZXhwIjoxNzEwMTQxOTI1LCJuYmYiOjE3MTAxMzgzMjUsImp0aSI6InJhek5zV00wVzdKSnlCNHUiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.Q_p-SC9wvn5QghL7M4P3ALsyhAfH6FomnHbqqjJAB4M" // this.cookieService.get('tokenElter')
+    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTcxMDE5NTg1NCwiZXhwIjoxNzEwMTk5NDU0LCJuYmYiOjE3MTAxOTU4NTQsImp0aSI6IkN2bTJRdWZ2aGlndXlWZUQiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.e1w6vJ1i7E8ZIkPwUx1MlM3zpF_74HTn2Pw9JOfFPiU" // this.cookieService.get('tokenElter')
   }
 
   getTokenType() : String {
@@ -57,7 +57,7 @@ export class AuthService {
     return this.activated;
   }
 
-  getRole() : Number | undefined {
+  getRole() : Number {
     return this.role
   }
 

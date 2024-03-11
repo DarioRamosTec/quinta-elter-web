@@ -8,6 +8,9 @@ import { authGuestGuard } from './auth/auth-guest.guard';
 import { authGuard } from './auth/auth.guard';
 import { authNotGuard } from './auth/auth-not.guard';
 import { IndexClientesComponent } from './components/clientes/index-clientes/index-clientes.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { CreateCaracteristicasComponent } from './components/caracteristicas/create-caracteristicas/create-caracteristicas.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +26,12 @@ export const routes: Routes = [
         canActivate: [authGuestGuard]
     },
     {
+        path: 'caracteristicas/create',
+        component: CreateCaracteristicasComponent,
+        title: 'Create Caracteristica',
+        canActivate: [authAdminGuard]
+    },
+    {
         path: 'clientes',
         component: IndexClientesComponent,
         title: 'Index Clientes',
@@ -36,8 +45,14 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: NotFoundComponent,
+        component: LoginFormComponent,
         title: 'Login',
+        canActivate: [authGuard]
+    },
+    {
+        path: 'register',
+        component: RegisterFormComponent,
+        title: 'Register',
         canActivate: [authGuard]
     },
     {

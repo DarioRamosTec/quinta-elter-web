@@ -22,7 +22,7 @@ export class AuthService {
   constructor(private cookieService : CookieService, private http: HttpClient) { }
 
   getToken() : String {
-    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTcxMDEzNDM0NywiZXhwIjoxNzEwMTM3OTQ3LCJuYmYiOjE3MTAxMzQzNDcsImp0aSI6IkJLVk15dTNqVmRKUTVGcVoiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.8iQ8UAR8QwImnwOz22OqAe-Rd-wzG0PNob0YJ8ng09U" // this.cookieService.get('tokenElter')
+    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTcxMDEzODMyNSwiZXhwIjoxNzEwMTQxOTI1LCJuYmYiOjE3MTAxMzgzMjUsImp0aSI6InJhek5zV00wVzdKSnlCNHUiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.Q_p-SC9wvn5QghL7M4P3ALsyhAfH6FomnHbqqjJAB4M" // this.cookieService.get('tokenElter')
   }
 
   getTokenType() : String {

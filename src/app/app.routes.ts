@@ -11,6 +11,7 @@ import { IndexClientesComponent } from './components/clientes/index-clientes/ind
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { CreateCaracteristicasComponent } from './components/caracteristicas/create-caracteristicas/create-caracteristicas.component';
+import { CodigoVerificacionComponent } from './components/codigo-verificacion/codigo-verificacion.component';
 
 export const routes: Routes = [
     {
@@ -47,7 +48,13 @@ export const routes: Routes = [
         path: 'login',
         component: LoginFormComponent,
         title: 'Login',
-        canActivate: [authGuard]
+        // canActivate: [authGuard]
+    },
+    {
+        path:'CodigoVerificacion',
+        component: CodigoVerificacionComponent,
+        title: 'Codigo Verificacion',
+        // canActivate: [authGuard]
     },
     {
         path: 'register',

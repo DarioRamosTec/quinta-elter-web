@@ -35,6 +35,7 @@ export class RegisterFormComponent {
   }
 
   public isSubmitting = false;
+  public registrationSuccess = true;
  
   onSubmit(){
     this.isSubmitting = true;
@@ -48,8 +49,10 @@ export class RegisterFormComponent {
     };
     this.regService.registerUser(user).subscribe(
       res => {
-        this.router.navigate(['/login']);
+        this.registrationSuccess = true;
+        // this.router.navigate(['/login']);
         this.isSubmitting = false;
+        this.registerForm.reset(); 
       },
       err => {
         this.isSubmitting = false;

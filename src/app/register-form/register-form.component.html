@@ -1,3 +1,4 @@
+
  <section class="bg-gray-50 dark:bg-gray-900">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
     <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
@@ -9,7 +10,11 @@
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create and account
           </h1>
-
+          <div *ngIf="registrationSuccess" class="alert alert-success custom-success-message">
+            <span class="custom-success-message-text">¡Registro exitoso!</span> Se ha enviado un correo electrónico para activar tu cuenta. Por favor, revisa tu bandeja de entrada.
+          </div>
+          
+          
 
           <form class="space-y-1 md:space-y-1 " [formGroup]="registerForm" (ngSubmit)="onSubmit()"> 
             <div>

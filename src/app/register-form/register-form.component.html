@@ -1,31 +1,71 @@
-<div *ngIf="readyToSee" class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-3 py-4 mx-auto md:h-screen lg:py-0"> 
-    <form class="space-y-4 md:space-y-6" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-        <input type="text" name="name" id="name"
-              formControlName="name"
-              placeholder="Tu nombre"
+ <section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+        <img src="/assets/img/elter.png" class="h-6 mr-1" alt="Logo"/>
+          Quinta Elter   
+      </a>
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-4 space-y-2 md:space-y-4 sm:p-6">
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              Create and account
+          </h1>
+
+
+          <form class="space-y-1 md:space-y-1 " [formGroup]="registerForm" (ngSubmit)="onSubmit()"> 
+            <div>
+        <label for="nombre" class="block mb-1
+         text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+        <input type="text" name="nombre" id="nombre"
+              formControlName="nombre"
+              placeholder="Nombre"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
-      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)">
-        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['name'].errors?.['required']">El nombre es requerido.</div>
-        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['name'].errors?.['minlength']">
-          El nombre debe tener al menos 4 caracteres.
+      <div *ngIf="registerForm.controls['nombre'].invalid && (registerForm.controls['nombre'].dirty || registerForm.controls['nombre'].touched)"
+          class="alert">
+        <div *ngIf="registerForm.controls['nombre'].errors?.['required']"class="text-red">El nombre es requerido.</div>
+        <div *ngIf="registerForm.controls['nombre'].errors?.['maxlength']" class="text-red">
+          El nombre no puede tener más de 255 caracteres.
         </div>
+      </div>
+
+      <div>
+        <label for="apellido_paterno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido Paterno</label>
+        <input type="text" name="apellido_paterno" id="apellido_paterno"
+              formControlName="apellido_paterno"
+              placeholder="Apellido Paterno"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      </div>
+      <div *ngIf="registerForm.controls['apellido_paterno'].invalid && (registerForm.controls['apellido_paterno'].dirty || registerForm.controls['apellido_paterno'].touched)"
+          class="alert">
+        <div *ngIf="registerForm.controls['apellido_paterno'].errors?.['required']"class="text-red">El apellido paterno es requerido.</div>
+        <div *ngIf="registerForm.controls['apellido_paterno'].errors?.['maxlength']" class="text-red">
+          El apellido paterno no puede tener más de 255 caracteres.
+        </div>
+      </div>
+
+      <div>
+        <label for="apellido_materno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido Materno</label>
+        <input type="text" name="apellido_materno" id="apellido_materno"
+              formControlName="apellido_materno"
+              placeholder="Apellido Materno (Opcional)"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
 
       <div>
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
         <input type="email" name="email" id="email"
                 formControlName="email"
-              placeholder="tu@example.com"
+              placeholder="name@company.com"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
-      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
-        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['email'].errors?.['required']">El email es requerido.</div>
-        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['email'].errors?.['email']">
+      <div *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)"
+          class="alert">
+        <div *ngIf="registerForm.controls['email'].errors?.['required']">El email es requerido.</div>
+        <div *ngIf="registerForm.controls['email'].errors?.['email']"class="text-red">
           El email es invalido.
+        </div>
+        <div *ngIf="registerForm.controls['email'].errors?.['unique'] "class="text-red">
+          Este email ya está registrado.
         </div>
       </div>
 
@@ -36,35 +76,31 @@
                 formControlName="password"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
-      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
-        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['password'].errors?.['required']">La contraseña es requerida.</div>
-        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['password'].errors?.['minlength']">
+      <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)"
+          class="alert">
+        <div *ngIf="registerForm.controls['password'].errors?.['required']">
+        </div>
+        <div *ngIf="registerForm.controls['password'].errors?.['minlength']" class="text-red">
           La contraseña debe tener al menos 8 caracteres.
         </div>
       </div>
 
-      <button type="submit"
-              [disabled]="!registerForm.valid || isSubmitting"
-              [ngClass]="{'bg-gray-500': !registerForm.valid || isSubmitting, 'bg-[#1da1f2] hover:bg-[#1da1f2]/90': registerForm.valid || isSubmitting}"
-              class="text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
-        Submit
-      </button>
+    
+      <button type="submit" class="w-full mb-90 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Creat a new Acount</button>
 
-      <div style="margin: 0;" *ngIf="errors" class="alert p-0 mt-1 m-0">
-        <div *ngIf="errors.name">
-          Error en el nombre: {{ errors.name[0] }}
-        </div>
-        <div *ngIf="errors.email">
-          Error en el correo electrónico: {{ errors.email[0] }}
-        </div>
-        <div *ngIf="errors.password">
-          Error en la contraseña: {{ errors.password[0] }}
-        </div>
-      </div>
 
-      <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-        ¿Ya tienes cuenta? <a [routerLink]="['/login']" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Inicia sesión</a>
-      </p>
-    </form>
-  <div>
+      
+</form>
+    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+      Already have an account? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+  </p>
+ 
+  <!-- <div class="text-red-500" *ngIf="error" [@shake]="error">
+    Server error.
+    </div> -->
+ 
+    
 </div>
+</div>
+</div>
+</section>

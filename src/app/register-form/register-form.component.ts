@@ -35,7 +35,7 @@ export class RegisterFormComponent {
   }
 
   public isSubmitting = false;
-  public registrationSuccess = true;
+  public registrationSuccess = false;
  
   onSubmit(){
     this.isSubmitting = true;

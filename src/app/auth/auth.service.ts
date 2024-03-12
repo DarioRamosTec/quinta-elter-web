@@ -52,16 +52,11 @@ export class AuthService {
   authorize() : Observable<boolean> {
     let self = this
     return new Observable<boolean>(ele => {  
-      this.refresh().subscribe({
+      this.me().subscribe({
         next(data) {
-          self.setTokens(data.data)
-          self.authenticate().subscribe(data => {            
-            if (data == undefined) {
-              ele.next(false)
-            } else {
-              ele.next(true)
-            }
-          })
+          self.user = data
+          self.soda()
+          ele.next(true)
         },
         error() {
           self.deleteTokens()

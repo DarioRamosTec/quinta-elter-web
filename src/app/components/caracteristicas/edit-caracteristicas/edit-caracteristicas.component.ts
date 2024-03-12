@@ -8,18 +8,18 @@ import { NgFor, NgIf } from '@angular/common';
 import { Modelo } from '../../../modelo';
 import { LoadingComponent } from '../../../layout/loading/loading.component';
 import { CaracteristicasErrors } from '../caracteristicas-errors';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthComponent } from '../../auth/auth/auth.component';
 import { AuthService } from '../../../auth/auth.service';
 
 @Component({
-  selector: 'app-create-caracteristicas',
+  selector: 'app-edit-caracteristicas',
   standalone: true,
   imports: [RouterLink, NgIf, NgFor, FormsModule, SidebarComponent, CreateTitleComponent, ReactiveFormsModule, LoadingComponent],
-  templateUrl: './create-caracteristicas.component.html',
-  styleUrl: './create-caracteristicas.component.css'
+  templateUrl: './edit-caracteristicas.component.html',
+  styleUrl: './edit-caracteristicas.component.css'
 })
-export class CreateCaracteristicasComponent extends AuthComponent {
+export class EditCaracteristicasComponent extends AuthComponent {
   caracteristica : any = {
     nombre: undefined,
     descripcion: undefined,
@@ -27,11 +27,16 @@ export class CreateCaracteristicasComponent extends AuthComponent {
   }
   errors : CaracteristicasErrors | undefined
   submitted : boolean = false
-  tries : number = 0
+  ready : boolean = false
+  tries : number = 1
 
   constructor(private caracteristicaService : CaracteristicasService,
-    router : Router, authService : AuthService) {
+    router : Router, authService : AuthService, activatedRoute: ActivatedRoute) {
       super(authService, router)
+      caracteristicaService.show(activatedRoute.snapshot.params['id']).subscribe(data => {
+        this.caracteristica = data.data
+        this.ready = true
+      })
     }
 
   submit() {
@@ -39,7 +44,7 @@ export class CreateCaracteristicasComponent extends AuthComponent {
     this.tries += 1
     this.submitted = true
     this.caracteristica.descripcion = this.caracteristica.descripcion == null ? undefined : this.caracteristica .descripcion
-    
+
     this.caracteristicaService.store(this.caracteristica).subscribe({
       next(value) {
         self.router.navigate(['/caracteristicas'])
@@ -51,5 +56,4 @@ export class CreateCaracteristicasComponent extends AuthComponent {
       },
     })
   }
-
 }

@@ -13,6 +13,8 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { CreateCaracteristicasComponent } from './components/caracteristicas/create-caracteristicas/create-caracteristicas.component';
 import { CodigoVerificacionComponent } from './components/codigo-verificacion/codigo-verificacion.component';
 import { CreateTipoEventosComponent } from './components/tipoEventos/create-tipo-eventos/create-tipo-eventos.component';
+import { ShowCaracteristicasComponent } from './components/caracteristicas/show-caracteristicas/show-caracteristicas.component';
+import { EditCaracteristicasComponent } from './components/caracteristicas/edit-caracteristicas/edit-caracteristicas.component';
 export const routes: Routes = [
     {
         path: '',
@@ -28,14 +30,26 @@ export const routes: Routes = [
     {
         path: 'caracteristicas',
         component: IndexCaracteristicasComponent,
-        title: 'Index Caracteristicas',
+        title: 'Ver Caracteristicas',
         canActivate: [authGuestGuard]
     },
     {
         path: 'caracteristicas/create',
         component: CreateCaracteristicasComponent,
-        title: 'Create Caracteristica',
+        title: 'Crear Caracteristica',
         canActivate: [authAdminGuard]
+    },
+    {
+        path: 'caracteristicas/:id',
+        component: ShowCaracteristicasComponent,
+        title: 'Mostrar Caracteristica',
+        canActivate: [authGuestGuard]
+    },
+    {
+        path: 'caracteristicas/:id/edit',
+        component: EditCaracteristicasComponent,
+        title: 'Editar Caracteristica',
+        canActivate: [authGuestGuard]
     },
     {
         path: 'clientes',

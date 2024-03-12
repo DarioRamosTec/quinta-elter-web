@@ -12,7 +12,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { CreateCaracteristicasComponent } from './components/caracteristicas/create-caracteristicas/create-caracteristicas.component';
 import { CodigoVerificacionComponent } from './components/codigo-verificacion/codigo-verificacion.component';
-
+import { CreateTipoEventosComponent } from './components/tipoEventos/create-tipo-eventos/create-tipo-eventos.component';
 export const routes: Routes = [
     {
         path: '',
@@ -78,6 +78,12 @@ export const routes: Routes = [
         component: NotFoundComponent,
         title: 'Verificate',
         canActivate: [authGuard]
+    },
+    {
+        path: 'tipo-eventos',
+        component: CreateTipoEventosComponent,
+        title: 'Create Tipo Evento',
+        canActivate: [authAdminGuard]
     },
     { 
         path: '**', 

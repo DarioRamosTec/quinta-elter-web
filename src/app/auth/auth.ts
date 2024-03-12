@@ -1,6 +1,5 @@
 export interface Auth {
-    access_token : String
-    token_type : String
-    expires_in : Number
-    role : Number
+    access_token : string
+    token_type : string
+    expires_in : number
 }

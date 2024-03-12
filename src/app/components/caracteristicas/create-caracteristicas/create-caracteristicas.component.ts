@@ -9,6 +9,8 @@ import { Modelo } from '../../../modelo';
 import { LoadingComponent } from '../../../layout/loading/loading.component';
 import { CaracteristicasErrors } from '../caracteristicas-errors';
 import { Router, RouterLink } from '@angular/router';
+import { AuthComponent } from '../../auth/auth/auth.component';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-create-caracteristicas',
@@ -17,7 +19,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './create-caracteristicas.component.html',
   styleUrl: './create-caracteristicas.component.css'
 })
-export class CreateCaracteristicasComponent {
+export class CreateCaracteristicasComponent extends AuthComponent {
   caracteristica : any = {
     nombre: undefined,
     descripcion: undefined,
@@ -28,7 +30,9 @@ export class CreateCaracteristicasComponent {
   tries : number = 0
 
   constructor(private caracteristicaService : CaracteristicasService,
-    private router : Router) {}
+    router : Router, authService : AuthService) {
+      super(authService, router)
+    }
 
   submit() {
     let self = this
@@ -41,6 +45,7 @@ export class CreateCaracteristicasComponent {
       error(err) {
         self.errors = err.error.errors
         self.submitted = false
+        self.checkStatus(err.status)
       },
     })
   }

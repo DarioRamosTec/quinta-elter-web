@@ -4,8 +4,9 @@ import { CaracteristicasService } from '../caracteristicas.service';
 import { Caracteristica } from '../caracteristica';
 import { IndextableComponent } from '../../../layout/indextable/indextable.component';
 import { NgFor, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
+import { AuthComponent } from '../../auth/auth/auth.component';
 
 @Component({
   selector: 'app-index-caracteristicas',
@@ -14,31 +15,41 @@ import { AuthService } from '../../../auth/auth.service';
   templateUrl: './index-caracteristicas.component.html',
   styleUrl: './index-caracteristicas.component.css'
 })
-export class IndexCaracteristicasComponent {
+export class IndexCaracteristicasComponent extends AuthComponent {
   
   caracteristicas : Caracteristica[] | undefined
-  role : Number = 1
   loading: Boolean = false
 
   constructor(private caracteristicasService : CaracteristicasService,
-    authService : AuthService) {
-    this.role = authService.getRole()
+    authService : AuthService, router : Router) {
+    super(authService, router)
     this.index()
   }
 
   index() {
+    let self = this
     this.caracteristicas = undefined
-    this.caracteristicasService.index().subscribe(data => {
-      this.caracteristicas = data.data
-    })
+    this.caracteristicasService.index().subscribe({
+      next(data) {
+        self.caracteristicas = data.data
+      },
+      error(err) {
+        self.checkStatus(err.status)
+      }})
   }
 
   destroy(id : Number) {
+    let self = this
     this.loading = true
-    this.caracteristicasService.destroy(id).subscribe(() => {
-      this.loading = false
-      this.index()
-    })
+    this.caracteristicasService.destroy(id).subscribe({
+      next() {
+        self.loading = false
+        self.index()
+      },
+      error(err) {
+        self.checkStatus(err.status)
+      },
+    });
   }
 
 }

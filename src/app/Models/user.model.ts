@@ -26,3 +26,10 @@ export interface UserRegister{
     email: string;
     password: string;
   }
+  export interface codigoVerificacion{
+    // msg: string;
+    // data: User;
+    // jwt: string;
+    // token_type: string;
+    verificationCode: string;
+  }

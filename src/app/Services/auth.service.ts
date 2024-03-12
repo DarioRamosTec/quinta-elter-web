@@ -41,22 +41,7 @@ export class AuthService {
     }
     return null;
   }
-  
 
-  // isAuthenticated(): Observable<boolean> {
-  //   const token = this.getToken();
-  //   if (!token) {
-  //     return of(false); 
-  //   }
-
-  //   return this.usersservice.authenticate().pipe(
-  //     map(() => true),
-  //     catchError(() => {
-  //       return of(false);
-  //     })
-  //   ) as Observable<boolean>; // Add type assertion to ensure the return type is Observable<boolean>.
-  // }
-  
   resetAll(){
     if (typeof window !== 'undefined') {
 
@@ -66,18 +51,5 @@ export class AuthService {
     }
   }
 
-  // logout() {
-  //   if (typeof window !== 'undefined') {
-  //     return this.usersservice.logoutuser().subscribe(
-  //       res => {
-  //         if (res.status == true) {
-  //           localStorage.removeItem('access_token');
-  //           localStorage.removeItem('user');
-  //           this.router.navigate(['home/login']);
-  //         }
-  //       }
-  //     )
-  //   }
-  //   return false
-  // }
+
 }

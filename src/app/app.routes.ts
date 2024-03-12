@@ -11,9 +11,10 @@ import { IndexClientesComponent } from './components/clientes/index-clientes/ind
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { CreateCaracteristicasComponent } from './components/caracteristicas/create-caracteristicas/create-caracteristicas.component';
+import { CodigoVerificacionComponent } from './components/codigo-verificacion/codigo-verificacion.component';
+import { CreateTipoEventosComponent } from './components/tipoEventos/create-tipo-eventos/create-tipo-eventos.component';
 import { ShowCaracteristicasComponent } from './components/caracteristicas/show-caracteristicas/show-caracteristicas.component';
 import { EditCaracteristicasComponent } from './components/caracteristicas/edit-caracteristicas/edit-caracteristicas.component';
-
 export const routes: Routes = [
     {
         path: '',
@@ -66,7 +67,13 @@ export const routes: Routes = [
         path: 'login',
         component: LoginFormComponent,
         title: 'Login',
-        canActivate: [authGuard]
+        // canActivate: [authGuard]
+    },
+    {
+        path:'CodigoVerificacion',
+        component: CodigoVerificacionComponent,
+        title: 'Codigo Verificacion',
+        // canActivate: [authGuard]
     },
     {
         path: 'register',
@@ -85,6 +92,12 @@ export const routes: Routes = [
         component: NotFoundComponent,
         title: 'Verificate',
         canActivate: [authGuard]
+    },
+    {
+        path: 'tipo-eventos',
+        component: CreateTipoEventosComponent,
+        title: 'Create Tipo Evento',
+        canActivate: [authAdminGuard]
     },
     { 
         path: '**', 

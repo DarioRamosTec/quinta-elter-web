@@ -49,7 +49,7 @@ export const routes: Routes = [
         path: 'caracteristicas/:id/edit',
         component: EditCaracteristicasComponent,
         title: 'Editar Caracteristica',
-        canActivate: [authGuestGuard]
+        canActivate: [authAdminGuard]
     },
     {
         path: 'clientes',
@@ -67,13 +67,13 @@ export const routes: Routes = [
         path: 'login',
         component: LoginFormComponent,
         title: 'Login',
-        // canActivate: [authGuard]
+        canActivate: [authGuard]
     },
     {
         path:'CodigoVerificacion',
         component: CodigoVerificacionComponent,
         title: 'Codigo Verificacion',
-        // canActivate: [authGuard]
+        canActivate: [authGuard]
     },
     {
         path: 'register',

@@ -1,58 +1,56 @@
-<!-- <app-form-layout>
-    <form class="space-y-4 md:space-y-6" [formGroup]="registerForm" (ngSubmit)="onSubmit()"> -->
+<div *ngIf="readyToSee" class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-3 py-4 mx-auto md:h-screen lg:py-0"> 
+    <form class="space-y-4 md:space-y-6" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
-        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
         <input type="text" name="name" id="name"
-               formControlName="name"
-               placeholder="Name"
-               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              formControlName="name"
+              placeholder="Tu nombre"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
-      <div *ngIf="registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)"
-           class="alert">
-        <div *ngIf="registerForm.controls['name'].errors?.['required']">El nombre es requerido.</div>
-        <div *ngIf="registerForm.controls['name'].errors?.['minlength']">
+      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)">
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['name'].errors?.['required']">El nombre es requerido.</div>
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['name'].errors?.['minlength']">
           El nombre debe tener al menos 4 caracteres.
         </div>
       </div>
-  
+
       <div>
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
         <input type="email" name="email" id="email"
                 formControlName="email"
-               placeholder="name@company.com"
-               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              placeholder="tu@example.com"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
-      <div *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)"
-           class="alert">
-        <div *ngIf="registerForm.controls['email'].errors?.['required']">El email es requerido.</div>
-        <div *ngIf="registerForm.controls['email'].errors?.['email']">
+      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['email'].errors?.['required']">El email es requerido.</div>
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['email'].errors?.['email']">
           El email es invalido.
         </div>
       </div>
-  
+
       <div>
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
         <input type="password" name="password" id="password" placeholder="********"
-                 autocomplete="on"
+                autocomplete="on"
                 formControlName="password"
-               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
-      <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)"
-           class="alert">
-        <div *ngIf="registerForm.controls['password'].errors?.['required']">La contraseña es requerida.</div>
-        <div *ngIf="registerForm.controls['password'].errors?.['minlength']">
+      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['password'].errors?.['required']">La contraseña es requerida.</div>
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['password'].errors?.['minlength']">
           La contraseña debe tener al menos 8 caracteres.
         </div>
       </div>
-  
+
       <button type="submit"
               [disabled]="!registerForm.valid || isSubmitting"
               [ngClass]="{'bg-gray-500': !registerForm.valid || isSubmitting, 'bg-[#1da1f2] hover:bg-[#1da1f2]/90': registerForm.valid || isSubmitting}"
               class="text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
         Submit
       </button>
-  
-      <div *ngIf="errors" class="alert">
+
+      <div style="margin: 0;" *ngIf="errors" class="alert p-0 mt-1 m-0">
         <div *ngIf="errors.name">
           Error en el nombre: {{ errors.name[0] }}
         </div>
@@ -63,10 +61,10 @@
           Error en la contraseña: {{ errors.password[0] }}
         </div>
       </div>
-  
+
       <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-        Already have an account? <a routerLink="/home/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+        ¿Ya tienes cuenta? <a [routerLink]="['/login']" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Inicia sesión</a>
       </p>
-    <!-- </form>
-  </app-form-layout> -->
-  
+    </form>
+  <div>
+</div>

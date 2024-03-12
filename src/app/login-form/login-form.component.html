@@ -1,14 +1,12 @@
-<section class="bg-gray-50 dark:bg-gray-900">
+<section *ngIf="readyToSee" class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-3 py-4 mx-auto md:h-screen lg:py-0"> 
-        <a href="#" class="flex items-center mb-3 text-xl font-semibold text-gray-900 dark:text-white">
-            <img src="/assets/img/elter.png" class="h-6 mr-1" alt="Logo"/>
-            Quinta Elter
-        </a>
-        <div class=" bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-   
-            <div class="p-4 space-y-2 md:space-y-4 sm:p-6">
-                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                    Sign in to your account
+        <div class="flex items-center mb-3 text-xl font-semibold text-gray-900 dark:text-white">
+            <img src="/assets/img/elter.png" class="h-10 mr-1" alt="Logo"/>
+        </div>
+        <div class=" bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md w-full xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-4 space-y-3 md:space-y-4 sm:p-6">
+                <h1 class="text-xl font-medium leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Inicia sesión
                 </h1>
    
             <form class="space-y-2 md:space-y-4" (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -17,48 +15,48 @@
           <input type="email" name="email" id="email" [(ngModel)]="email"
                   #emailField="ngModel"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
-          <div *ngIf="emailField.errors?.['required'] && emailField.dirty" class="text-red-500">
-            Email is required.
+          <div *ngIf="emailField.errors?.['required'] && emailField.dirty" class="text-pink-500 pt-1 text-xs">
+                Correo obligatorio.
           </div>
-          <div *ngIf="emailField.errors?.['email'] && emailField.dirty" class="text-red-500">
-            Please enter a valid email address.
+          <div *ngIf="emailField.errors?.['email'] && emailField.dirty" class="text-pink-500 pt-1 text-xs">
+                Por favor, entra un email válido.
           </div>
         </div>
         <div>
-            <label for="Password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <label for="Password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
             <input type="password" name="password" id="password" placeholder="********" autocomplete="on"
             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             [(ngModel)]="password" #passwordField="ngModel" required minlength="8">
 
-            <div *ngIf="passwordField.errors?.['required'] && passwordField.touched" class="text-red-500">
-            Password is required.
+            <div *ngIf="passwordField.errors?.['required'] && passwordField.touched" class="text-pink-500 pt-1 text-xs">
+                Contraseña obligatoria.
             </div>
 
-            <div *ngIf="passwordField.errors?.['minlength'] && passwordField.touched" class="text-red-500">
-            Password must be at least 8 characters long.
+            <div *ngIf="passwordField.errors?.['minlength'] && passwordField.touched" class="text-pink-500 pt-1 text-xs">
+                La contraseña debe tener, por lo menos, 8 caracteres.
             </div>
         </div>
-        <div class="text-red-500" *ngIf="notfound" [@shake]="notfound">
-            User Not Found.
+        <div class="text-pink-500 pt-1 text-xs" *ngIf="notfound" [@shake]="notfound">
+            Usuario o contraseña incorrecta.
         </div>
 
-        <div class="text-red-500" *ngIf="passwordVerify" [@shake]="passwordVerify">
-            Incorrect password.
+        <div class="text-pink-500 pt-1 text-xs" *ngIf="passwordVerify" [@shake]="passwordVerify">
+            Usuario o contraseña incorrecta.
         </div>
 
-        <div class="text-red-500" *ngIf="error" [@shake]="error">
-            Server error.
+        <div class="text-pink-500 pt-1 text-xs" *ngIf="error" [@shake]="error">
+            Error de servidor.
         </div>
 
-        <button type="submit" [disabled]="loginForm.invalid"
-                class=" bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
-          Submit
+        <button type="submit" [disabled]="loginForm.invalid" class="text-white pt-2 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+          Iniciar sesión
         </button>
 
-        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-            you don't have an account?? 
-            
-            <a routerLink="/home/register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Register here</a>
+        <p class="text-sm pt-2 font-light text-gray-500 dark:text-gray-400">
+            ¿No tienes cuenta?
+            <a [routerLink]="['/register']" class="font-medium hover:underline text-teal-400 text-primary-600 dark:text-primary-500">
+                Registrate
+            </a>
           </p>
         
       </form>

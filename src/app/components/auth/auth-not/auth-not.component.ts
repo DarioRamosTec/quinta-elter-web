@@ -10,12 +10,25 @@ import { Router } from '@angular/router';
   styleUrl: './auth-not.component.css'
 })
 export class AuthNotComponent {
+  readyToSee : Boolean = false
 
-  constructor(authService : AuthService, router: Router) {
-    authService.authorize().subscribe(data => {
-      if (data) {
-        router.navigate(['home'])
-      }
+  constructor(protected authService : AuthService, protected router: Router) {
+    this.authorize()
+  }
+
+  authorize() {
+    let self = this
+    this.authService.authorize().subscribe({
+      next(data) {
+        if (data) {
+          self.router.navigate(['home'])
+        }
+        self.readyToSee = true
+      },
+      error(err) {
+        self.readyToSee = true
+      },
     })
   }
+
 }

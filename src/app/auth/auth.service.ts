@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment.development';
 import { Modelo } from '../modelo';
 import { User } from '../components/users/user';
 import { Router } from '@angular/router';
+import { UserLogin } from '../Models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class AuthService {
 
   constructor(private cookieService : CookieService, private http: HttpClient, private router: Router) { }
 
-  login() : Observable<Modelo<Auth>> {
-    return this.http.get<Modelo<Auth>>(environment.apiUrl + this.url + '/login');
+  login(data : User) : Observable<Modelo<Auth>> {
+    return this.http.post<Modelo<Auth>>(environment.apiUrl + this.url + '/login', data);
   }
 
   refresh() : Observable<Modelo<Auth>> {
@@ -63,6 +64,22 @@ export class AuthService {
           ele.next(false)
         },
       }); 
+    })
+  }
+
+  bye() : Observable<boolean> {
+    let self = this
+    return new Observable<boolean>(ele => {   
+      this.logout().subscribe({
+        next(value) {
+          self.deleteTokens()
+          self.user = undefined
+          ele.next(true)
+        },
+        error(err) {
+          ele.next(false)
+        },
+      })
     })
   }
 

@@ -62,7 +62,12 @@
         </div>
     </div> 
     <ng-template #elseSubmitted>
-        <app-loading></app-loading>
+      <app-loading *ngIf="!notfound else notFound"></app-loading>
+      <ng-template #notFound>
+        <app-create-title>
+            Tu recurso no fue encontrado o no existe.
+        </app-create-title>
+      </ng-template>
     </ng-template> 
 
 </app-sidebar>

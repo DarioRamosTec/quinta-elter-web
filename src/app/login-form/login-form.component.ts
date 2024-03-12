@@ -35,11 +35,9 @@ export class LoginFormComponent extends AuthNotComponent {
   public notfound = false;
   public error = false;
   public passwordVerify = false;
-  constructor( 
-    private loginService: UsersService,
-    authService : AuthService, router: Router
-    ) {
-      super(authService, router)
+  
+  constructor(private loginService: UsersService, authService : AuthService, router: Router) {
+    super(authService, router)
     this.email = '';
     this.password = '';
   }
@@ -55,23 +53,21 @@ export class LoginFormComponent extends AuthNotComponent {
       email: this.email || '',
       password: this.password || '',
     };
-    this.loginService.loginUser(user).subscribe(
-      res => {
-        // this.authService.saveTokenResponse(res.jwt, res.data)
-        
-        
-      },
-      error => {
+    let self = this
+    this.loginService.loginUser(user).subscribe({
+      error(error) {
         if (error.status == 404){
-          this.notfound = true;
+          self.notfound = true;
         } else if(error.status == 401) {
-          this.passwordVerify = true;
-        }else {
-          this.error = true
+          self.passwordVerify = true;
+        } else {
+          self.error = true
         }
+      },
+      next(value) {
+        self.authService.setTokens(value.data)
+        self.authorize()
       }
-    );  
-
-
+    });  
   }
 }

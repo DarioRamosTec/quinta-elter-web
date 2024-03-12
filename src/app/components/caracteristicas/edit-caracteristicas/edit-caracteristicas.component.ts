@@ -29,13 +29,20 @@ export class EditCaracteristicasComponent extends AuthComponent {
   submitted : boolean = false
   ready : boolean = false
   tries : number = 1
+  notfound = false
 
   constructor(private caracteristicaService : CaracteristicasService,
     router : Router, authService : AuthService, activatedRoute: ActivatedRoute) {
       super(authService, router)
-      caracteristicaService.show(activatedRoute.snapshot.params['id']).subscribe(data => {
-        this.caracteristica = data.data
-        this.ready = true
+      let self = this
+      caracteristicaService.show(activatedRoute.snapshot.params['id']).subscribe({
+        next(data) {
+          self.caracteristica = data.data
+          self.ready = true
+        },
+        error(err) {
+          self.notfound = true
+        },
       })
     }
 

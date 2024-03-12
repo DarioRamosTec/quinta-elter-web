@@ -48,6 +48,10 @@ export class IndexCaracteristicasComponent extends AuthComponent {
       },
       error(err) {
         self.checkStatus(err.status)
+        self.loading = false
+        self.index()
+      },
+      complete() {
       },
     });
   }

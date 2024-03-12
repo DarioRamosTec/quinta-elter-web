@@ -6,7 +6,7 @@
             <img src="/assets/img/elter.png" class="h-8" alt=""/>
         </a>
         <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <a [routerLink]="['/logout']" class="font-normal text-sm text-teal-600 dark:text-teal-500 hover:underline">Cerrar sesión</a>
+            <a (click)="logout()" class="cursor-pointer font-normal text-sm text-teal-600 dark:text-teal-500 hover:underline">Cerrar sesión</a>
         </div>
     </div>
 </nav>

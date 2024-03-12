@@ -20,12 +20,19 @@ import { FormsModule } from '@angular/forms';
 })
 export class ShowCaracteristicasComponent extends AuthComponent {
   caracteristica : Caracteristica | undefined
+  notfound = false
 
   constructor(private caracteristicaService : CaracteristicasService,
     router : Router, authService : AuthService, activatedRoute : ActivatedRoute) {
       super(authService, router)
-      caracteristicaService.show(activatedRoute.snapshot.params['id']).subscribe(data => {
-        this.caracteristica = data.data
+      let self = this
+      caracteristicaService.show(activatedRoute.snapshot.params['id']).subscribe({
+        next(data) {
+          self.caracteristica = data.data
+        },
+        error(err) {
+          self.notfound = true
+        },
       })
     }
 }

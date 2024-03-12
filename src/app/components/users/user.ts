@@ -8,5 +8,5 @@ export interface User {
     verificado: Boolean
     activado: Boolean
     token_verificacion?: undefined
-    role : Number
+    role : number
 }

@@ -6,6 +6,8 @@ import {UserLogin,LoginResponse, codigoVerificacion,
  User, UserRegister
       } 
 from '../Models/user.model';
+import { Auth } from '../auth/auth';
+import { Modelo } from '../modelo';
 
 
 @Injectable({
@@ -27,8 +29,8 @@ export class UsersService {
 
  
 
-  loginUser(user: UserLogin): Observable<LoginResponse>{
-    return this.http.post<LoginResponse>(this.urlLogin, user)
+  loginUser(user: UserLogin): Observable<Modelo<Auth>>{
+    return this.http.post<Modelo<Auth>>(this.urlLogin, user)
   }
 
   registerUser(user: UserRegister): Observable<UserRegister>{

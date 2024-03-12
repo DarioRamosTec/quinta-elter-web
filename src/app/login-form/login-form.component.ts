@@ -43,7 +43,7 @@ export class LoginFormComponent extends AuthNotComponent {
   }
 
   ngOnInit() {
-   
+ 
   }
   onSubmit() {
     this.notfound = false;
@@ -67,6 +67,7 @@ export class LoginFormComponent extends AuthNotComponent {
       next(value) {
         self.authService.setTokens(value.data)
         self.authorize()
+        self.router.navigate(['/CodigoVerificacion']);
       }
     });  
   }

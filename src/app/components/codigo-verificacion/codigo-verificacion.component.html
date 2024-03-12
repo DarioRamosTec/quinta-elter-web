@@ -17,21 +17,36 @@
                     
                     <form (submit)="onSubmit()" #verificationForm="ngForm">
                         <div id="verificationCode" class="flex flex-row justify-center text-center px-2 mt-5">
-                            <input type="text" name="verificationCode" id="first" [(ngModel)]="verificationCode" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" /> 
-                            <input type="text" name="verificationCode1" id="second" [(ngModel)]="verificationCode" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" /> 
-                            <input type="text" name="verificationCode" id="third" [(ngModel)]="verificationCode" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" /> 
-                            <input type="text" name="verificationCode" id="fourth" [(ngModel)]="verificationCode" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" />
-                            <input type="text" name="verificationCode" id="fifth" [(ngModel)]="verificationCode" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" /> 
-                            <input type="text" name="verificationCode" id="sixth" [(ngModel)]="verificationCode" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" />
-                            
-                        </div>
+                            <input type="text" name="firstDigit" id="first" [(ngModel)]="digit1" (input)="moveToNextOrPrev($event.target, secondInput,firstInput)" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" required> 
+                            <input type="text" name="secondDigit" #secondInput id="second" [(ngModel)]="digit2" (input)="moveToNextOrPrev($event.target, thirdInput, secondInput)" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" required> 
+                            <input type="text" name="thirdDigit" #thirdInput id="third" [(ngModel)]="digit3" (input)="moveToNextOrPrev($event.target, fourthInput, secondInput)" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" /> 
+                            <input type="text" name="fourthDigit" #fourthInput id="fourth" [(ngModel)]="digit4" (input)="moveToNextOrPrev($event.target, fifthInput, thirdInput)" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" />
+                            <input type="text" name="fifthDigit" #fifthInput id="fifth" [(ngModel)]="digit5" (input)="moveToNextOrPrev($event.target, sixthInput, fourthInput)" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" /> 
+                            <input type="text" name="sixthDigit" #sixthInput id="sixth" [(ngModel)]="digit6" (input)="moveToNextOrPrev($event.target, null, fifthInput)" class="m-2 border h-10 w-10 text-center form-control rounded" maxlength="1" />
+                          </div>
                         
                         <div class="flex justify-center text-center mt-5">
                             <button type="submit" [disabled]="verificationForm.invalid"
                             class="text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
                       Submit
                     </button>
+                    
                   
+                        </div>
+                        <div class="text-red-500" *ngIf="verificationForm.invalid && verificationForm.dirty">
+                            Por favor ingresa el código de verificación completo.
+                        </div>
+
+                        <div class="text-red-500" *ngIf="notfound" [@shake]="notfound">
+                            Código incorrecto.
+                        </div>
+
+                        <div class="text-red-500" *ngIf="passwordVerify" [@shake]="passwordVerify">
+                            Código incorrecto.
+                        </div>
+
+                        <div class="text-red-500" *ngIf="error" [@shake]="error">
+                            Error del servidor.
                         </div>
                     </form>
                 </div>

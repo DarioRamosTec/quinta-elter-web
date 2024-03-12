@@ -22,7 +22,7 @@ export class CaracteristicasService {
     return this.http.delete<Modelo<Object>>(environment.apiUrl + this.url + '/' + id);
   }
 
-  create(data: Object) : Observable<Modelo<Caracteristica>> {
+  store(data: Caracteristica) : Observable<Modelo<Caracteristica>> {
     return this.http.post<Modelo<Caracteristica>>(environment.apiUrl + this.url, data);
   }
 

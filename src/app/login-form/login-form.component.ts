@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { AuthNotComponent } from '../components/auth/auth-not/auth-not.component';
+import { Route, Router } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
 import {UserLogin} from "../Models/user.model";
@@ -24,7 +27,8 @@ import {
   styleUrl: './login-form.component.css',
   
 })
-export class LoginFormComponent {
+<<<<<<< HEAD
+export class LoginFormComponent extends AuthNotComponent {
   public email = '';
   public password = '';
   public notfound = false;
@@ -32,9 +36,9 @@ export class LoginFormComponent {
   public passwordVerify = false;
   constructor( 
     private loginService: UsersService,
-    private authService: AuthService,
-    private router: Router
+    authService : AuthService, router: Router
     ) {
+      super(authService, router)
     this.email = '';
     this.password = '';
   }
@@ -66,5 +70,10 @@ export class LoginFormComponent {
         }
       }
     );  
+=======
+export class LoginFormComponent extends AuthNotComponent {
+  constructor(authService : AuthService, router: Router) {
+    super(authService, router)
+>>>>>>> 6d244141b9bc9e749fad6dddb96d7937478775fe
   }
 }

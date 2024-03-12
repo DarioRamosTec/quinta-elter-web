@@ -19,6 +19,11 @@ export const routes: Routes = [
         component: HomeComponent,
         title: 'Home',
         canActivate: [authGuestGuard]
+    }, 
+    {
+        path: 'home',
+        redirectTo: '', 
+        pathMatch: 'full'
     },
     {
         path: 'caracteristicas',

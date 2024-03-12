@@ -6,28 +6,17 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Modelo } from '../modelo';
 import { User } from '../components/users/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private authenticated : Boolean = true // false
-  private verified : Boolean = true // false
-  private activated : Boolean = true // false
-  private role : Number = 3 // 1
-  
+  private user : User | undefined
   private url : String = "auth"
 
-  constructor(private cookieService : CookieService, private http: HttpClient) { }
-
-  getToken() : String {
-    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTcxMDE5NTg1NCwiZXhwIjoxNzEwMTk5NDU0LCJuYmYiOjE3MTAxOTU4NTQsImp0aSI6IkN2bTJRdWZ2aGlndXlWZUQiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.e1w6vJ1i7E8ZIkPwUx1MlM3zpF_74HTn2Pw9JOfFPiU" // this.cookieService.get('tokenElter')
-  }
-
-  getTokenType() : String {
-    return "bearer" // this.cookieService.get('tokenType')
-  }
+  constructor(private cookieService : CookieService, private http: HttpClient, private router: Router) { }
 
   login() : Observable<Modelo<Auth>> {
     return this.http.get<Modelo<Auth>>(environment.apiUrl + this.url + '/login');
@@ -45,20 +34,81 @@ export class AuthService {
     return this.http.get<User>(environment.apiUrl + this.url + '/me');
   }
 
+  authenticate() : Observable<User> {
+    let self = this
+    return new Observable<User>(ele => {  
+      this.me().subscribe({
+        next(data) {
+          self.user = data
+          ele.next(self.user)
+        },
+        error() {
+          ele.next(undefined)
+        },
+      }); 
+    })
+  }
+
+  authorize() : Observable<boolean> {
+    let self = this
+    return new Observable<boolean>(ele => {  
+      this.refresh().subscribe({
+        next(data) {
+          self.setTokens(data.data)
+          self.authenticate().subscribe(data => {            
+            if (data == undefined) {
+              ele.next(false)
+            } else {
+              ele.next(true)
+            }
+          })
+        },
+        error() {
+          self.deleteTokens()
+          ele.next(false)
+        },
+      }); 
+    })
+  }
+
+  soda() {
+    this.refresh().subscribe(data => {
+      this.setTokens(data.data)
+    }); 
+  }
+
+  setTokens(data : Auth) {
+    this.cookieService.set('tokenElter', data.access_token, data.expires_in, '/')
+    this.cookieService.set('tokenType', data.token_type, data.expires_in, '/')
+  }
+
+  deleteTokens() {
+    this.cookieService.delete('tokenElter')
+    this.cookieService.delete('tokenType')
+  }
+
   isAuthenticated() : Boolean {
-    return this.authenticated;
+    return this.getToken() != undefined && this.getToken() != '' && this.user != undefined;
   }
 
-  isVerified() : Boolean {
-    return this.verified;
+  isVerified() : Boolean | undefined {
+    return this.user?.verificado;
   }
 
-  isActived() : Boolean {
-    return this.activated;
+  isActived() : Boolean | undefined {
+    return this.user?.activado;
   }
 
-  getRole() : Number {
-    return this.role
+  getRole() : Number | undefined {
+    return this.user?.role
+  }
+  
+  getToken() : String {
+    return this.cookieService.get('tokenElter')
+  }
+
+  getTokenType() : String {
+    return this.cookieService.get('tokenType')
   }
 
 }

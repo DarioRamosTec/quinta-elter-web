@@ -1,9 +1,9 @@
 <app-sidebar>
     <app-create-title>
-        Crear característica
+        Editar característica
     </app-create-title>
 
-    <div class="space-y-12" *ngIf="!submitted else elseSubmitted">
+    <div class="space-y-12" *ngIf="!submitted && ready else elseSubmitted">
         <div class="border-b border-gray-900/10 pb-12">
           <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div class="sm:col-span-2 sm:col-start-1">

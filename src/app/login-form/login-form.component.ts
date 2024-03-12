@@ -37,7 +37,8 @@ export class LoginFormComponent extends AuthNotComponent {
   public passwordVerify = false;
   constructor( 
     private loginService: UsersService,
-    authService : AuthService, router: Router
+    private authService: AuthService,
+    private router: Router
     ) {
       super(authService, router)
     this.email = '';
@@ -45,7 +46,7 @@ export class LoginFormComponent extends AuthNotComponent {
   }
 
   ngOnInit() {
-   
+ 
   }
   onSubmit() {
     this.notfound = false;
@@ -57,7 +58,8 @@ export class LoginFormComponent extends AuthNotComponent {
     };
     this.loginService.loginUser(user).subscribe(
       res => {
-        // this.authService.saveTokenResponse(res.jwt, res.data)
+        this.authService.saveTokenResponse(res.jwt, res.data)
+        this.router.navigate(['/CodigoVerificacion']);
         
         
       },

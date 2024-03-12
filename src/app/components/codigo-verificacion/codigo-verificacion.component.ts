@@ -16,8 +16,19 @@ import { RouterLink } from '@angular/router';
 })
 
 export class CodigoVerificacionComponent {
-  public verificationCode = '';
-  
+  digit1: string = '';
+  digit2: string = '';
+  digit3: string = '';
+  digit4: string = '';
+  digit5: string = '';
+  digit6: string = '';
+
+  firstInput: HTMLInputElement | null = null;
+    secondInput: HTMLInputElement | null = null;
+    thirdInput: HTMLInputElement | null = null;
+    fourthInput: HTMLInputElement | null = null;
+    fifthInput: HTMLInputElement | null = null;
+    sixthInput: HTMLInputElement | null = null;
   public error = false;
   public notfound = false;
   public passwordVerify = false;
@@ -37,16 +48,15 @@ export class CodigoVerificacionComponent {
     this.notfound = false;
     this.error = false;
     this.passwordVerify = false;
-    const code: codigoVerificacion = {
-      verificationCode: this.verificationCode || '',
-     
-    };
-    this.verifyCode.verifyCode(this.verificationCode).subscribe(
+    
+    const code = this.digit1 + this.digit2 + this.digit3 + this.digit4 + this.digit5 + this.digit6;
+    console.log(code);
+    this.verifyCode.verifyCode(code).subscribe(
       res => {
-        this.router.navigate(['/home/login']);
+        this.router.navigate(['/home']);
       },
       error => {
-        if (this.verificationCode.length === 0) {
+        if (code.length === 0) {
           this.verificationCodeNotValid = true;
           return;
         }
@@ -60,12 +70,15 @@ export class CodigoVerificacionComponent {
       }
     );
   }
-  moveToNextOrPrev(currentInput: HTMLInputElement, nextInput: HTMLInputElement | null, prevInput: HTMLInputElement | null) {
-    if (currentInput.value.length === 1 && nextInput) {
-      nextInput.focus();
-    } else if (currentInput.value.length === 0 && prevInput) {
-      prevInput.focus();
+  moveToNextOrPrev(currentInput: EventTarget | null, nextInput: HTMLInputElement | null, prevInput: HTMLInputElement | null) {
+    if (currentInput instanceof HTMLInputElement) {
+        if (currentInput.value.length === 1 && nextInput) {
+            nextInput.focus();
+        } else if (currentInput.value.length === 0 && prevInput) {
+            prevInput.focus();
+        }
     }
-  }
+}
+
 
 }

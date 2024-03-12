@@ -105,5 +105,12 @@ export class AuthService {
   getTokenType() : String {
     return this.cookieService.get('tokenType')
   }
-
+  saveTokenResponse(jwt: string, user: any) {
+    if (typeof window !== 'undefined') {
+      const userString = JSON.stringify(user);
+      localStorage.setItem('user', userString);
+      localStorage.setItem('access_token', jwt);
+      this.router.navigate(['']);
+    }
+  }
 }

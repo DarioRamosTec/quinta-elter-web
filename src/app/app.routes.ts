@@ -43,6 +43,10 @@ import { EditOpinionesComponent } from './components/Opiniones/edit-opiniones/ed
 import { ShowOpinionesComponent } from './components/Opiniones/show-opiniones/show-opiniones.component';
 import { IndexOpinionesComponent } from './components/Opiniones/index-opiniones/index-opiniones.component';
 import { CreateOpinionesComponent } from './components/Opiniones/create-opiniones/create-opiniones.component';
+import { EditFechaComponent } from './components/Fechas/edit-fecha/edit-fecha.component';   
+import { ShowFechaComponent } from './components/Fechas/show-fecha/show-fecha.component';
+import { IndexFechaComponent } from './components/Fechas/index-fecha/index-fecha.component';
+import { CreateFechaComponent } from './components/Fechas/create-fecha/create-fecha.component';
 export const routes: Routes = [
     {
         path: '',
@@ -264,6 +268,29 @@ export const routes: Routes = [
         component: EditOpinionesComponent,
         title: 'Edit Opiniones',
         canActivate: [authUserGuard]
+    },
+    {
+        path:'fechas',
+        component: IndexFechaComponent,
+        title: 'Index Fechas',
+        canActivate: [authGuestGuard]
+    },
+    {
+        path:'fechas/create',
+        component: CreateFechaComponent,
+        title: 'Create Fechas',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path:'fechas/:id',
+        component: ShowFechaComponent,
+        canActivate: [authGuestGuard]
+    },
+    {
+        path:'fechas/:id/edit',
+        component: EditFechaComponent,
+        title: 'Edit Fechas',
+        canActivate: [authAdminGuard]
     },
     { 
         path: '**', 

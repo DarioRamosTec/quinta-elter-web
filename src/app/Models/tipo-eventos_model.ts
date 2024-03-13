@@ -1,24 +1,7 @@
-export interface CreateTipoEventos {
-    nombre: string;
-    descripcion: string;
-  }
- 
-  export interface TipoEventosindex{
-    id: number;
-    nombre: string;
-    descripcion: string;
-  }
- 
-  export interface TipoEventosEdit{
-    id: number;
-    nombre: string;
-    descripcion: string;
-  }
 
-  export interface TipoEventosDestroy {
+  export interface TipoEventos {
     id: number;
     nombre: string;
-    descripcion: string;
+    descripcion?: String | null;
   }
-
   // src/app/Models/tipo-eventos_model.ts

@@ -1,32 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CreateTipoEventos } from '../Models/tipo-eventos_model'; // Ajusta la ruta según la estructura de tu proyecto
-import { TipoEventosindex, TipoEventosEdit, TipoEventosDestroy } from '../Models/tipo-eventos_model'; // Ajusta la ruta según la estructura de tu proyecto
+import { TipoEventos} from '../Models/tipo-eventos_model';
 import { environment } from '../../environments/environment';
+import { Modelo } from '../modelo';
+import { Caracteristica } from '../components/caracteristicas/caracteristica';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoEventosService {
 
-  private apiUrl: string = environment.apiUrl;
+  url: string = "auth/tipo_eventos";
 
   constructor(private http: HttpClient) { }
 
-  getTiposEventos(): Observable<TipoEventosindex[]> {
-    return this.http.get<TipoEventosindex[]>(`${this.apiUrl}/tipo_eventos`);
+  index(): Observable<Modelo<TipoEventos[]>>{
+    return this.http.get<Modelo<TipoEventos[]>>(environment.apiUrl + this.url);
   }
 
-  crearTipoEvento(tipoEvento: CreateTipoEventos): Observable<CreateTipoEventos> {
-    return this.http.post<CreateTipoEventos>(`${this.apiUrl}/tipo_eventos`, tipoEvento);
+  show(id: number): Observable<Modelo<TipoEventos>> {
+    return this.http.get<Modelo<TipoEventos>>(environment.apiUrl + this.url + '/' + id);
   }
 
-  actualizarTipoEvento(id: number, tipoEvento: TipoEventosEdit): Observable<TipoEventosEdit> {
-    return this.http.put<TipoEventosEdit>(`${this.apiUrl}/tipo_eventos/${id}`, tipoEvento);
+  store(data: TipoEventos): Observable<Modelo<TipoEventos>> {
+    return this.http.post<Modelo<TipoEventos>>(environment.apiUrl + this.url,data);
   }
-
-  eliminarTipoEvento(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/tipo_eventos/${id}`);
+  destroy(id: number): Observable<Modelo<TipoEventos>> {
+    return this.http.delete<Modelo<TipoEventos>>(environment.apiUrl + this.url + '/' + id);
   }
 }
+
+// src/app/Services/tipo-eventos.service.ts

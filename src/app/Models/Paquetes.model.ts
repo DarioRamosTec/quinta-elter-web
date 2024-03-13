@@ -1,6 +1,6 @@
 export interface Paquetes {
     id: number
     nombre: string
-    descripcion: string
+    descripcion?: String | null
     precio: number
 }

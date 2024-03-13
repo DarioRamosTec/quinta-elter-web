@@ -39,6 +39,10 @@ import { EditEstadoEventosComponent } from './components/Estado_Eventos/edit-est
 import { ShowEstadoEventosComponent } from './components/Estado_Eventos/show-estado-eventos/show-estado-eventos.component';
 import { IndexEstadoEventosComponent } from './components/Estado_Eventos/index-estado-eventos/index-estado-eventos.component';
 import { CreateEstadoEventosComponent } from './components/Estado_Eventos/create-estado-eventos/create-estado-eventos.component';
+import { EditOpinionesComponent } from './components/Opiniones/edit-opiniones/edit-opiniones.component';
+import { ShowOpinionesComponent } from './components/Opiniones/show-opiniones/show-opiniones.component';
+import { IndexOpinionesComponent } from './components/Opiniones/index-opiniones/index-opiniones.component';
+import { CreateOpinionesComponent } from './components/Opiniones/create-opiniones/create-opiniones.component';
 export const routes: Routes = [
     {
         path: '',
@@ -237,6 +241,29 @@ export const routes: Routes = [
         component: EditEstadoEventosComponent,
         title: 'Edit Estado Eventos',
         canActivate: [authAdminGuard]
+    },
+    {
+        path:'opiniones',
+        component: IndexOpinionesComponent,
+        title: 'Index Opiniones',
+        canActivate: [authGuestGuard]
+    },
+    {
+        path:'opiniones/create',
+        component: CreateOpinionesComponent,
+        title: 'Create Opiniones',
+        canActivate: [authUserGuard]
+    },
+    {
+        path:'opiniones/:id',
+        component: ShowOpinionesComponent,
+        canActivate: [authGuestGuard]  
+    },
+    {
+        path:'opiniones/:id/edit',
+        component: EditOpinionesComponent,
+        title: 'Edit Opiniones',
+        canActivate: [authUserGuard]
     },
     { 
         path: '**', 

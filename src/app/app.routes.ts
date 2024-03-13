@@ -26,6 +26,10 @@ import { CreateTiposPagosComponent } from './components/TipoPagos/create-tipos-p
 import { IndexTiposPagosComponent } from './components/TipoPagos/index-tipos-pagos/index-tipos-pagos.component';
 import { ShowTiposPagosComponent } from './components/TipoPagos/show-tipos-pagos/show-tipos-pagos.component';
 import { EditTiposPagosComponent } from './components/TipoPagos/edit-tipos-pagos/edit-tipos-pagos.component';
+import { EditPaquetesComponent } from './components/Paquetes/edit-paquetes/edit-paquetes.component';
+import { ShowPaquetesComponent } from './components/Paquetes/show-paquetes/show-paquetes.component';
+import { IndexPaquetesComponent } from './components/Paquetes/index-paquetes/index-paquetes.component';
+import { CreatePaquetesComponent } from './components/Paquetes/create-paquetes/create-paquetes.component';
 export const routes: Routes = [
     {
         path: '',
@@ -172,6 +176,29 @@ export const routes: Routes = [
         path: 'tipos_pagos/:id/edit',
         component: EditTiposPagosComponent,
         title: 'Edit Tipo Pago',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'paquetes',
+        component: IndexPaquetesComponent,
+        title: 'Index Paquetes',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'paquetes/create',
+        component: CreatePaquetesComponent,
+        title: 'Create Paquetes',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'paquetes/:id',
+        component: ShowPaquetesComponent,
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'paquetes/:id/edit',
+        component: EditPaquetesComponent,
+        title: 'Edit Paquetes',
         canActivate: [authAdminGuard]
     },
     { 

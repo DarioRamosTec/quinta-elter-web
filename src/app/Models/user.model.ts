@@ -14,6 +14,7 @@ export interface UserRegister{
     apellido_materno?: string;
     email: string;
     password: string;
+    confirmar_password: String;
   }
 
   export interface LoginResponse {

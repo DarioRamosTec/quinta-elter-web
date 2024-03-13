@@ -8,6 +8,7 @@ import { Modelo } from '../modelo';
 import { User } from '../components/users/user';
 import { Router } from '@angular/router';
 import { UserLogin } from '../Models/user.model';
+import { UsersService } from '../Services/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,9 @@ export class AuthService {
 
   private user : User | undefined
   private url : String = "auth"
+  public verified : Boolean = false
 
-  constructor(private cookieService : CookieService, private http: HttpClient, private router: Router) { }
+  constructor(private cookieService : CookieService, private http: HttpClient, private router: Router, private usersService : UsersService) { }
 
   login(data : User) : Observable<Modelo<Auth>> {
     return this.http.post<Modelo<Auth>>(environment.apiUrl + this.url + '/login', data);
@@ -41,7 +43,17 @@ export class AuthService {
       this.me().subscribe({
         next(data) {
           self.user = data
-          ele.next(self.user)
+          self.setRole()
+          self.usersService.verifyCode(self.getSave()).subscribe({
+            next(value) {
+              self.saveMe(self.getSave());
+              ele.next(self.user)
+            },
+            error(err) {
+              self.setVerified(false)
+              ele.next(undefined)
+            },
+          })
         },
         error() {
           ele.next(undefined)
@@ -56,7 +68,19 @@ export class AuthService {
       this.me().subscribe({
         next(data) {
           self.user = data
-          self.soda()
+          self.setRole()
+          if (!self.verified) {
+            self.usersService.verifyCode(self.getSave()).subscribe({
+              next(value) {
+                self.saveMe(self.getSave());
+                ele.next(true)
+              },
+              error(err) {
+                self.setVerified(false)
+                ele.next(true)
+              },
+            })
+          }
           ele.next(true)
         },
         error() {
@@ -74,6 +98,8 @@ export class AuthService {
         next(value) {
           self.deleteTokens()
           self.user = undefined
+          self.setRole()
+          self.setVerified(false)
           ele.next(true)
         },
         error(err) {
@@ -99,20 +125,49 @@ export class AuthService {
     this.cookieService.delete('tokenType')
   }
 
-  isAuthenticated() : Boolean {
-    return this.getToken() != undefined && this.getToken() != '' && this.user != undefined;
+  getSave() : string {
+    return localStorage.getItem('tokToken') ?? '';
   }
 
+  saveMe(token: string) {
+    localStorage.setItem('tokToken', token);
+    this.setVerified(true)
+  }
+
+  setVerified(data : boolean) {
+    if (!data) {
+      localStorage.removeItem('tokToken');
+    }
+    this.verified = data;
+  }
+  
   isVerified() : Boolean | undefined {
-    return this.user?.verificado;
+    return this.verified;
   }
 
   isActived() : Boolean | undefined {
     return this.user?.activado;
   }
 
-  getRole() : Number | undefined {
-    return this.user?.role
+  isAuthenticated() : Boolean {
+    return this.getToken() != undefined && this.getToken() != '' && this.user != undefined;
+  }
+
+  isVerificationData() : Boolean {
+    return localStorage.getItem('tokToken') != '' && this.getToken() != undefined && this.getToken() != '' 
+    && this.getTokenType() != undefined && this.getTokenType() != '' ;;
+  }
+
+  getRole() : string {
+    return localStorage.getItem('tokRole') ?? ''
+  }
+
+  setRole() {
+    if (this.user) {
+      localStorage.setItem('tokRole', this.user.role.toString());
+    } else {
+      localStorage.removeItem('tokRole');
+    }
   }
   
   getToken() : String {

@@ -21,7 +21,22 @@ export class AuthNotComponent {
     this.authService.authorize().subscribe({
       next(data) {
         if (data) {
-          self.router.navigate(['home'])
+          self.router.navigate(['/auth'])
+        }
+        self.readyToSee = true
+      },
+      error(err) {
+        self.readyToSee = true
+      },
+    })
+  }
+
+  verify() {
+    let self = this
+    this.authService.authorize().subscribe({
+      next(data) {
+        if (data) {
+          self.router.navigate(['/CodigoVerificacion'])
         }
         self.readyToSee = true
       },

@@ -1,19 +1,61 @@
-<div *ngIf="readyToSee" class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-3 py-4 mx-auto md:h-screen lg:py-0"> 
-    <form class="space-y-4 md:space-y-6" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<div *ngIf="readyToSee" class="bg-gray-50 h-screen dark:bg-gray-900">
+  <div *ngIf="!isSubmitting else loadLoad" class="flex flex-col items-center justify-center px-3 py-4 mx-auto md:h-screen lg:py-0"> 
+    <form class="space-y-4 md:space-y-6 xl:w-1/3 md:w-1/2 w-full min-h-screen" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-        <input type="text" name="name" id="name"
-              formControlName="name"
-              placeholder="Tu nombre"
-              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <input type="text" name="name" id="name" formControlName="name" placeholder="Tu nombre" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
       </div>
+
       <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)">
         <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['name'].errors?.['required']">El nombre es requerido.</div>
         <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['name'].errors?.['minlength']">
           El nombre debe tener al menos 4 caracteres.
         </div>
       </div>
+      <div *ngIf="errors" style="margin: 0;" class="mt-0 text-sm text-pink-500 p-0 alert">
+        <div *ngFor="let error of errors.nombre">
+          {{ error }}
+        </div>
+      </div>
+
+
+      <div>
+        <label for="apellido_paterno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido paterno</label>
+        <input type="text" name="apellido_paterno" id="apellido_paterno"
+              formControlName="apellido_paterno"
+              placeholder="Tu apellido paterno"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      </div>
+      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['apellido_paterno'].invalid && (registerForm.controls['apellido_paterno'].dirty || registerForm.controls['apellido_paterno'].touched)">
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['apellido_paterno'].errors?.['required']">El apellido paterno es requerido.</div>
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['apellido_paterno'].errors?.['minlength']">
+          El apellido paterno debe tener al menos 4 caracteres.
+        </div>
+      </div>
+      <div *ngIf="errors" style="margin: 0;" class="mt-0 text-sm text-pink-500 p-0 alert">
+        <div *ngFor="let error of errors.apellido_paterno">
+          {{ error }}
+        </div>
+      </div>
+
+      <div>
+        <label for="apellido_materno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido materno</label>
+        <input type="text" name="apellido_materno" id="apellido_materno"
+              formControlName="apellido_materno"
+              placeholder="Tu apellido materno"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      </div>
+      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['apellido_materno'].invalid && (registerForm.controls['apellido_materno'].dirty || registerForm.controls['apellido_materno'].touched)">
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['apellido_materno'].errors?.['minlength']">
+          El apellido materno debe tener al menos 4 caracteres.
+        </div>
+      </div>
+      <div *ngIf="errors" style="margin: 0;" class="mt-0 text-sm text-pink-500 p-0 alert">
+        <div *ngFor="let error of errors.apellido_materno">
+          {{ error }}
+        </div>
+      </div>
+
 
       <div>
         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
@@ -28,6 +70,12 @@
           El email es invalido.
         </div>
       </div>
+      <div *ngIf="errors" style="margin: 0;" class="mt-0 text-sm text-pink-500 p-0 alert">
+        <div *ngFor="let error of errors.email">
+          {{ error }}
+        </div>
+      </div>
+
 
       <div>
         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
@@ -42,6 +90,31 @@
           La contraseña debe tener al menos 8 caracteres.
         </div>
       </div>
+      <div *ngIf="errors" style="margin: 0;" class="mt-0 text-sm text-pink-500 p-0 alert">
+        <div *ngFor="let error of errors.password">
+          {{ error }}
+        </div>
+      </div>
+
+
+      <div>
+        <label for="confirmar_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reintentar contraseña</label>
+        <input type="password" name="confirmar_password" id="confirmar_password" placeholder="********"
+                autocomplete="on"
+                formControlName="confirmar_password"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      </div>
+      <div style="margin: 0;" class="text-sm text-pink-500 p-0 alert" *ngIf="registerForm.controls['confirmar_password'].invalid && (registerForm.controls['confirmar_password'].dirty || registerForm.controls['confirmar_password'].touched)">
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['confirmar_password'].errors?.['required']">La reinserción de la contraseña es requerida.</div>
+        <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="registerForm.controls['confirmar_password'].errors?.['samePassword']">
+          Las contraseñas deben coincidir.
+        </div>
+      </div>
+      <div *ngIf="errors" style="margin: 0;" class="mt-0 text-sm text-pink-500 p-0 alert">
+        <div *ngFor="let error of errors.confirmar_password">
+          {{ error }}
+        </div>
+      </div>
 
       <button type="submit"
               [disabled]="!registerForm.valid || isSubmitting"
@@ -50,21 +123,15 @@
         Submit
       </button>
 
-      <div style="margin: 0;" *ngIf="errors" class="alert p-0 mt-1 m-0">
-        <div *ngIf="errors.name">
-          Error en el nombre: {{ errors.name[0] }}
-        </div>
-        <div *ngIf="errors.email">
-          Error en el correo electrónico: {{ errors.email[0] }}
-        </div>
-        <div *ngIf="errors.password">
-          Error en la contraseña: {{ errors.password[0] }}
-        </div>
-      </div>
-
       <p class="text-sm font-light text-gray-500 dark:text-gray-400">
         ¿Ya tienes cuenta? <a [routerLink]="['/login']" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Inicia sesión</a>
       </p>
     </form>
-  <div>
+  </div>
+
+  <ng-template #loadLoad>
+      <div class="h-screen flex justify-center content-center items-center">
+          <app-loading></app-loading>
+      </div>
+  </ng-template>
 </div>

@@ -7,15 +7,19 @@ import {UsersService} from "../../Services/users.service";
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
+import { AuthNotComponent } from '../auth/auth-not/auth-not.component';
+
+
+
 @Component({
   selector: 'app-codigo-verificacion',
   standalone: true,
-  imports: [ FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './codigo-verificacion.component.html',
   styleUrl: './codigo-verificacion.component.css'
 })
-
-export class CodigoVerificacionComponent {
+export class CodigoVerificacionComponent extends AuthNotComponent {
   digit1: string = '';
   digit2: string = '';
   digit3: string = '';
@@ -38,9 +42,11 @@ export class CodigoVerificacionComponent {
 
   constructor(
     private verifyCode: UsersService,
-    private router: Router,
-    
-  ) {}
+     router: Router,
+     authService : AuthService
+  ) {
+    super(authService, router)
+  }
 
   ngOnInit() {}
 
@@ -50,9 +56,9 @@ export class CodigoVerificacionComponent {
     this.passwordVerify = false;
     
     const code = this.digit1 + this.digit2 + this.digit3 + this.digit4 + this.digit5 + this.digit6;
-    console.log(code);
     this.verifyCode.verifyCode(code).subscribe(
       res => {
+        this.authService.saveMe(code);
         this.router.navigate(['/home']);
       },
       error => {

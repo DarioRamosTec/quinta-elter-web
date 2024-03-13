@@ -15,6 +15,11 @@ import { CodigoVerificacionComponent } from './components/codigo-verificacion/co
 import { CreateTipoEventosComponent } from './components/tipoEventos/create-tipo-eventos/create-tipo-eventos.component';
 import { ShowCaracteristicasComponent } from './components/caracteristicas/show-caracteristicas/show-caracteristicas.component';
 import { EditCaracteristicasComponent } from './components/caracteristicas/edit-caracteristicas/edit-caracteristicas.component';
+import { authVerifiedGuard } from './auth/auth-verified.guard';
+import { AuthComponent } from './components/auth/auth/auth.component';
+import { ActivateComponent } from './auth/activate/activate.component';
+import { authActivateGuard } from './auth/auth-activate.guard';
+import { authOnlyAdminGuard } from './auth/auth-only-admin.guard';
 export const routes: Routes = [
     {
         path: '',
@@ -52,6 +57,18 @@ export const routes: Routes = [
         canActivate: [authAdminGuard]
     },
     {
+        path: 'tipo-eventos',
+        component: CreateTipoEventosComponent,
+        title: 'Create Tipo Evento',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'users',
+        component: NotFoundComponent,
+        title: 'Ver Usuarios',
+        canActivate: [authOnlyAdminGuard]
+    },
+    {
         path: 'clientes',
         component: IndexClientesComponent,
         title: 'Index Clientes',
@@ -70,10 +87,16 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'auth',
+        component: AuthComponent,
+        pathMatch: 'full',
+        canActivate: [authGuard]
+    },
+    {
         path:'CodigoVerificacion',
         component: CodigoVerificacionComponent,
         title: 'Codigo Verificacion',
-        canActivate: [authGuard]
+        canActivate: [authVerifiedGuard]
     },
     {
         path: 'register',
@@ -83,21 +106,9 @@ export const routes: Routes = [
     },
     {
         path: 'activate',
-        component: NotFoundComponent,
+        component: ActivateComponent,
         title: 'Activate',
         canActivate: [authGuard]
-    },
-    {
-        path: 'verificate',
-        component: NotFoundComponent,
-        title: 'Verificate',
-        canActivate: [authGuard]
-    },
-    {
-        path: 'tipo-eventos',
-        component: CreateTipoEventosComponent,
-        title: 'Create Tipo Evento',
-        canActivate: [authAdminGuard]
     },
     { 
         path: '**', 

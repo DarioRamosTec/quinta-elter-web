@@ -18,11 +18,12 @@ import {
   transition,
   keyframes
 } from '@angular/animations';
+import { LoadingComponent } from '../layout/loading/loading.component';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ FormsModule, CommonModule, RouterLink],
+  imports: [ FormsModule, CommonModule, RouterLink, LoadingComponent],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
   
@@ -35,6 +36,7 @@ export class LoginFormComponent extends AuthNotComponent {
   public notfound = false;
   public error = false;
   public passwordVerify = false;
+  public submiting = false;
   
   constructor(private loginService: UsersService, authService : AuthService, router: Router) {
     super(authService, router)
@@ -46,6 +48,7 @@ export class LoginFormComponent extends AuthNotComponent {
  
   }
   onSubmit() {
+    this.submiting = true;
     this.notfound = false;
     this.error = false;
     this.passwordVerify = false;
@@ -60,14 +63,16 @@ export class LoginFormComponent extends AuthNotComponent {
           self.notfound = true;
         } else if(error.status == 401) {
           self.passwordVerify = true;
+        } else if(error.status == 403) {
+          self.router.navigate(['/activate'])
         } else {
           self.error = true
         }
+        self.submiting = false;
       },
       next(value) {
         self.authService.setTokens(value.data)
-        self.authorize()
-        self.router.navigate(['/CodigoVerificacion']);
+        self.verify()
       }
     });  
   }

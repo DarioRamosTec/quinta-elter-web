@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth.service'
 
-export const authAdminGuard: CanActivateFn = (route, state) => {
-  
+export const authOnlyAdminGuard: CanActivateFn = (route, state) => {
+    
   const authService = inject(AuthService);
   const router = inject(Router);
 
@@ -11,7 +11,7 @@ export const authAdminGuard: CanActivateFn = (route, state) => {
     if (authService.getRole() == '3') {
       return true;
     }
-    return router.parseUrl(route.url.shift()?.toString() ?? '');
+    return router.parseUrl('');
   }
   return router.parseUrl('login');
 };

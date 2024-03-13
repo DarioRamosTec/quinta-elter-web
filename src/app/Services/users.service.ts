@@ -21,7 +21,7 @@ export class UsersService {
  
   private urlLogin = environment.apiUrl + 'auth/login'
   private urlRegister = environment.apiUrl + 'register'
-  private urlVerify = environment.apiUrl + 'verify-code'
+  private urlVerify = environment.apiUrl + 'auth/verify-code'
  
   constructor(
     private readonly http: HttpClient,
@@ -38,7 +38,7 @@ export class UsersService {
   }
 
   verifyCode(code: string ): Observable<LoginResponse>{
-    return this.http.post<LoginResponse>(this.urlVerify,code)
+    return this.http.post<LoginResponse>(this.urlVerify, { verification_code : code })
   }
 
   logoutUser(){

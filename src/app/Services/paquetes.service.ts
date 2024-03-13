@@ -25,6 +25,11 @@ import { Modelo } from '../modelo';
     store(data: Paquetes): Observable<Modelo<Paquetes>> {
       return this.http.post<Modelo<Paquetes>>(environment.apiUrl + this.url,data);
     }
+
+    update(data: Paquetes, id: number): Observable<Modelo<Paquetes>> {
+      return this.http.put<Modelo<Paquetes>>(environment.apiUrl + this.url + '/' + id, data);
+    }
+
     destroy(id: number): Observable<Modelo<Paquetes>> {
       return this.http.delete<Modelo<Paquetes>>(environment.apiUrl + this.url + '/' + id);
     }

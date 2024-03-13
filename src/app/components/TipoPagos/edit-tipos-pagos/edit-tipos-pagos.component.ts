@@ -33,7 +33,7 @@ export class EditTiposPagosComponent extends AuthComponent {
   notfound = false
 
   constructor(private TipoPagosService : TipoPagosService,
-    router : Router, authService : AuthService, activatedRoute: ActivatedRoute) {
+    router : Router, authService : AuthService, private activatedRoute: ActivatedRoute) {
       super(authService, router)
       let self = this
       TipoPagosService.show(activatedRoute.snapshot.params['id']).subscribe({
@@ -51,7 +51,7 @@ export class EditTiposPagosComponent extends AuthComponent {
       let self = this
       this.tries += 1
       this.submitted = true
-      this.TipoPagosService.store(this.tipo_pagos).subscribe({
+      this.TipoPagosService.update(this.tipo_pagos, this.activatedRoute.snapshot.params['id']).subscribe({
         next: (data) => {
           self.router.navigate(['/tipos_pagos'])
         },

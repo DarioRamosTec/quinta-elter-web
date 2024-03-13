@@ -26,6 +26,10 @@ export class CaracteristicasService {
     return this.http.post<Modelo<Caracteristica>>(environment.apiUrl + this.url, data);
   }
 
+  update(data: Caracteristica, id : Number) : Observable<Modelo<Caracteristica>> {
+    return this.http.put<Modelo<Caracteristica>>(environment.apiUrl + this.url + '/' + id, data);
+  }
+
   show(id: number) : Observable<Modelo<Caracteristica>> {
     return this.http.get<Modelo<Caracteristica>>(environment.apiUrl + this.url + '/' + id);
   }

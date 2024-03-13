@@ -27,6 +27,11 @@ export class TipoEventosService {
   store(data: TipoEventos): Observable<Modelo<TipoEventos>> {
     return this.http.post<Modelo<TipoEventos>>(environment.apiUrl + this.url,data);
   }
+
+  update(data: TipoEventos, id: number): Observable<Modelo<TipoEventos>> {
+    return this.http.put<Modelo<TipoEventos>>(environment.apiUrl + this.url + '/' + id, data);
+  }
+
   destroy(id: number): Observable<Modelo<TipoEventos>> {
     return this.http.delete<Modelo<TipoEventos>>(environment.apiUrl + this.url + '/' + id);
   }

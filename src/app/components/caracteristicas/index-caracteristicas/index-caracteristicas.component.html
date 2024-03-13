@@ -1,4 +1,4 @@
-<app-sidebar>
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
     <app-indextable *ngIf="user" [hideCreate]="user.role == 3" [createRoute]="'create'" [isActive]="!loading && caracteristicas != null ? true : false" [collection]="caracteristicas">
         <div bigTitle>
             Características

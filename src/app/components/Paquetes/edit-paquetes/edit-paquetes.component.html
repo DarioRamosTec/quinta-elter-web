@@ -1,4 +1,4 @@
-<app-sidebar>
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
     <app-create-title>
         Editar Paquete
     </app-create-title>

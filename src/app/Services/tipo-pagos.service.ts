@@ -25,6 +25,11 @@ export class TipoPagosService {
     store(data: TipoPagos): Observable<Modelo<TipoPagos>> {
       return this.http.post<Modelo<TipoPagos>>(environment.apiUrl + this.url,data);
     }
+
+    update(data: TipoPagos, id: number): Observable<Modelo<TipoPagos>> {
+      return this.http.put<Modelo<TipoPagos>>(environment.apiUrl + this.url + '/' + id, data);
+    }
+
     destroy(id: number): Observable<Modelo<TipoPagos>> {
       return this.http.delete<Modelo<TipoPagos>>(environment.apiUrl + this.url + '/' + id);
     }

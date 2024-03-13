@@ -72,12 +72,6 @@ export const routes: Routes = [
         canActivate: [authAdminGuard]
     },
     {
-        path: 'tipo-eventos',
-        component: CreateTipoEventosComponent,
-        title: 'Create Tipo Evento',
-        canActivate: [authAdminGuard]
-    },
-    {
         path: 'users',
         component: NotFoundComponent,
         title: 'Ver Usuarios',
@@ -114,7 +108,7 @@ export const routes: Routes = [
         canActivate: [authVerifiedGuard]
     },
     {
-        path: 'Register',
+        path: 'register',
         component: RegisterFormComponent,
         title: 'Register',
         canActivate: [authGuard]
@@ -128,32 +122,31 @@ export const routes: Routes = [
     {
         path: 'tipo_eventos',
         component: IndexTipoEventosComponent,
-        title: 'Create Tipo Evento',
-        canActivate: [authAdminGuard]
-    },
-    {
-        path: 'tipo_eventos/:id',
-        component: ShowTipoEventosComponent,
-        canActivate: [authAdminGuard]
+        title: 'Index Tipo Evento',
+        canActivate: [authGuestGuard]
     },
     {
         path: 'tipo_eventos/create',
         component: CreateTipoEventosComponent,
         title: 'Create Tipo Evento',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
+    },
+    {
+        path: 'tipo_eventos/:id',
+        component: ShowTipoEventosComponent,
+        canActivate: [authGuestGuard]
     },
     {
         path: 'tipo_eventos/:id/edit',
         component: EditTipoEventosComponent,
         title: 'Edit Tipo Evento',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     {
         path: 'servicios',
         component: IndexServiciosComponent,
         title: 'Index Servicios',
-        canActivate: [authAdminGuard]
-    
+        canActivate: [authGuestGuard]
     },
     {
         path: 'servicios/create',
@@ -164,7 +157,7 @@ export const routes: Routes = [
     {
         path: 'servicios/:id',
         component: ShowServiciosComponent,
-        canActivate: [authAdminGuard]
+        canActivate: [authGuestGuard]
     },
     {
         path: 'servicios/:id/edit',
@@ -176,30 +169,30 @@ export const routes: Routes = [
         path: 'tipos_pagos',
         component: IndexTiposPagosComponent,
         title: 'Index Tipos Pagos',
-        canActivate: [authAdminGuard]
+        canActivate: [authGuestGuard]
     },
     {
         path: 'tipos_pagos/create',
         component: CreateTiposPagosComponent,
         title: 'Create Tipo Pago',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     {
         path: 'tipos_pagos/:id',
         component: ShowTiposPagosComponent,
-        canActivate: [authAdminGuard]
+        canActivate: [authGuestGuard]
     },
     {
         path: 'tipos_pagos/:id/edit',
         component: EditTiposPagosComponent,
         title: 'Edit Tipo Pago',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     {
         path: 'paquetes',
         component: IndexPaquetesComponent,
         title: 'Index Paquetes',
-        canActivate: [authAdminGuard]
+        canActivate: [authGuestGuard]
     },
     {
         path: 'paquetes/create',
@@ -210,7 +203,7 @@ export const routes: Routes = [
     {
         path: 'paquetes/:id',
         component: ShowPaquetesComponent,
-        canActivate: [authAdminGuard]
+        canActivate: [authGuestGuard]
     },
     {
         path: 'paquetes/:id/edit',

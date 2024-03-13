@@ -42,7 +42,7 @@ export class CreateTipoEventosComponent extends AuthComponent {
     this.tipoEventos.descripcion = this.tipoEventos.descripcion == null ? undefined : this.tipoEventos .descripcion
     this.tipoEventosService.store(this.tipoEventos).subscribe({
       next(value) {
-        self.router.navigate(['/tipo-eventos'])
+        self.router.navigate(['/tipo_eventos'])
       },
       error(err) {
         self.error = err.error.errors

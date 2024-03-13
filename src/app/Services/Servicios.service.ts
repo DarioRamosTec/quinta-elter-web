@@ -26,6 +26,11 @@ export class ServiciosService {
     store(data: Servicios): Observable<Modelo<Servicios>> {
       return this.http.post<Modelo<Servicios>>(environment.apiUrl + this.url,data);
     }
+
+    update(data: Servicios, id: number): Observable<Modelo<Servicios>> {
+      return this.http.put<Modelo<Servicios>>(environment.apiUrl + this.url + '/' + id, data);
+    }
+    
     destroy(id: number): Observable<Modelo<Servicios>> {
       return this.http.delete<Modelo<Servicios>>(environment.apiUrl + this.url + '/' + id);
     }

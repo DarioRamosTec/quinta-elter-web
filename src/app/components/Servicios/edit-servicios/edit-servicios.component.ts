@@ -32,7 +32,7 @@ export class EditServiciosComponent  extends AuthComponent{
    notfound = false
 
   constructor(private ServiciosService : ServiciosService,
-    router : Router, authService : AuthService, activatedRoute: ActivatedRoute) {
+    router : Router, authService : AuthService, protected activatedRoute: ActivatedRoute) {
       super(authService, router)
       let self = this
       ServiciosService.show(activatedRoute.snapshot.params['id']).subscribe({
@@ -51,7 +51,7 @@ export class EditServiciosComponent  extends AuthComponent{
     this.tries += 1
     this.submitted = true
     this.servicios.descripcion = this.servicios.descripcion == null ? undefined : this.servicios .descripcion
-    this .ServiciosService.store(this.servicios).subscribe({
+    this .ServiciosService.update(this.servicios, this.activatedRoute.snapshot.params['id']).subscribe({
       next(value) {
         self.router.navigate(['/servicios'])
       },

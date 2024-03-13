@@ -31,7 +31,7 @@ export class EditPaquetesComponent extends AuthComponent {
  ready : boolean = false
  notfound = false
 
- constructor(private PaquetesService : PaquetesService, router : Router, authService : AuthService, activatedRoute: ActivatedRoute) {
+ constructor(private PaquetesService : PaquetesService, router : Router, authService : AuthService, protected activatedRoute: ActivatedRoute) {
    super(authService, router)
    let self = this
    PaquetesService.show(activatedRoute.snapshot.params['id']).subscribe({
@@ -51,7 +51,7 @@ export class EditPaquetesComponent extends AuthComponent {
   let self = this
   this.tries += 1
   this.submitted = true
-  this.PaquetesService.store(this.paquetes).subscribe({
+  this.PaquetesService.update(this.paquetes, this.activatedRoute.snapshot.params['id']).subscribe({
     next: (data) => {
       self.router.navigate(['/paquetes'])
     },

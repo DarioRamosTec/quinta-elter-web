@@ -1,4 +1,4 @@
-<app-sidebar>
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
     <app-indextable *ngIf="user" [hideCreate]="user.role == 3" [createRoute]="'create'" [isActive]="!loading && tiposEventos != null ? true : false" [collection]="tiposEventos">
       <div bigTitle>
         Tipos de Eventos

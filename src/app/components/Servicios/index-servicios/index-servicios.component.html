@@ -1,4 +1,4 @@
-<app-sidebar>
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
     <app-indextable *ngIf="user" [hideCreate]="user.role == 3" [createRoute]="'create'" [isActive]="!loading && servicio != null ? true : false" [collection]="servicio">
         <div bigTitle>
             Servicios
@@ -13,7 +13,7 @@
             <tr *ngFor="let servicio of servicio">
                 <td>{{ servicio.nombre }}</td>
                 <td [class]="servicio.descripcion == null ? 'italic text-xs' : ''">
-                    {{ servicio.descripcion ?? "Sin datos" }}
+                    {{ servicio.descripcion }}
                 </td>
                 <td>
                     <a [routerLink]="[servicio.id]">

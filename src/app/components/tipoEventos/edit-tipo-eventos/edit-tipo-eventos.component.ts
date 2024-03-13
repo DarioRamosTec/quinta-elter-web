@@ -33,7 +33,7 @@ export class EditTipoEventosComponent  extends AuthComponent{
   notfound = false
 
   constructor(private tipoEventosService : TipoEventosService,
-    router : Router, authService : AuthService, activatedRoute: ActivatedRoute) {
+    router : Router, authService : AuthService, protected activatedRoute: ActivatedRoute) {
       super(authService, router)
       let self = this
       tipoEventosService.show(activatedRoute.snapshot.params['id']).subscribe({
@@ -51,9 +51,9 @@ export class EditTipoEventosComponent  extends AuthComponent{
       this.tries += 1;
       this.subtmitted = true;
       this.tipoEventos.descripcion = this.tipoEventos.descripcion == null ? undefined : this.tipoEventos.descripcion;
-      this.tipoEventosService.store(this.tipoEventos).subscribe({
+      this.tipoEventosService.update(this.tipoEventos, this.activatedRoute.snapshot.params['id']).subscribe({
         next(value) {
-          self.router.navigate(['/tipo-eventos']);
+          self.router.navigate(['/tipo_eventos']);
         },
         error(err) {
           self.errors = err.error.errors;

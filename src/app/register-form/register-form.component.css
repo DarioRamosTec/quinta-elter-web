@@ -1,0 +1,23 @@
+.custom-success-message {
+    background-color: #d1e7dd; /* Color de fondo */
+    border-color: #badbcc; /* Color del borde */
+    color: #3eb059; /* Color del texto */
+    padding: 1rem; /* Espaciado interno */
+    border-radius: 0.25rem; /* Borde redondeado */
+    margin-bottom: 1rem; /* Margen inferior */
+  }
+  
+  .custom-success-message-text {
+    font-weight: bold; /* Texto en negrita */
+  }
+  
+  /* Opcional: Añadir sombra */
+  .custom-success-message {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+  
+  /* Opcional: Estilo de texto centrado */
+  .custom-success-message {
+    text-align: center;
+  }
+  

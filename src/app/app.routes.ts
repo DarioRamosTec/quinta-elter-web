@@ -20,6 +20,21 @@ import { AuthComponent } from './components/auth/auth/auth.component';
 import { ActivateComponent } from './auth/activate/activate.component';
 import { authActivateGuard } from './auth/auth-activate.guard';
 import { authOnlyAdminGuard } from './auth/auth-only-admin.guard';
+import { IndexTipoEventosComponent } from './components/tipoEventos/index-tipo-eventos/index-tipo-eventos.component';
+import { ShowTipoEventosComponent } from './components/tipoEventos/show-tipo-eventos/show-tipo-eventos.component'
+import { EditTipoEventosComponent } from './components/tipoEventos/edit-tipo-eventos/edit-tipo-eventos.component';
+import { CreateServiciosComponent } from './components/Servicios/create-servicios/create-servicios.component';
+import { IndexServiciosComponent } from './components/Servicios/index-servicios/index-servicios.component';
+import { ShowServiciosComponent } from './components/Servicios/show-servicios/show-servicios.component';
+import { EditServiciosComponent } from './components/Servicios/edit-servicios/edit-servicios.component';
+import { CreateTiposPagosComponent } from './components/TipoPagos/create-tipos-pagos/create-tipos-pagos.component';
+import { IndexTiposPagosComponent } from './components/TipoPagos/index-tipos-pagos/index-tipos-pagos.component';
+import { ShowTiposPagosComponent } from './components/TipoPagos/show-tipos-pagos/show-tipos-pagos.component';
+import { EditTiposPagosComponent } from './components/TipoPagos/edit-tipos-pagos/edit-tipos-pagos.component';
+import { EditPaquetesComponent } from './components/Paquetes/edit-paquetes/edit-paquetes.component';
+import { ShowPaquetesComponent } from './components/Paquetes/show-paquetes/show-paquetes.component';
+import { IndexPaquetesComponent } from './components/Paquetes/index-paquetes/index-paquetes.component';
+import { CreatePaquetesComponent } from './components/Paquetes/create-paquetes/create-paquetes.component';
 export const routes: Routes = [
     {
         path: '',
@@ -99,7 +114,7 @@ export const routes: Routes = [
         canActivate: [authVerifiedGuard]
     },
     {
-        path: 'register',
+        path: 'Register',
         component: RegisterFormComponent,
         title: 'Register',
         canActivate: [authGuard]
@@ -109,6 +124,99 @@ export const routes: Routes = [
         component: ActivateComponent,
         title: 'Activate',
         canActivate: [authGuard]
+    },
+    {
+        path: 'tipo_eventos',
+        component: IndexTipoEventosComponent,
+        title: 'Create Tipo Evento',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipo_eventos/:id',
+        component: ShowTipoEventosComponent,
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipo_eventos/create',
+        component: CreateTipoEventosComponent,
+        title: 'Create Tipo Evento',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipo_eventos/:id/edit',
+        component: EditTipoEventosComponent,
+        title: 'Edit Tipo Evento',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'servicios',
+        component: IndexServiciosComponent,
+        title: 'Index Servicios',
+        canActivate: [authAdminGuard]
+    
+    },
+    {
+        path: 'servicios/create',
+        component: CreateServiciosComponent,
+        title: 'Create Servicio',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'servicios/:id',
+        component: ShowServiciosComponent,
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'servicios/:id/edit',
+        component: EditServiciosComponent,
+        title: 'Edit Servicio',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipos_pagos',
+        component: IndexTiposPagosComponent,
+        title: 'Index Tipos Pagos',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipos_pagos/create',
+        component: CreateTiposPagosComponent,
+        title: 'Create Tipo Pago',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipos_pagos/:id',
+        component: ShowTiposPagosComponent,
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipos_pagos/:id/edit',
+        component: EditTiposPagosComponent,
+        title: 'Edit Tipo Pago',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'paquetes',
+        component: IndexPaquetesComponent,
+        title: 'Index Paquetes',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'paquetes/create',
+        component: CreatePaquetesComponent,
+        title: 'Create Paquetes',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'paquetes/:id',
+        component: ShowPaquetesComponent,
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'paquetes/:id/edit',
+        component: EditPaquetesComponent,
+        title: 'Edit Paquetes',
+        canActivate: [authAdminGuard]
     },
     { 
         path: '**', 

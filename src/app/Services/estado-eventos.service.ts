@@ -10,7 +10,7 @@ import { Modelo } from '../modelo';
   })
   export class EstadosEventosService {
   
-    url: string = "auth/paquetes"
+    url: string = "auth/estado_eventos"
     ready: boolean = false
   
     constructor(private http: HttpClient) { }

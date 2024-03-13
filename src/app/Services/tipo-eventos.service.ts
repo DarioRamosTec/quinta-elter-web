@@ -11,7 +11,7 @@ import { Caracteristica } from '../components/caracteristicas/caracteristica';
 })
 export class TipoEventosService {
 
-  url: string = "auth/servicios"
+  url: string = "auth/tipo_eventos";
   ready: boolean = false
 
   constructor(private http: HttpClient) { }

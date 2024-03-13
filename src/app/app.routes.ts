@@ -15,6 +15,8 @@ import { CodigoVerificacionComponent } from './components/codigo-verificacion/co
 import { CreateTipoEventosComponent } from './components/tipoEventos/create-tipo-eventos/create-tipo-eventos.component';
 import { ShowCaracteristicasComponent } from './components/caracteristicas/show-caracteristicas/show-caracteristicas.component';
 import { EditCaracteristicasComponent } from './components/caracteristicas/edit-caracteristicas/edit-caracteristicas.component';
+import { IndexTipoEventosComponent } from './components/tipoEventos/index-tipo-eventos/index-tipo-eventos.component';
+import { ShowTipoEventosComponent } from './components/tipoEventos/show-tipo-eventos/show-tipo-eventos.component'
 export const routes: Routes = [
     {
         path: '',
@@ -94,7 +96,18 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
-        path: 'tipo-eventos',
+        path: 'tipo_eventos',
+        component: CreateTipoEventosComponent,
+        title: 'Create Tipo Evento',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipo_eventos/:id',
+        component: ShowTipoEventosComponent,
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipo_eventos/create',
         component: CreateTipoEventosComponent,
         title: 'Create Tipo Evento',
         canActivate: [authAdminGuard]

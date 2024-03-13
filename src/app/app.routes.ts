@@ -18,6 +18,10 @@ import { EditCaracteristicasComponent } from './components/caracteristicas/edit-
 import { IndexTipoEventosComponent } from './components/tipoEventos/index-tipo-eventos/index-tipo-eventos.component';
 import { ShowTipoEventosComponent } from './components/tipoEventos/show-tipo-eventos/show-tipo-eventos.component'
 import { EditTipoEventosComponent } from './components/tipoEventos/edit-tipo-eventos/edit-tipo-eventos.component';
+import { CreateServiciosComponent } from './components/Servicios/create-servicios/create-servicios.component';
+import { IndexServiciosComponent } from './components/Servicios/index-servicios/index-servicios.component';
+import { ShowServiciosComponent } from './components/Servicios/show-servicios/show-servicios.component';
+import { EditServiciosComponent } from './components/Servicios/edit-servicios/edit-servicios.component';
 export const routes: Routes = [
     {
         path: '',
@@ -117,6 +121,30 @@ export const routes: Routes = [
         path: 'tipo_eventos/:id/edit',
         component: EditTipoEventosComponent,
         title: 'Edit Tipo Evento',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'servicios',
+        component: IndexServiciosComponent,
+        title: 'Index Servicios',
+        canActivate: [authAdminGuard]
+    
+    },
+    {
+        path: 'servicios/create',
+        component: CreateServiciosComponent,
+        title: 'Create Servicio',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'servicios/:id',
+        component: ShowServiciosComponent,
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'servicios/:id/edit',
+        component: EditServiciosComponent,
+        title: 'Edit Servicio',
         canActivate: [authAdminGuard]
     },
     { 

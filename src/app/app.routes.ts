@@ -17,6 +17,7 @@ import { ShowCaracteristicasComponent } from './components/caracteristicas/show-
 import { EditCaracteristicasComponent } from './components/caracteristicas/edit-caracteristicas/edit-caracteristicas.component';
 import { IndexTipoEventosComponent } from './components/tipoEventos/index-tipo-eventos/index-tipo-eventos.component';
 import { ShowTipoEventosComponent } from './components/tipoEventos/show-tipo-eventos/show-tipo-eventos.component'
+import { EditTipoEventosComponent } from './components/tipoEventos/edit-tipo-eventos/edit-tipo-eventos.component';
 export const routes: Routes = [
     {
         path: '',
@@ -97,7 +98,7 @@ export const routes: Routes = [
     },
     {
         path: 'tipo_eventos',
-        component: CreateTipoEventosComponent,
+        component: IndexTipoEventosComponent,
         title: 'Create Tipo Evento',
         canActivate: [authAdminGuard]
     },
@@ -110,6 +111,12 @@ export const routes: Routes = [
         path: 'tipo_eventos/create',
         component: CreateTipoEventosComponent,
         title: 'Create Tipo Evento',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'tipo_eventos/:id/edit',
+        component: EditTipoEventosComponent,
+        title: 'Edit Tipo Evento',
         canActivate: [authAdminGuard]
     },
     { 

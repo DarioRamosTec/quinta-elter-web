@@ -1,0 +1,53 @@
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
+    <app-create-title>
+        Crear Estado de Evento
+    </app-create-title>
+
+    <div class="space-y-12" *ngIf="!submitted else elseSubmitted">
+        <div class="border-b border-gray-900/10 pb-12">
+          <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-2 sm:col-start-1">
+              <label for="nombre" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+              <div class="mt-2">
+                <input [(ngModel)] ="estado_eventos.nombre" id="nombre" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                    <div *ngFor="let error of errors.nombre">
+                        {{ error }}
+                    </div>
+                    <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.nombre == undefined && tries > 0">
+                        ¡Perfecto!
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="descripcion" class="block text-sm font-medium leading-6 text-gray-900">Descripción</label>
+              <div class="mt-2">
+                <input placeholder="Este campo puede estar vacio." [(ngModel)] ="estado_eventos.descripcion" id="descripcion" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                    <div *ngFor="let error of errors.descripcion">
+                        {{ error }}
+                    </div>
+                    <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.descripcion == undefined && tries > 0">
+                        ¡Perfecto!
+                    </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <a [routerLink]="['/caracteristicas']">
+                <button class="text-sm font-semibold leading-6 text-gray-900">Regresar</button>
+            </a>
+            <button (click)="submit()" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Guardar</button>
+        </div>
+    </div> 
+    <ng-template #elseSubmitted>
+        <app-loading></app-loading>
+    </ng-template> 
+
+</app-sidebar>

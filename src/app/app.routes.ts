@@ -35,6 +35,10 @@ import { EditPaquetesComponent } from './components/Paquetes/edit-paquetes/edit-
 import { ShowPaquetesComponent } from './components/Paquetes/show-paquetes/show-paquetes.component';
 import { IndexPaquetesComponent } from './components/Paquetes/index-paquetes/index-paquetes.component';
 import { CreatePaquetesComponent } from './components/Paquetes/create-paquetes/create-paquetes.component';
+import { EditEstadoEventosComponent } from './components/Estado_Eventos/edit-estado-eventos/edit-estado-eventos.component';
+import { ShowEstadoEventosComponent } from './components/Estado_Eventos/show-estado-eventos/show-estado-eventos.component';
+import { IndexEstadoEventosComponent } from './components/Estado_Eventos/index-estado-eventos/index-estado-eventos.component';
+import { CreateEstadoEventosComponent } from './components/Estado_Eventos/create-estado-eventos/create-estado-eventos.component';
 export const routes: Routes = [
     {
         path: '',
@@ -209,6 +213,29 @@ export const routes: Routes = [
         path: 'paquetes/:id/edit',
         component: EditPaquetesComponent,
         title: 'Edit Paquetes',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'estado_eventos',
+        component: IndexEstadoEventosComponent,
+        title: 'Index Estado Eventos',
+        canActivate: [authGuestGuard]
+    },
+    {
+        path: 'estado_eventos/create',
+        component: CreateEstadoEventosComponent,
+        title: 'Create Estado Eventos',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'estado_eventos/:id',
+        component: ShowEstadoEventosComponent,
+        canActivate: [authGuestGuard]
+    },
+    {
+        path: 'estado_eventos/:id/edit',
+        component: EditEstadoEventosComponent,
+        title: 'Edit Estado Eventos',
         canActivate: [authAdminGuard]
     },
     { 

@@ -47,6 +47,10 @@ import { EditFechaComponent } from './components/Fechas/edit-fecha/edit-fecha.co
 import { ShowFechaComponent } from './components/Fechas/show-fecha/show-fecha.component';
 import { IndexFechaComponent } from './components/Fechas/index-fecha/index-fecha.component';
 import { CreateFechaComponent } from './components/Fechas/create-fecha/create-fecha.component';
+import { EditHorasExtrasComponent } from './components/Horas_extras/edit-horas-extras/edit-horas-extras.component';
+import { ShowHorasExtrasComponent } from './components/Horas_extras/show-horas-extras/show-horas-extras.component';
+import { IndexHorasExtrasComponent } from './components/Horas_extras/index-horas-extras/index-horas-extras.component';
+import { CreateHorasExtrasComponent } from './components/Horas_extras/create-horas-extras/create-horas-extras.component';
 export const routes: Routes = [
     {
         path: '',
@@ -290,6 +294,29 @@ export const routes: Routes = [
         path:'fechas/:id/edit',
         component: EditFechaComponent,
         title: 'Edit Fechas',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path:'horas_extras',
+        component: IndexHorasExtrasComponent,
+        title: 'Index Horas Extras',
+        canActivate: [authGuestGuard]
+    },
+    {
+        path:'horas_extras/create',
+        component: CreateHorasExtrasComponent,
+        title: 'Create Horas Extras',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path:'horas_extras/:id',
+        component: ShowHorasExtrasComponent,
+        canActivate: [authGuestGuard]
+    },
+    {
+        path:'horas_extras/:id/edit',
+        component: EditHorasExtrasComponent,
+        title: 'Edit Horas Extras',
         canActivate: [authAdminGuard]
     },
     { 

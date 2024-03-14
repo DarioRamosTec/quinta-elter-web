@@ -9,7 +9,7 @@ import { Modelo } from '../modelo';
   })
   export class HorasExtrasService {
   
-    url: string = "auth/horas_extras"
+    url: string = "auth/hora_extras"
     ready: boolean = false
   
     constructor(private http: HttpClient) { }

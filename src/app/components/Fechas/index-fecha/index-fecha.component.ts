@@ -22,7 +22,7 @@ import { FechasService } from '../../../Services/fechas.service';
 })
 export class IndexFechaComponent extends AuthComponent {
 fechas : Fechas[] | undefined
-loading : boolean = true
+loading : boolean = false
 
 constructor(private FechasService : FechasService,
   authService : AuthService, router : Router){

@@ -54,6 +54,8 @@ import { CreateHorasExtrasComponent } from './components/Horas_extras/create-hor
 import { CreateClientesComponent } from './components/clientes/create-clientes/create-clientes.component';
 import { EditClientesComponent } from './components/clientes/edit-clientes/edit-clientes.component';
 import { ShowClientesComponent } from './components/clientes/show-clientes/show-clientes.component';
+import { IndexEventosComponent } from './components/eventos/index-eventos/index-eventos.component';
+import { CreateEventosComponent } from './components/eventos/create-eventos/create-eventos.component';
 export const routes: Routes = [
     {
         path: '',
@@ -270,6 +272,18 @@ export const routes: Routes = [
         component: EditEstadoEventosComponent,
         title: 'Edit Estado Eventos',
         canActivate: [authUserGuard]
+    },
+    {
+        path: 'eventos',
+        component: IndexEventosComponent,
+        title: 'Index Eventos',
+        canActivate: [authGuestGuard]
+    },
+    {
+        path: 'eventos/create',
+        component: CreateEventosComponent,
+        title: 'Create Eventos',
+        canActivate: [authAdminGuard]
     },
     {
         path:'opiniones',

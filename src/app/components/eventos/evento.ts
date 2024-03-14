@@ -6,7 +6,6 @@ export interface Evento {
     fecha_final: string
     horas_extras: number
     costo_horas_extras: number
-    hora_extra: number
     costo_horas: number
     costo_paquete: number
     costo_fecha: number
@@ -18,4 +17,5 @@ export interface Evento {
     tipo_pago: number
     estado_evento: number
     quinta: number
+    hora_extra: number
 }

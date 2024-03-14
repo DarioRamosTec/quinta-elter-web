@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FechasErrors } from '../fechas-errors';
 import { CommonModule,NgFor, NgIf } from '@angular/common';
 import { Modelo } from '../../../modelo';
@@ -39,6 +39,7 @@ export class EditFechaComponent extends AuthComponent{
       FechasService.show(activatedRoute.snapshot.params['id']).subscribe({
         next(data) {
           self.fechas = data.data
+          self.set()
           self.ready = true
         },
         error(err) {
@@ -51,6 +52,8 @@ export class EditFechaComponent extends AuthComponent{
       let self = this
       this.tries += 1
       this.submitted = true
+      this.fechas =  this.componentForm.value
+
       this.FechasService.update(this.fechas, this.activatedRoute.snapshot.params['id']).subscribe({
         next(data) {
           self.router.navigate(['/fechas'])
@@ -61,5 +64,18 @@ export class EditFechaComponent extends AuthComponent{
       })
     }
 
+     set () {
+    this.  componentForm = new FormGroup({
+      dia_inicio: new FormControl(this.fechas.dia_inicio, [Validators.required]),
+      dia_final: new FormControl(this.fechas.dia_final, [Validators.required]),
+      costo: new FormControl(this.fechas.costo, [Validators.required, Validators.min(0)]),
+    });
+  }
+
+  componentForm = new FormGroup({
+    dia_inicio: new FormControl(this.fechas.dia_inicio, [Validators.required]),
+    dia_final: new FormControl(this.fechas.dia_final, [Validators.required]),
+    costo: new FormControl(this.fechas.costo, [Validators.required, Validators.min(0)]),
+  });
 
 }

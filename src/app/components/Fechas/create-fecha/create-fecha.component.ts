@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FechasErrors } from '../fechas-errors';
 import { CommonModule,NgFor, NgIf } from '@angular/common';
 import { Modelo } from '../../../modelo';
@@ -38,6 +38,8 @@ submit(){
   let self = this
   this.submitted = true
   this.tries += 1
+  this.fechas = this.componentForm.value
+
   this.FechasService.store(this.fechas).subscribe({
     next(value) {
       self.router.navigate(['/fechas'])
@@ -49,4 +51,11 @@ submit(){
     },
   })
 }
+
+  componentForm = new FormGroup({
+    dia_inicio: new FormControl(this.fechas.dia_inicio, [Validators.required]),
+    dia_final: new FormControl(this.fechas.dia_final, [Validators.required]),
+    costo: new FormControl(this.fechas.costo, [Validators.required, Validators.min(0)]),
+  });
+
 }

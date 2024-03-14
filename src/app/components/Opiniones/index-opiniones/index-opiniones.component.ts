@@ -23,7 +23,7 @@ import { OpinionesService } from '../../../Services/opiniones.service';
 export class IndexOpinionesComponent extends AuthComponent {
 
   opiniones :Opiniones [] | undefined
-  loading : boolean = true
+  loading : boolean = false
 
   constructor(private OpinionesService :OpinionesService,
     authService : AuthService, router : Router) {

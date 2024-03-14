@@ -39,7 +39,7 @@ export class CreateTiposPagosComponent extends AuthComponent {
     this.submitted = true
     this.TipoPagosService.store(this.tipo_pago).subscribe({
       next: (data) => {
-        self.router.navigate(['/tipos_pagos'])
+        self.router.navigate(['/tipo_pagos'])
       },
       error: (err) => {
         self.errors = err.error.errors

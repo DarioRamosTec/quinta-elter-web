@@ -3,5 +3,5 @@ export interface Opiniones {
         titulo: string;
         descripcion?: String | null
         calificacion: number;
-        mostrar: boolean;
+        quinta: number;
 }

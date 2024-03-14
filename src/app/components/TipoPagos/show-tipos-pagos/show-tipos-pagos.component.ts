@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './show-tipos-pagos.component.css'
 })
 export class ShowTiposPagosComponent  extends AuthComponent{
-tipo_pago :TipoPagos | undefined
+  tipo_pagos :TipoPagos | undefined
   notfound = false
 
   constructor(private TipoPagosService: TipoPagosService,
@@ -30,7 +30,7 @@ tipo_pago :TipoPagos | undefined
       let self = this
       TipoPagosService.show(activatedRoute.snapshot.params['id']).subscribe({
         next(data) {
-          self.tipo_pago = data.data
+          self.tipo_pagos = data.data
         },
         error(err) {
           self.notfound = true

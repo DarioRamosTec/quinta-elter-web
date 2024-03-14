@@ -53,7 +53,7 @@ export class EditTiposPagosComponent extends AuthComponent {
       this.submitted = true
       this.TipoPagosService.update(this.tipo_pagos, this.activatedRoute.snapshot.params['id']).subscribe({
         next: (data) => {
-          self.router.navigate(['/tipos_pagos'])
+          self.router.navigate(['/tipo_pagos'])
         },
         error: (err) => {
           self.errors = err.error.errors

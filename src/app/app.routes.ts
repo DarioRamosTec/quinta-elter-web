@@ -60,6 +60,8 @@ import { IndexUsersComponent } from './components/users/index-users/index-users.
 import { CreateUsersComponent } from './components/users/create-users/create-users.component';
 import { ShowUsersComponent } from './components/users/show-users/show-users.component';
 import { EditUsersComponent } from './components/users/edit-users/edit-users.component';
+import { ShowEventosComponent } from './components/eventos/show-eventos/show-eventos.component';
+import { EditEventosComponent } from './components/eventos/edit-eventos/edit-eventos.component';
 export const routes: Routes = [
     {
         path: '',
@@ -227,24 +229,24 @@ export const routes: Routes = [
         canActivate: [authAdminGuard]
     },
     {
-        path: 'tipos_pagos',
+        path: 'tipo_pagos',
         component: IndexTiposPagosComponent,
         title: 'Index Tipos Pagos',
         canActivate: [authGuestGuard]
     },
     {
-        path: 'tipos_pagos/create',
+        path: 'tipo_pagos/create',
         component: CreateTiposPagosComponent,
         title: 'Create Tipo Pago',
         canActivate: [authUserGuard]
     },
     {
-        path: 'tipos_pagos/:id',
+        path: 'tipo_pagos/:id',
         component: ShowTiposPagosComponent,
         canActivate: [authGuestGuard]
     },
     {
-        path: 'tipos_pagos/:id/edit',
+        path: 'tipo_pagos/:id/edit',
         component: EditTiposPagosComponent,
         title: 'Edit Tipo Pago',
         canActivate: [authUserGuard]
@@ -305,6 +307,18 @@ export const routes: Routes = [
         path: 'eventos/create',
         component: CreateEventosComponent,
         title: 'Create Eventos',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'eventos/:id',
+        component: ShowEventosComponent,
+        title: 'Ver Evento',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'eventos/:id/edit',
+        component: EditEventosComponent,
+        title: 'Editar Evento',
         canActivate: [authAdminGuard]
     },
     {

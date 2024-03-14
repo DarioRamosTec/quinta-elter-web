@@ -14,6 +14,8 @@ import { LoadingComponent } from '../../../layout/loading/loading.component';
 import { IndextableComponent } from '../../../layout/indextable/indextable.component';
 import { OpinionesService } from '../../../Services/opiniones.service';
 import { Title } from '@angular/platform-browser';
+import { QuintasService } from '../../quintas/quintas.service';
+import { Quinta } from '../../quintas/quinta';
 @Component({
   selector: 'app-create-opiniones',
   standalone: true,
@@ -26,15 +28,21 @@ opiniones : any = {
   titulo:undefined,
   descripcion :undefined,
   calificacion :undefined,
-  mostrar :undefined
+  quinta: undefined
 }
 
 errors : OpinionesErrors | undefined
 submitted : boolean = false
 tries : number = 0
+quintas: Quinta[] | undefined
 
-  constructor(private OpinionesService :OpinionesService,router : Router, authService : AuthService){
+  constructor(private OpinionesService :OpinionesService,router : Router, authService : AuthService, quintasService : QuintasService){
     super(authService, router)
+
+    
+    quintasService.index().subscribe(data => {
+      this.quintas = data.data
+    })
   }
 
   submit(){

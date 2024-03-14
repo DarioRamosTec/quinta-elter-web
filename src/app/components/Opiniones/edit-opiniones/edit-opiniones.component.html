@@ -7,9 +7,9 @@
         <div class="border-b border-gray-900/10 pb-12">
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div class="sm:col-span-2 sm:col-start-1">
-                    <label for="nombre" class="block text-sm font-medium leading-6 text-gray-900">Titulo</label>
+                    <label for="titulo" class="block text-sm font-medium leading-6 text-gray-900">Titulo</label>
                     <div class="mt-2">
-                        <input [(ngModel)]="opiniones.nombre" id="nombre"
+                        <input [(ngModel)]="opiniones.titulo" id="titulo"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                         <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors?.titulo">
                             <div *ngFor="let error of errors?.titulo">
@@ -56,6 +56,23 @@
                                 ¡Perfecto!
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="quinta" class="block text-sm font-medium leading-6 text-gray-900">Quinta</label>
+                    <div class="mt-2">
+                      <select [(ngModel)]="opiniones.quinta" id="quinta" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                          <option *ngFor="let quinta of quintas" [value]="quinta.id" >{{ quinta.nombre }}</option>
+                      </select>
+                      <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                          <div *ngFor="let error of errors.quinta">
+                              {{ error }}
+                          </div>
+                          <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.quinta == undefined && tries > 0">
+                              ¡Perfecto!
+                          </div>
+                      </div>
                     </div>
                 </div>
 

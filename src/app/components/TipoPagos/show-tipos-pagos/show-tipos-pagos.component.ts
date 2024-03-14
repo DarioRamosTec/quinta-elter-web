@@ -33,7 +33,6 @@ export class ShowTiposPagosComponent  extends AuthComponent{
           self.tipo_pagos = data.data
         },
         error(err) {
-          self.notfound = true
         },
       })
     }

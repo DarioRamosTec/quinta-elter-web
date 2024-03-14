@@ -24,7 +24,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 export class IndexRolesComponent  extends AuthComponent {
 
   role : Role[] | undefined
-  loading : boolean = true
+  loading : boolean = false
 
   constructor(
     private rolesService : RolesService,

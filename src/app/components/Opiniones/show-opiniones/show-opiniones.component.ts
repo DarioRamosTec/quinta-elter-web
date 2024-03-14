@@ -12,6 +12,8 @@ import { ActivatedRoute,Router, RouterLink } from '@angular/router';
 import { LoadingComponent } from '../../../layout/loading/loading.component';
 import { IndextableComponent } from '../../../layout/indextable/indextable.component';
 import { OpinionesService } from '../../../Services/opiniones.service';
+import { QuintasService } from '../../quintas/quintas.service';
+import { Quinta } from '../../quintas/quinta';
 
 @Component({
   selector: 'app-show-opiniones',
@@ -23,10 +25,18 @@ import { OpinionesService } from '../../../Services/opiniones.service';
 export class ShowOpinionesComponent extends AuthComponent{
 opiniones :Opiniones | undefined
 notfound = false
+quintas: Quinta[] | undefined
+
 constructor(private OpinionesService : OpinionesService,
-  router : Router, authService : AuthService, activatedRoute : ActivatedRoute) {
+  router : Router, authService : AuthService, activatedRoute : ActivatedRoute, quintasService : QuintasService) {
   super(authService, router)
   let self = this
+
+        
+  quintasService.index().subscribe(data => {
+    this.quintas = data.data
+  })
+
   this.OpinionesService.show(activatedRoute.snapshot.params['id']).subscribe({
     next(data) {
       self.opiniones = data.data

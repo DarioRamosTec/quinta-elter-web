@@ -1,6 +1,6 @@
 <app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
     <app-create-title>
-        Ver característica
+        Ver
     </app-create-title>
 
     <div class="space-y-12" *ngIf="tipo_pagos != undefined else elseSubmitted">
@@ -26,7 +26,7 @@
             <a [routerLink]="['/tipo_pagos']">
                 <button class="text-sm font-semibold leading-6 text-gray-900">Regresar</button>
             </a>
-            <a *ngIf="user?.role == 3" [routerLink]="['/tipo_pagos/'+tipo_pagos.id+'/edit']">
+            <a *ngIf="user?.role != 1" [routerLink]="['/tipo_pagos/'+tipo_pagos.id+'/edit']">
                 <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
                     <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                         Editar
@@ -34,6 +34,40 @@
                 </button>
             </a>
         </div>
+
+        <app-create-title>
+          Eventos
+        </app-create-title>
+    
+        <div *ngIf="tipo_pagos?.eventos && tipo_pagos?.eventos?.length! > 0 else noEventos">
+          <table class="table-auto w-full text-center">
+            <thead>
+              <tr>
+                <th class="font-light">Título</th>
+                <th class="font-light">Fecha de comienzo</th>
+                <th class="font-light">Fecha de final</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let evento of tipo_pagos?.eventos">
+                <td>{{ evento.titulo }}</td>
+                <td>{{ evento.fecha_comienzo }}</td>
+                <td>{{ evento.fecha_final }}</td>
+                <td>
+                  <a [routerLink]="'/eventos/' + [evento.id]">
+                      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-width="1" d="M21 12c0 1.2-4 6-9 6s-9-4.8-9-6c0-1.2 4-6 9-6s9 4.8 9 6Z"/>
+                          <path stroke="currentColor" stroke-width="1" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                      </svg>
+                  </a>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #noEventos>
+          No hay ningún evento asociado.
+        </ng-template>
     </div> 
     <ng-template #elseSubmitted>
         <app-loading *ngIf="!notfound else notFound"></app-loading>

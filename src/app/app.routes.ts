@@ -427,24 +427,24 @@ export const routes: Routes = [
         path:'roles'
         ,component: IndexRolesComponent
         ,title: 'Index Roles'
-        ,canActivate: [authAdminGuard]
+        ,canActivate: [authOnlyAdminGuard]
     },
     {
         path:'roles/create'
         ,component: CreateRolesComponent
         ,title: 'Create Roles'
-        ,canActivate: [authAdminGuard]  
+        ,canActivate: [authOnlyAdminGuard]  
     },
     {
         path:'roles/:id'
         ,component: ShowRolesComponent
-        ,canActivate: [authAdminGuard]
+        ,canActivate: [authOnlyAdminGuard]
     },
     {
         path:'roles/:id/edit'
         ,component: EditRolesComponent
         ,title: 'Edit Roles'
-        ,canActivate: [authAdminGuard]
+        ,canActivate: [authOnlyAdminGuard]
     },
     { 
         path: '**', 

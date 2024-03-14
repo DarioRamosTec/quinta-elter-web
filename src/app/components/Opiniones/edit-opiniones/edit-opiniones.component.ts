@@ -11,6 +11,8 @@ import { ActivatedRoute,Router, RouterLink } from '@angular/router';
 import { LoadingComponent } from '../../../layout/loading/loading.component';
 import { IndextableComponent } from '../../../layout/indextable/indextable.component';
 import { OpinionesService } from '../../../Services/opiniones.service';
+import { QuintasService } from '../../quintas/quintas.service';
+import { Quinta } from '../../quintas/quinta';
 
 @Component({
   selector: 'app-edit-opiniones',
@@ -24,16 +26,26 @@ export class EditOpinionesComponent extends AuthComponent {
     titulo :undefined,
     descripcion :undefined,
     calificacion :undefined,
-    mostrar :undefined
+    quinta :undefined
   }
   errors : OpinionesErrors | undefined
   submitted : boolean = false
   ready : boolean = false
   tries : number = 1
   notfound = false
-  constructor(private OpinionesService : OpinionesService,router : Router, authService : AuthService, protected activatedRoute: ActivatedRoute) {
+  quintas: Quinta[] | undefined
+
+
+  constructor(private OpinionesService : OpinionesService,router : Router, authService : AuthService, protected activatedRoute: ActivatedRoute,
+    quintasService : QuintasService) {
     super(authService, router)
     let self = this
+
+        
+    quintasService.index().subscribe(data => {
+      this.quintas = data.data
+    })
+
     OpinionesService.show(activatedRoute.snapshot.params['id']).subscribe({
       next(data) {
         self.opiniones = data.data

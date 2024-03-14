@@ -62,6 +62,10 @@ import { ShowUsersComponent } from './components/users/show-users/show-users.com
 import { EditUsersComponent } from './components/users/edit-users/edit-users.component';
 import { ShowEventosComponent } from './components/eventos/show-eventos/show-eventos.component';
 import { EditEventosComponent } from './components/eventos/edit-eventos/edit-eventos.component';
+import { EditQuintasComponent } from './components/quintas/edit-quintas/edit-quintas.component';
+import { ShowQuintasComponent } from './components/quintas/show-quintas/show-quintas.component';
+import { CreateQuintasComponent } from './components/quintas/create-quintas/create-quintas.component';
+import { IndexQuintasComponent } from './components/quintas/index-quintas/index-quintas.component';
 export const routes: Routes = [
     {
         path: '',
@@ -272,6 +276,30 @@ export const routes: Routes = [
         path: 'paquetes/:id/edit',
         component: EditPaquetesComponent,
         title: 'Edit Paquetes',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'quintas',
+        component: IndexQuintasComponent,
+        title: 'Index Quintas',
+        canActivate: [authGuestGuard]
+    },
+    {
+        path: 'quintas/create',
+        component: CreateQuintasComponent,
+        title: 'Crear Quintas',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'quintas/:id',
+        title: 'Ver Quinta',
+        component: ShowQuintasComponent,
+        canActivate: [authGuestGuard]
+    },
+    {
+        path: 'quintas/:id/edit',
+        component: EditQuintasComponent,
+        title: 'Editar Quinta',
         canActivate: [authAdminGuard]
     },
     {

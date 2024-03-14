@@ -62,6 +62,10 @@ import { ShowUsersComponent } from './components/users/show-users/show-users.com
 import { EditUsersComponent } from './components/users/edit-users/edit-users.component';
 import { ShowEventosComponent } from './components/eventos/show-eventos/show-eventos.component';
 import { EditEventosComponent } from './components/eventos/edit-eventos/edit-eventos.component';
+import { ShowRolesComponent } from './components/roles/show-roles/show-roles.component';
+import { CreateRolesComponent } from './components/roles/create-roles/create-roles.component';
+import { EditRolesComponent } from './components/roles/edit-roles/edit-roles.component';
+import { IndexRolesComponent } from './components/roles/index-roles/index-roles.component';
 export const routes: Routes = [
     {
         path: '',
@@ -389,6 +393,29 @@ export const routes: Routes = [
         component: EditHorasExtrasComponent,
         title: 'Edit Horas Extras',
         canActivate: [authUserGuard]
+    },
+    {
+        path:'roles'
+        ,component: IndexRolesComponent
+        ,title: 'Index Roles'
+        ,canActivate: [authAdminGuard]
+    },
+    {
+        path:'roles/create'
+        ,component: CreateRolesComponent
+        ,title: 'Create Roles'
+        ,canActivate: [authAdminGuard]  
+    },
+    {
+        path:'roles/:id'
+        ,component: ShowRolesComponent
+        ,canActivate: [authAdminGuard]
+    },
+    {
+        path:'roles/:id/edit'
+        ,component: EditRolesComponent
+        ,title: 'Edit Roles'
+        ,canActivate: [authAdminGuard]
     },
     { 
         path: '**', 

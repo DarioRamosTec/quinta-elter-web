@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EstadosEventosService } from '../../../Services/estado-eventos.service'; 
 import { EstadosEventos} from '../../../Models/estado-eventos.model'; 
 import { EstadoEventosErrors } from '../estado_eventos-errors';
@@ -24,21 +24,25 @@ export class EditEstadoEventosComponent extends AuthComponent {
 
   estado_eventos : any ={
     nombre : undefined,
-    descripccion : undefined  
+    descripcion : undefined  
   }
   errors : EstadoEventosErrors | undefined
   submitted : boolean = false
   ready : boolean = false
   tries : number = 1
   notfound = false
+  routeId : string = ''
 
   constructor(private EstadosEventosService : EstadosEventosService,
     router : Router, authService : AuthService, protected activatedRoute: ActivatedRoute) {
       super(authService, router)
       let self = this
+      this.routeId = '/' + activatedRoute.snapshot.params['id']
+
       EstadosEventosService.show(activatedRoute.snapshot.params['id']).subscribe({
         next(data) {
           self.estado_eventos = data.data
+          self.set()
           self.ready = true
         },
         error(err) {
@@ -51,6 +55,8 @@ export class EditEstadoEventosComponent extends AuthComponent {
       let self = this
       this.tries += 1
       this.submitted = true
+      this.estado_eventos = this.componentForm.value
+
       this.EstadosEventosService.update(this.estado_eventos, this.activatedRoute.snapshot.params['id']).subscribe({
         next(value) {
           self.router.navigate(['/estado_eventos'])
@@ -62,4 +68,18 @@ export class EditEstadoEventosComponent extends AuthComponent {
         },
       })
     }
+
+    
+
+  set () {
+    this.componentForm = new FormGroup({
+      nombre: new FormControl(this.estado_eventos.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+      descripcion: new FormControl(this.estado_eventos.descripcion, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+    });
+  }
+
+  componentForm = new FormGroup({
+    nombre: new FormControl(this.estado_eventos.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+    descripcion: new FormControl(this.estado_eventos.descripcion, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+  });
 }

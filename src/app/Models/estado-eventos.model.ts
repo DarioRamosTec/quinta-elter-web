@@ -1,5 +1,8 @@
+import { Evento } from "../components/eventos/evento"
+
 export interface EstadosEventos {
     id: number
     nombre: string
-    descripccion?: String | null
+    descripcion?: String | null
+    eventos?: Evento[]
 }

@@ -2,7 +2,7 @@
     <app-indextable *ngIf="user" [hideCreate]="user.role == 3" [createRoute]="'create'"
         [isActive]="!loading && estado_eventos != null ? true : false" [collection]="estado_eventos">
         <div bigTitle>
-            Estado Eventos
+            Estado de evento
         </div>
         <thead head>
             <tr>
@@ -13,8 +13,8 @@
         <tbody body>
             <tr *ngFor="let estado_evento of estado_eventos">
                 <td>{{ estado_evento.nombre }}</td>
-                <td [class]="estado_evento.descripccion == null ? 'italic text-xs' : ''">
-                    {{ estado_evento.descripccion ?? "Sin datos" }}
+                <td [class]="estado_evento.descripcion == null ? 'italic text-xs' : ''">
+                    {{ estado_evento.descripcion ?? "Sin datos" }}
                 </td>
                 <td>
                     <a [routerLink]="[estado_evento.id]">

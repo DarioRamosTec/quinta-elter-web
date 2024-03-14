@@ -51,6 +51,9 @@ import { EditHorasExtrasComponent } from './components/Horas_extras/edit-horas-e
 import { ShowHorasExtrasComponent } from './components/Horas_extras/show-horas-extras/show-horas-extras.component';
 import { IndexHorasExtrasComponent } from './components/Horas_extras/index-horas-extras/index-horas-extras.component';
 import { CreateHorasExtrasComponent } from './components/Horas_extras/create-horas-extras/create-horas-extras.component';
+import { CreateClientesComponent } from './components/clientes/create-clientes/create-clientes.component';
+import { EditClientesComponent } from './components/clientes/edit-clientes/edit-clientes.component';
+import { ShowClientesComponent } from './components/clientes/show-clientes/show-clientes.component';
 export const routes: Routes = [
     {
         path: '',
@@ -98,6 +101,24 @@ export const routes: Routes = [
         component: IndexClientesComponent,
         title: 'Index Clientes',
         canActivate: [authGuestGuard]
+    },
+    {
+        path: 'clientes/create',
+        component: CreateClientesComponent,
+        title: 'Crear Cliente',
+        canActivate: [authAdminGuard]
+    },
+    {
+        path: 'clientes/:id',
+        component: ShowClientesComponent,
+        title: 'Ver Clientes',
+        canActivate: [authGuestGuard]
+    },
+    {
+        path: 'clientes/:id/edit',
+        component: EditClientesComponent,
+        title: 'Index Clientes',
+        canActivate: [authAdminGuard]
     },
     {
         path: 'logout',
@@ -237,7 +258,7 @@ export const routes: Routes = [
         path: 'estado_eventos/create',
         component: CreateEstadoEventosComponent,
         title: 'Create Estado Eventos',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     {
         path: 'estado_eventos/:id',
@@ -248,7 +269,7 @@ export const routes: Routes = [
         path: 'estado_eventos/:id/edit',
         component: EditEstadoEventosComponent,
         title: 'Edit Estado Eventos',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     {
         path:'opiniones',
@@ -260,7 +281,7 @@ export const routes: Routes = [
         path:'opiniones/create',
         component: CreateOpinionesComponent,
         title: 'Create Opiniones',
-        canActivate: [authUserGuard]
+        canActivate: [authAdminGuard]
     },
     {
         path:'opiniones/:id',
@@ -271,7 +292,7 @@ export const routes: Routes = [
         path:'opiniones/:id/edit',
         component: EditOpinionesComponent,
         title: 'Edit Opiniones',
-        canActivate: [authUserGuard]
+        canActivate: [authAdminGuard]
     },
     {
         path:'fechas',
@@ -283,7 +304,7 @@ export const routes: Routes = [
         path:'fechas/create',
         component: CreateFechaComponent,
         title: 'Create Fechas',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     {
         path:'fechas/:id',
@@ -294,7 +315,7 @@ export const routes: Routes = [
         path:'fechas/:id/edit',
         component: EditFechaComponent,
         title: 'Edit Fechas',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     {
         path:'horas_extras',
@@ -306,7 +327,7 @@ export const routes: Routes = [
         path:'horas_extras/create',
         component: CreateHorasExtrasComponent,
         title: 'Create Horas Extras',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     {
         path:'horas_extras/:id',
@@ -317,7 +338,7 @@ export const routes: Routes = [
         path:'horas_extras/:id/edit',
         component: EditHorasExtrasComponent,
         title: 'Edit Horas Extras',
-        canActivate: [authAdminGuard]
+        canActivate: [authUserGuard]
     },
     { 
         path: '**', 

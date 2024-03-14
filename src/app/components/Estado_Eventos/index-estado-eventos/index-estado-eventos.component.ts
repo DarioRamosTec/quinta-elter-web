@@ -21,7 +21,7 @@ import { IndextableComponent } from '../../../layout/indextable/indextable.compo
 })
 export class IndexEstadoEventosComponent extends AuthComponent{
 estado_eventos : EstadosEventos[] | undefined
-loading : boolean = true
+loading : boolean = false
 
 constructor(private  EstadosEventosService : EstadosEventosService,
   authService: AuthService , router : Router) {

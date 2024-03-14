@@ -1,0 +1,47 @@
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined">
+    <app-create-title>
+        Editar Horas Extras
+    </app-create-title>
+
+    <div class="space-y-12" *ngIf="!submitted && ready else elseSubmitted">
+        <div class="border-b border-gray-900/10 pb-12">
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div class="sm:col-span-2 sm:col-start-1">
+                    <label for="costo" class="block text-sm font-medium leading-6 text-gray-900">Costo</label>
+                    <div class="mt-2">
+                        <input [(ngModel)]="horas_extras.costo" id="costo" type="number" step="0.01" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="hora_minima" class="block text-sm font-medium leading-6 text-gray-900">Hora mínima</label>
+                    <div class="mt-2">
+                        <input [(ngModel)]="horas_extras.hora_minima" id="hora_minima" type="number" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="hora_maxima" class="block text-sm font-medium leading-6 text-gray-900">Hora máxima</label>
+                    <div class="mt-2">
+                        <input [(ngModel)]="horas_extras.hora_maxima" id="hora_maxima" type="number" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <a [routerLink]="['/horas_extras']">
+                <button class="text-sm font-semibold leading-6 text-gray-900">Regresar</button>
+            </a>
+            <button (click)="submit()" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Guardar</button>
+        </div>
+    </div>
+    <ng-template #elseSubmitted>
+        <app-loading *ngIf="!notfound else notFound"></app-loading>
+        <ng-template #notFound>
+            <app-create-title>
+                Tu recurso no fue encontrado o no existe.
+            </app-create-title>
+        </ng-template>
+    </ng-template>
+</app-sidebar>

@@ -1,0 +1,144 @@
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
+    <app-create-title>
+        Crear cliente
+    </app-create-title>
+
+    <div class="space-y-12" *ngIf="!submitted else elseSubmitted">
+        <div class="border-b border-gray-900/10 pb-12">
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6" [formGroup]="componentForm">
+  
+              <div class="sm:col-span-2 sm:col-start-1">
+                  <label for="nombre" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+                  <div class="mt-2">
+                      <input formControlName="nombre" id="nombre" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                      <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                          <div *ngFor="let error of errors.nombre">
+                              {{ error }}
+                          </div>
+                          <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.nombre == undefined && tries > 0">
+                              ¡Perfecto!
+                          </div>
+                      </div>
+                  </div>
+                  <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['nombre'].invalid && (componentForm.controls['nombre'].dirty || componentForm.controls['nombre'].touched)">
+                      <div *ngIf="componentForm.controls['nombre'].errors?.['required']">Este campo es requerido.</div>
+                      <div *ngIf="componentForm.controls['nombre'].errors?.['minlength']">Este campo debe tener mínimo 3 caracteres.</div>
+                      <div *ngIf="componentForm.controls['nombre'].errors?.['maxlength']">Este campo debe tener mínimo 255 caracteres.</div>
+                  </div>
+              </div>
+      
+              <div class="sm:col-span-2">
+                <label for="apellido_paterno" class="block text-sm font-medium leading-6 text-gray-900">Apellido paterno</label>
+                <div class="mt-2">
+                  <input formControlName="apellido_paterno" id="apellido_paterno" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                      <div *ngFor="let error of errors.apellido_paterno">
+                          {{ error }}
+                      </div>
+                      <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.apellido_paterno == undefined && tries > 0">
+                          ¡Perfecto!
+                      </div>
+                  </div>
+                </div>
+                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['apellido_paterno'].invalid && (componentForm.controls['apellido_paterno'].dirty || componentForm.controls['apellido_paterno'].touched)">
+                    <div *ngIf="componentForm.controls['apellido_paterno'].errors?.['required']">Este campo es requerido.</div>
+                    <div *ngIf="componentForm.controls['apellido_paterno'].errors?.['minlength']">Este campo debe tener mínimo 3 caracteres.</div>
+                    <div *ngIf="componentForm.controls['apellido_paterno'].errors?.['maxlength']">Este campo debe tener mínimo 255 caracteres.</div>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-2">
+                <label for="apellido_materno" class="block text-sm font-medium leading-6 text-gray-900">Apellido materno</label>
+                <div class="mt-2">
+                  <input formControlName="apellido_materno" id="apellido_materno" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                      <div *ngFor="let error of errors.apellido_materno">
+                          {{ error }}
+                      </div>
+                      <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.apellido_materno == undefined && tries > 0">
+                          ¡Perfecto!
+                      </div>
+                  </div>
+                </div>
+                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['apellido_materno'].invalid && (componentForm.controls['apellido_materno'].dirty || componentForm.controls['apellido_materno'].touched)">
+                    <div *ngIf="componentForm.controls['apellido_materno'].errors?.['required']">Este campo es requerido.</div>
+                    <div *ngIf="componentForm.controls['apellido_materno'].errors?.['minlength']">Este campo debe tener mínimo 3 caracteres.</div>
+                    <div *ngIf="componentForm.controls['apellido_materno'].errors?.['maxlength']">Este campo debe tener mínimo 255 caracteres.</div>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-2">
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                <div class="mt-2">
+                  <input formControlName="email" id="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                      <div *ngFor="let error of errors.email">
+                          {{ error }}
+                      </div>
+                      <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.email == undefined && tries > 0">
+                          ¡Perfecto!
+                      </div>
+                  </div>
+                </div>
+                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['email'].invalid && (componentForm.controls['email'].dirty || componentForm.controls['email'].touched)">
+                    <div *ngIf="componentForm.controls['email'].errors?.['required']">Este campo es requerido.</div>
+                    <div *ngIf="componentForm.controls['email'].errors?.['email']">Este campo necesita un email.</div>
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+                <div class="mt-2">
+                  <input formControlName="password" id="password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                      <div *ngFor="let error of errors.password">
+                          {{ error }}
+                      </div>
+                      <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.password == undefined && tries > 0">
+                          ¡Perfecto!
+                      </div>
+                  </div>
+                </div>
+                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['password'].invalid && (componentForm.controls['password'].dirty || componentForm.controls['password'].touched)">
+                    <div *ngIf="componentForm.controls['password'].errors?.['required']">Este campo es requerido.</div>
+                    <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['password'].errors?.['minlength']">
+                        La contraseña debe tener al menos 8 caracteres.
+                      </div>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-2">
+                  <label for="role" class="block text-sm font-medium leading-6 text-gray-900">Rol</label>
+                  <div class="mt-2">
+                    <select formControlName="role" id="role" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <option *ngFor="let role of roles" [value]="role.id" >{{ role.nombre  }}</option>
+                    </select>
+                    <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                        <div *ngFor="let error of errors.role">
+                            {{ error }}
+                        </div>
+                        <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.role == undefined && tries > 0">
+                            ¡Perfecto!
+                        </div>
+                    </div>
+                  </div>
+                  <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['role'].invalid && (componentForm.controls['role'].dirty || componentForm.controls['role'].touched)">
+                      <div *ngIf="componentForm.controls['role'].errors?.['required']">Este campo es requerido.</div>
+                  </div>
+              </div>
+  
+            </div>
+          </div>
+    
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <a [routerLink]="[routeTo]">
+                <button class="text-sm font-semibold leading-6 text-gray-900">Regresar</button>
+            </a>
+            <button [disabled]="!componentForm.valid" (click)="submit()" class="disabled:cursor-not-allowed text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Guardar</button>
+        </div>
+    </div> 
+    <ng-template #elseSubmitted>
+        <app-loading></app-loading>
+    </ng-template> 
+
+</app-sidebar>

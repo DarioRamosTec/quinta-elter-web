@@ -241,7 +241,7 @@
                 <label for="fecha" class="block text-sm font-medium leading-6 text-gray-900">Fecha</label>
                 <div class="mt-2">
                   <select formControlName="fecha" id="fecha" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                      <option *ngFor="let fecha of fechas" [value]="fecha.id" >{{ fecha.dia_inicio + ' - ' + fecha.dia_final  }}</option>
+                      <option *ngFor="let fecha of fechas" [value]="fecha.id" >{{ fecha.dia_inicio + ' - ' + fecha.dia_final + ": " + fecha.costo }}</option>
                   </select>
                   <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                       <div *ngFor="let error of errors.fecha">
@@ -258,7 +258,7 @@
             </div>
 
             <div class="sm:col-span-2">
-                <label for="tipo_pago" class="block text-sm font-medium leading-6 text-gray-900">Cliente</label>
+                <label for="tipo_pago" class="block text-sm font-medium leading-6 text-gray-900">Tipo de pago</label>
                 <div class="mt-2">
                   <select formControlName="tipo_pago" id="tipo_pago" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                       <option *ngFor="let tipo_pago of tipo_pagos" [value]="tipo_pago.id" >{{ tipo_pago.nombre  }}</option>

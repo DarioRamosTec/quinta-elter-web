@@ -56,6 +56,10 @@ import { EditClientesComponent } from './components/clientes/edit-clientes/edit-
 import { ShowClientesComponent } from './components/clientes/show-clientes/show-clientes.component';
 import { IndexEventosComponent } from './components/eventos/index-eventos/index-eventos.component';
 import { CreateEventosComponent } from './components/eventos/create-eventos/create-eventos.component';
+import { IndexUsersComponent } from './components/users/index-users/index-users.component';
+import { CreateUsersComponent } from './components/users/create-users/create-users.component';
+import { ShowUsersComponent } from './components/users/show-users/show-users.component';
+import { EditUsersComponent } from './components/users/edit-users/edit-users.component';
 export const routes: Routes = [
     {
         path: '',
@@ -93,9 +97,27 @@ export const routes: Routes = [
         canActivate: [authAdminGuard]
     },
     {
-        path: 'users',
-        component: NotFoundComponent,
+        path: 'usuarios',
+        component: IndexUsersComponent,
         title: 'Ver Usuarios',
+        canActivate: [authOnlyAdminGuard]
+    },
+    {
+        path: 'usuarios/create',
+        component: CreateUsersComponent,
+        title: 'Crear Usuario',
+        canActivate: [authOnlyAdminGuard]
+    },
+    {
+        path: 'usuarios/:id',
+        component: ShowUsersComponent,
+        title: 'Ver Usuario',
+        canActivate: [authOnlyAdminGuard]
+    },
+    {
+        path: 'usuarios/:id/edit',
+        component: EditUsersComponent,
+        title: 'Editar Usuario',
         canActivate: [authOnlyAdminGuard]
     },
     {

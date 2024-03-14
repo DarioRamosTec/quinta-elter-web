@@ -5,25 +5,61 @@
 
     <div class="space-y-12" *ngIf="!submitted else elseSubmitted">
         <div class="border-b border-gray-900/10 pb-12">
-            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6" [formGroup]="componentForm">
                 <div class="sm:col-span-2 sm:col-start-1">
                     <label for="costo" class="block text-sm font-medium leading-6 text-gray-900">Costo</label>
                     <div class="mt-2">
-                        <input [(ngModel)]="horas_extras.costo" id="costo" type="number" step="0.01" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <input formControlName="costo" id="costo" type="number" step="0.01" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                            <div *ngFor="let error of errors.costo">
+                                {{ error }}
+                            </div>
+                            <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.costo == undefined && tries > 0">
+                                ¡Perfecto!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['costo'].invalid && (componentForm.controls['costo'].dirty || componentForm.controls['costo'].touched)">
+                        <div *ngIf="componentForm.controls['costo'].errors?.['required']">Este campo es requerido.</div>
+                        <div *ngIf="componentForm.controls['costo'].errors?.['min']">Este campo tiene que tener un costo por lo menos de un mínimo de 0.</div>
                     </div>
                 </div>
 
                 <div class="sm:col-span-2">
                     <label for="hora_minima" class="block text-sm font-medium leading-6 text-gray-900">Hora mínima</label>
                     <div class="mt-2">
-                        <input [(ngModel)]="horas_extras.hora_minima" id="hora_minima" type="number" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <input formControlName="hora_minima" id="hora_minima" type="number" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                            <div *ngFor="let error of errors.hora_minima">
+                                {{ error }}
+                            </div>
+                            <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.hora_minima == undefined && tries > 0">
+                                ¡Perfecto!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['hora_minima'].invalid && (componentForm.controls['hora_minima'].dirty || componentForm.controls['hora_minima'].touched)">
+                        <div *ngIf="componentForm.controls['hora_minima'].errors?.['required']">Este campo es requerido.</div>
+                        <div *ngIf="componentForm.controls['hora_minima'].errors?.['min']">Este campo tiene que más de 0.</div>
                     </div>
                 </div>
 
                 <div class="sm:col-span-2">
                     <label for="hora_maxima" class="block text-sm font-medium leading-6 text-gray-900">Hora máxima</label>
                     <div class="mt-2">
-                        <input [(ngModel)]="horas_extras.hora_maxima" id="hora_maxima" type="number" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <input formControlName="hora_maxima" id="hora_maxima" type="number" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                            <div *ngFor="let error of errors.hora_maxima">
+                                {{ error }}
+                            </div>
+                            <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.hora_maxima == undefined && tries > 0">
+                                ¡Perfecto!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['hora_maxima'].invalid && (componentForm.controls['hora_maxima'].dirty || componentForm.controls['hora_maxima'].touched)">
+                        <div *ngIf="componentForm.controls['hora_maxima'].errors?.['required']">Este campo es requerido.</div>
+                        <div *ngIf="componentForm.controls['hora_maxima'].errors?.['min']">Estecampo tiene que más de 0.</div>
                     </div>
                 </div>
             </div>
@@ -33,7 +69,7 @@
             <a [routerLink]="['/horas_extras']">
                 <button class="text-sm font-semibold leading-6 text-gray-900">Regresar</button>
             </a>
-            <button (click)="submit()" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Guardar</button>
+            <button [disabled]="!componentForm.valid" (click)="submit()" class="disabled:cursor-not-allowed text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Guardar</button>
         </div>
     </div>
     <ng-template #elseSubmitted>

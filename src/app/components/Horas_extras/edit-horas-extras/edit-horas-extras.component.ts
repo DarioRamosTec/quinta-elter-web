@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HorasExtrasErrors } from '../Horas_extras-errors';
 import { CommonModule,NgFor, NgIf } from '@angular/common';
 import { Modelo } from '../../../modelo';
@@ -18,7 +18,7 @@ import { HorasExtrasService } from '../../../Services/horas_extras.service';
 @Component({
   selector: 'app-edit-horas-extras',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,SidebarComponent, NgFor,NgIf,IndextableComponent,RouterLink,LoadingComponent,CreateTitleComponent],
+  imports: [RouterLink, NgIf, NgFor, FormsModule, SidebarComponent, CreateTitleComponent, ReactiveFormsModule, LoadingComponent],
   templateUrl: './edit-horas-extras.component.html',
   styleUrl: './edit-horas-extras.component.css'
 })
@@ -41,6 +41,7 @@ export class EditHorasExtrasComponent extends AuthComponent{
       horas_extrasService.show(activatedRoute.snapshot.params['id']).subscribe({
         next(data) {
           self.horas_extras = data.data
+          self.set()
           self.ready = true
         },
         error(err) {
@@ -53,6 +54,8 @@ export class EditHorasExtrasComponent extends AuthComponent{
     let self = this
     this.tries += 1
     this.submitted = true
+    this.horas_extras = this.componentForm.value
+
     this.horas_extrasService.update(this.horas_extras, this.activatedRoute.snapshot.params['id']).subscribe({
       next(value) {
         self.router.navigate(['/horas_extras'])
@@ -64,4 +67,18 @@ export class EditHorasExtrasComponent extends AuthComponent{
       },
     })
   }
+
+  set() {
+    this.componentForm = new FormGroup({
+      hora_maxima: new FormControl(this.horas_extras.hora_maxima, [Validators.required, Validators.min(0)]),
+      hora_minima: new FormControl(this.horas_extras.hora_minima, [Validators.required, Validators.min(0)]),
+      costo: new FormControl(this.horas_extras.costo, [Validators.required, Validators.min(0)]),
+    });
+  }
+
+  componentForm = new FormGroup({
+    hora_maxima: new FormControl(this.horas_extras.hora_maxima, [Validators.required, Validators.min(0)]),
+    hora_minima: new FormControl(this.horas_extras.hora_minima, [Validators.required, Validators.min(0)]),
+    costo: new FormControl(this.horas_extras.costo, [Validators.required, Validators.min(0)]),
+  });
 }

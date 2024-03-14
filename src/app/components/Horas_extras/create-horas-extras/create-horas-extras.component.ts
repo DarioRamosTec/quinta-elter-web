@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HorasExtrasErrors } from '../Horas_extras-errors';
 import { CommonModule,NgFor, NgIf } from '@angular/common';
 import { Modelo } from '../../../modelo';
@@ -40,6 +40,8 @@ constructor(private horas_extrasService : HorasExtrasService,
     let self = this
     this.tries += 1
     this.submitted = true
+    this.horas_extras = this.componentForm.value
+
     this.horas_extrasService.store(this.horas_extras).subscribe({
       next(value) {
         self.router.navigate(['/horas_extras'])
@@ -51,4 +53,10 @@ constructor(private horas_extrasService : HorasExtrasService,
       },
     }) 
   }
+
+  componentForm = new FormGroup({
+    hora_maxima: new FormControl(this.horas_extras.hora_maxima, [Validators.required, Validators.min(0)]),
+    hora_minima: new FormControl(this.horas_extras.hora_minima, [Validators.required, Validators.min(0)]),
+    costo: new FormControl(this.horas_extras.costo, [Validators.required, Validators.min(0)]),
+  });
 }

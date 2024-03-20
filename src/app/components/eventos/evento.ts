@@ -1,4 +1,3 @@
-import { Servicios } from "../../Models/Servicios.model"
 import { Opiniones } from "../../Models/opiniones.model"
 
 export interface Evento {
@@ -25,5 +24,4 @@ export interface Evento {
     costo_total: number
 
     opiniones?: Opiniones[]
-    servicios?: Servicios[]
 }

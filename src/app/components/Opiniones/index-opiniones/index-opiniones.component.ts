@@ -12,7 +12,7 @@ import { ActivatedRoute,Router, RouterLink } from '@angular/router';
 import { LoadingComponent } from '../../../layout/loading/loading.component';
 import { IndextableComponent } from '../../../layout/indextable/indextable.component';
 import { OpinionesService } from '../../../Services/opiniones.service';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-index-opiniones',
   standalone: true,
@@ -24,10 +24,12 @@ export class IndexOpinionesComponent extends AuthComponent {
 
   opiniones :Opiniones [] | undefined
   loading : boolean = false
+  pollingSubscription: Subscription | undefined;
 
   constructor(private OpinionesService :OpinionesService,
     authService : AuthService, router : Router) {
     super(authService, router)
+    this.startPolling(5000);
     this.index()
   }
 
@@ -61,5 +63,24 @@ export class IndexOpinionesComponent extends AuthComponent {
       complete(){
       },
     })
+  }
+  
+  startPolling(intervalTime: number) {
+    this.pollingSubscription = this.OpinionesService.pollForOpinionesUpdates(intervalTime)
+      .subscribe({
+        next: (data) => {
+          this.opiniones = data.data;
+          console.log('Opiniones actualizadas:', this.opiniones);
+        },
+        error: (error) => {
+          console.error('Error al obtener las opiniones:', error);
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.pollingSubscription) {
+      this.pollingSubscription.unsubscribe();
+    }
   }
 }

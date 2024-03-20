@@ -24,6 +24,10 @@ import { TipoPagosService } from '../../../Services/tipo-pagos.service';
 import { EstadosEventosService } from '../../../Services/estado-eventos.service';
 import { HorasExtrasService } from '../../../Services/horas_extras.service';
 import { QuintasService } from '../../quintas/quintas.service';
+import { ServiciosService } from '../../../Services/Servicios.service';
+import { Servicios } from '../../../Models/Servicios.model';
+import { EventoServicio } from '../../eventoServicios/evento-servicio';
+import { EventoServiciosService } from '../../eventoServicios/evento-servicios.service';
 
 @Component({
   selector: 'app-show-eventos',
@@ -38,6 +42,8 @@ export class ShowEventosComponent extends AuthComponent {
   routeTo: string = '/eventos'
   errors: any
   tries = 0
+  submiting = false
+  id: number | undefined
 
   paquetes: Paquetes[] | undefined
   clientes: Cliente[] | undefined
@@ -47,11 +53,15 @@ export class ShowEventosComponent extends AuthComponent {
   quintas: Quinta[] | undefined
   hora_extras: HorasExtras[] | undefined
 
+  servicios : Servicios[] | undefined 
+
   constructor(private service : EventosService,
-    router : Router, authService : AuthService, activatedRoute : ActivatedRoute, paqueteService : PaquetesService, clientesService : ClienteService, fechasService : FechasService,
-    tiposPagosService : TipoPagosService, estadoEventoService : EstadosEventosService, horasExtrasService : HorasExtrasService,  quintasService : QuintasService) {
+    router : Router, authService : AuthService, protected activatedRoute : ActivatedRoute, paqueteService : PaquetesService, clientesService : ClienteService, fechasService : FechasService,
+    tiposPagosService : TipoPagosService, estadoEventoService : EstadosEventosService, horasExtrasService : HorasExtrasService,  quintasService : QuintasService,
+    protected serviciosService : ServiciosService, protected eventoServicioService : EventoServiciosService) {
       super(authService, router)
       let self = this
+      this.id = activatedRoute.snapshot.params['id']
 
       paqueteService.index().subscribe(data => {
         this.paquetes = data.data
@@ -78,11 +88,73 @@ export class ShowEventosComponent extends AuthComponent {
       service.show(activatedRoute.snapshot.params['id']).subscribe({
         next(data) {
           self.record = data.data
+          self.getServicios()
         },
         error(err) {
           self.notfound = true
         },
       })
+    }
+
+    reload() {
+     let self = this
+     self.service.show(self.activatedRoute.snapshot.params['id']).subscribe({
+       next(data) {
+         self.record = data.data
+         self.getServicios()
+       },
+       error(err) {
+         self.notfound = true
+       },
+     })
+    }
+ 
+    getServicios() {
+     this.serviciosService.index().subscribe(data => {
+       var vals : Servicios[] = []
+       var valsiD = []
+       if (this.record?.servicios){  
+         for(var item of this.record?.servicios) {
+           valsiD.push(item.id)
+         }
+       }
+ 
+       for (var item of data.data) {
+         if (!valsiD.includes(item.id)) {
+           vals.push(item)
+         }
+       }
+       this.servicios = vals
+       this.submiting = false
+
+     })
+    }
+ 
+    byeEvento(id: number) {
+     if (this.id && !this.submiting) {
+       this.submiting = true
+       var evento_servicio : EventoServicio = {
+        servicio: id,
+        evento: this.id
+       } 
+       this.eventoServicioService.bye(evento_servicio).subscribe(data => {
+         this.reload()
+       })
+     }
+    }
+ 
+    addEvento(data : any) {
+     if (this.id && data.target.value && !this.submiting) {
+       let id = data.target.value
+       var eventoServicio : EventoServicio = {
+        servicio: id,
+        evento: this.id
+       }
+       this.submiting = true
+       this.eventoServicioService.store(eventoServicio).subscribe(data => {
+         this.reload()
+       })
+     }
     }
 
 }

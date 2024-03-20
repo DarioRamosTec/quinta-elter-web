@@ -31,36 +31,54 @@ export class EditRolesComponent extends AuthComponent{
   ready : boolean = false
   tries : number = 1
   notfound = false
+  routeTo: string = '/roles'
+  routeId: string = ''
 
   constructor(private rolesService : RolesService,
     router : Router, authService : AuthService, protected activatedRoute: ActivatedRoute) {
-      super(authService, router)
-      let self = this
-      rolesService.show(activatedRoute.snapshot.params['id']).subscribe({
-        next(data) {
-          self.role = data.data
-          self.ready = true
-        },
-        error(err) {
-          self.notfound = true
-        },
-      })
-    }
+    super(authService, router)
+    let self = this
+    this.routeId = '/' + activatedRoute.snapshot.params['id']
 
-    submit(){
-      let self = this
-      this.tries += 1
-      this.submitted = true
-      this.role.descripcion = this.role.descripcion == null ? undefined : this.role .descripcion
-      this .rolesService.update(this.role, this.activatedRoute.snapshot.params['id']).subscribe({
-        next(value) {
-          self.router.navigate(['/roles'])
-        },
-        error(err) {
-          self.errors = err.error.errors
-          self.submitted = false
-          self.checkStatus(err.status)
-        },
-      })
-    }
+    rolesService.show(activatedRoute.snapshot.params['id']).subscribe({
+      next(data) {
+        self.role = data.data
+        self.set()
+        self.ready = true
+      },
+      error(err) {
+        self.notfound = true
+      },
+    })
+  }
+
+  submit(){
+    let self = this
+    this.tries += 1
+    this.submitted = true
+    this.role = this.componentForm.value
+
+    this .rolesService.update(this.role, this.activatedRoute.snapshot.params['id']).subscribe({
+      next(value) {
+        self.router.navigate([self.routeTo])
+      },
+      error(err) {
+        self.errors = err.error.errors
+        self.submitted = false
+        self.checkStatus(err.status)
+      },
+    })
+  }
+
+  set () {
+    this.componentForm = new FormGroup({
+      nombre: new FormControl(this.role.nombre, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+      descripcion: new FormControl(this.role.descripcion, [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
+    });
+  }
+
+  componentForm = new FormGroup({
+    nombre: new FormControl(this.role.nombre, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+    descripcion: new FormControl(this.role.descripcion, [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
+  });
 }

@@ -40,10 +40,10 @@ export class ShowServiciosComponent extends AuthComponent {
      let self = this
      this.id = activatedRoute.snapshot.params['id']
 
-    this.getEventos()
      ServiciosService.show(activatedRoute.snapshot.params['id']).subscribe({
        next(data) {
-         self.servicio = data.data
+        self.getEventos()
+        self.servicio = data.data
        },
        error(err) {
          self.notfound = true

@@ -30,6 +30,7 @@ role : any   =  {
 errors : RoleErrors | undefined
 submitted : boolean = false
 tries : number = 0
+routeTo: string = '/roles'
 
 constructor(private rolesService : RolesService,
   router : Router, authService : AuthService) {
@@ -40,10 +41,11 @@ constructor(private rolesService : RolesService,
     let self = this
     this.tries += 1
     this.submitted = true
-    this.role.descripcion = this.role.descripcion == null ? undefined : this.role .descripcion
+    this.role = this.componentForm.value
+
     this .rolesService.store(this.role).subscribe({
       next(value) {
-        self.router.navigate(['/roles'])
+        self.router.navigate([self.routeTo])
       },
       error(err) {
         self.errors = err.error.errors
@@ -52,4 +54,10 @@ constructor(private rolesService : RolesService,
       },
     })
   }
+
+  componentForm = new FormGroup({
+    nombre: new FormControl(this.role.nombre, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+    descripcion: new FormControl(this.role.descripcion, [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
+  });
+
 }

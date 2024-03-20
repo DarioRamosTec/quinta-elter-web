@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TipoPagosService} from '../../../Services/tipo-pagos.service'; 
 import { TipoPagos } from '../../../Models/tipo-pagos.model'; 
 import { tipoPagosErrors } from '../tipo-pagos-errors'; 
@@ -28,8 +28,6 @@ export class CreateTiposPagosComponent extends AuthComponent {
   errors : tipoPagosErrors | undefined
   submitted : boolean = false
   tries : number = 0
-  routeTo: string = '/tipo_pagos'
-
 
   constructor(private TipoPagosService : TipoPagosService, router : Router, authService : AuthService) {
     super(authService, router)
@@ -39,11 +37,9 @@ export class CreateTiposPagosComponent extends AuthComponent {
     let self = this
     this.tries += 1
     this.submitted = true
-    this.tipo_pago = this.componentForm.value
-
     this.TipoPagosService.store(this.tipo_pago).subscribe({
       next: (data) => {
-        self.router.navigate([self.routeTo])
+        self.router.navigate(['/tipo_pagos'])
       },
       error: (err) => {
         self.errors = err.error.errors
@@ -52,10 +48,4 @@ export class CreateTiposPagosComponent extends AuthComponent {
       }
     })
   }
-
-  componentForm = new FormGroup({
-    nombre: new FormControl(this.tipo_pago.nombre, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
-    descripcion: new FormControl(this.tipo_pago.descripcion, [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
-  });
-
 }

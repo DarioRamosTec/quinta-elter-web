@@ -10,7 +10,7 @@
                 <th>Precio</th>
             </tr>
         </thead>
-        <tbody body id="indexTableBody">
+        <tbody body>
             <tr *ngFor="let paquete of paquetes">
                 <td>{{ paquete.nombre }}</td>
                 <td [class]="paquete.descripcion== null ? 'italic text-xs' : ''">

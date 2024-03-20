@@ -55,6 +55,7 @@ export class RegisterFormComponent extends AuthNotComponent {
       },
       error(err) {
         self.isSubmitting = false;
+        console.log(err.error.error)
         if (err.error.error) {
           self.errors = err.error.error;
         }

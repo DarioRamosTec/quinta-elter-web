@@ -6,25 +6,31 @@
         <thead head>
             <tr>
                 <th>Título</th>
-                <th>Comienzo</th>
+                <th>Descripción</th>
+                <th>Fecha de comienzo</th>
+                <th>Fecha de final</th>
+                <th>Horas extras</th>
                 <th>Costo de horas extras</th>
+                <th>Costo de horas</th>
                 <th>Costo de paquete</th>
                 <th>Costo de fecha</th>
                 <th>Descuento</th>
                 <th>Costo pagado</th>
-                <th>Costo total</th>
             </tr>
         </thead>
-        <tbody body id="indexTableBody">
+        <tbody body>
             <tr *ngFor="let record of collection">
                 <td>{{ record.titulo }}</td>
+                <td>{{ record.descripcion }}</td>
                 <td>{{ record.fecha_comienzo }}</td>
+                <td>{{ record.fecha_final }}</td>
+                <td>{{ record.horas_extras }}</td>
                 <td>{{ record.costo_horas_extras }}</td>
+                <td>{{ record.costo_horas }}</td>
                 <td>{{ record.costo_paquete }}</td>
                 <td>{{ record.costo_fecha }}</td>
                 <td>{{ record.discount }}</td>
                 <td>{{ record.costo_pagado }}</td>
-                <td>{{ record.costo_total }}</td>
 
                 <td>
                     <a [routerLink]="[record.id]">

@@ -14,10 +14,6 @@ import { IndextableComponent } from '../../../layout/indextable/indextable.compo
 import { OpinionesService } from '../../../Services/opiniones.service';
 import { QuintasService } from '../../quintas/quintas.service';
 import { Quinta } from '../../quintas/quinta';
-import { Evento } from '../../eventos/evento';
-import { Cliente } from '../../clientes/cliente';
-import { EventosService } from '../../eventos/eventos.service';
-import { ClienteService } from '../../clientes/cliente.service';
 
 @Component({
   selector: 'app-show-opiniones',
@@ -27,41 +23,27 @@ import { ClienteService } from '../../clientes/cliente.service';
   styleUrl: './show-opiniones.component.css'
 })
 export class ShowOpinionesComponent extends AuthComponent{
-  opiniones : Opiniones | undefined
-  notfound = false
-  clientes: Cliente[] | undefined
-  eventos: Evento[] | undefined
+opiniones :Opiniones | undefined
+notfound = false
+quintas: Quinta[] | undefined
 
-  constructor(private OpinionesService : OpinionesService,
-    router : Router, authService : AuthService, activatedRoute : ActivatedRoute,
-    clientesService : ClienteService, protected eventosService : EventosService) {
-    super(authService, router)
-    let self = this
+constructor(private OpinionesService : OpinionesService,
+  router : Router, authService : AuthService, activatedRoute : ActivatedRoute, quintasService : QuintasService) {
+  super(authService, router)
+  let self = this
 
-    clientesService.index().subscribe(data => {
-      this.clientes = data.data
-    })
+        
+  quintasService.index().subscribe(data => {
+    this.quintas = data.data
+  })
 
-    this.OpinionesService.show(activatedRoute.snapshot.params['id']).subscribe({
-        next(data) {
-          self.opiniones = data.data
-          self.getEventos()
-        },
-        error(err) {
-          self.notfound = true
-        },
-    })
+  this.OpinionesService.show(activatedRoute.snapshot.params['id']).subscribe({
+    next(data) {
+      self.opiniones = data.data
+    },
+    error(err) {
+      self.notfound = true
+    },
+  })
   }
-
-  getEventos() {
-    this.eventosService.index().subscribe(data => {
-      for (let item of data.data) {
-        if (item.id == this.opiniones?.evento) {
-          this.opiniones.cliente = item.cliente 
-        }
-      }
-      this.eventos = data.data
-    })
-  }
-
 }

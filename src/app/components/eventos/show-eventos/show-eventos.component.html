@@ -10,7 +10,7 @@
               <div class="sm:col-span-2 sm:col-start-1">
                   <label for="titulo" class="block text-sm font-medium leading-6 text-gray-900">Título</label>
                   <div class="mt-2">
-                      <input disabled [(ngModel)]="record.titulo" id="titulo" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                      <input [(ngModel)]="record.titulo" id="titulo" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                       <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                           <div *ngFor="let error of errors.titulo">
                               {{ error }}
@@ -25,7 +25,7 @@
               <div class="sm:col-span-2">
                 <label for="descripcion" class="block text-sm font-medium leading-6 text-gray-900">Descripción</label>
                 <div class="mt-2">
-                  <input disabled [(ngModel)]="record.descripcion" id="descripcion" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <input [(ngModel)]="record.descripcion" id="descripcion" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
 
                 </div>
               </div>
@@ -33,21 +33,38 @@
               <div class="sm:col-span-2">
                 <label for="fecha_comienzo" class="block text-sm font-medium leading-6 text-gray-900">Fecha de comienzo</label>
                 <div class="mt-2">
-                  <input disabled [ngModel]="record.fecha_comienzo | date:'yyyy-MM-dd'" (ngModelChange)="record.fecha_comienzo = $event" type="date" id="fecha_comienzo" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <input [ngModel]="record.fecha_comienzo | date:'yyyy-MM-dd'" (ngModelChange)="record.fecha_comienzo = $event" type="date" id="fecha_comienzo" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+
                 </div>
               </div>
       
               <div class="sm:col-span-2">
-                <label for="hora_comienzo" class="block text-sm font-medium leading-6 text-gray-900">Hora de comienzo</label>
+                <label for="fecha_final" class="block text-sm font-medium leading-6 text-gray-900">Fecha de final</label>
                 <div class="mt-2">
-                  <input disabled [ngModel]="record.hora_comienzo" id="hora_comienzo" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <input type="date" [ngModel]="record.fecha_final | date:'yyyy-MM-dd'" (ngModelChange)="record.fecha_final = $event" id="fecha_final" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+
+                </div>
+              </div>
+      
+              <div class="sm:col-span-2">
+                <label for="horas_extras" class="block text-sm font-medium leading-6 text-gray-900">Horas extras</label>
+                <div class="mt-2">
+                  <input [(ngModel)]="record.horas_extras" id="horas_extras" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                      <div *ngFor="let error of errors.horas_extras">
+                          {{ error }}
+                      </div>
+                      <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.horas_extras == undefined && tries > 0">
+                          ¡Perfecto!
+                      </div>
+                  </div>
                 </div>
               </div>
       
               <div class="sm:col-span-2">
                 <label for="costo_horas_extras" class="block text-sm font-medium leading-6 text-gray-900">Costo horas extras</label>
                 <div class="mt-2">
-                  <input disabled [(ngModel)]="record.costo_horas_extras" id="costo_horas_extras" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <input [(ngModel)]="record.costo_horas_extras" id="costo_horas_extras" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                   <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                       <div *ngFor="let error of errors.costo_horas_extras">
                           {{ error }}
@@ -60,9 +77,24 @@
               </div>
       
               <div class="sm:col-span-2">
+                <label for="costo_horas" class="block text-sm font-medium leading-6 text-gray-900">Costo horas</label>
+                <div class="mt-2">
+                  <input [(ngModel)]="record.costo_horas" id="costo_horas" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
+                      <div *ngFor="let error of errors.costo_horas">
+                          {{ error }}
+                      </div>
+                      <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.costo_horas == undefined && tries > 0">
+                          ¡Perfecto!
+                      </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="sm:col-span-2">
                 <label for="costo_fecha" class="block text-sm font-medium leading-6 text-gray-900">Costo fecha</label>
                 <div class="mt-2">
-                  <input disabled [(ngModel)]="record.costo_fecha" id="costo_fecha" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <input [(ngModel)]="record.costo_fecha" id="costo_fecha" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                   <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                       <div *ngFor="let error of errors.costo_fecha">
                           {{ error }}
@@ -77,7 +109,7 @@
               <div class="sm:col-span-2">
                   <label for="costo_paquete" class="block text-sm font-medium leading-6 text-gray-900">Costo paquete</label>
                   <div class="mt-2">
-                    <input disabled [(ngModel)]="record.costo_paquete" id="costo_paquete" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <input [(ngModel)]="record.costo_paquete" id="costo_paquete" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                         <div *ngFor="let error of errors.costo_paquete">
                             {{ error }}
@@ -92,7 +124,7 @@
               <div class="sm:col-span-2">
                 <label for="discount" class="block text-sm font-medium leading-6 text-gray-900">Descuento</label>
                 <div class="mt-2">
-                  <input disabled [(ngModel)]="record.discount" id="discount" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <input [(ngModel)]="record.discount" id="discount" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                   <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                       <div *ngFor="let error of errors.discount">
                           {{ error }}
@@ -107,7 +139,7 @@
               <div class="sm:col-span-2">
                 <label for="costo_pagado" class="block text-sm font-medium leading-6 text-gray-900">Costo pagado</label>
                 <div class="mt-2">
-                  <input disabled [(ngModel)]="record.costo_pagado" id="costo_pagado" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                  <input [(ngModel)]="record.costo_pagado" id="costo_pagado" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                   <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                       <div *ngFor="let error of errors.costo_pagado">
                           {{ error }}
@@ -122,7 +154,7 @@
               <div class="sm:col-span-2">
                   <label for="paquete" class="block text-sm font-medium leading-6 text-gray-900">Paquete</label>
                   <div class="mt-2">
-                    <select disabled [(ngModel)]="record.paquete" id="paquete" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <select [(ngModel)]="record.paquete" id="paquete" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                         <option *ngFor="let paquete_ of paquetes" [value]="paquete_.id" >{{ paquete_.nombre }}</option>
                     </select>
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
@@ -139,7 +171,7 @@
               <div class="sm:col-span-2">
                   <label for="cliente" class="block text-sm font-medium leading-6 text-gray-900">Cliente</label>
                   <div class="mt-2">
-                    <select disabled [(ngModel)]="record.cliente" id="cliente" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <select [(ngModel)]="record.cliente" id="cliente" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                         <option *ngFor="let cliente_ of clientes" [value]="cliente_.id" >{{ cliente_.nombre + " " + cliente_.apellido_paterno }}</option>
                     </select>
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
@@ -156,7 +188,7 @@
               <div class="sm:col-span-2">
                   <label for="fecha" class="block text-sm font-medium leading-6 text-gray-900">Fecha</label>
                   <div class="mt-2">
-                    <select disabled [(ngModel)]="record.fecha" id="fecha" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <select [(ngModel)]="record.fecha" id="fecha" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                         <option *ngFor="let fecha of fechas" [value]="fecha.id" >{{ fecha.dia_inicio + ' - ' + fecha.dia_final + ": " + fecha.costo }}</option>
                     </select>
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
@@ -173,7 +205,7 @@
               <div class="sm:col-span-2">
                   <label for="tipo_pago" class="block text-sm font-medium leading-6 text-gray-900">Tipo de pago</label>
                   <div class="mt-2">
-                    <select disabled [(ngModel)]="record.tipo_pago" id="tipo_pago" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <select [(ngModel)]="record.tipo_pago" id="tipo_pago" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                         <option *ngFor="let tipo_pago of tipo_pagos" [value]="tipo_pago.id" >{{ tipo_pago.nombre  }}</option>
                     </select>
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
@@ -190,7 +222,7 @@
               <div class="sm:col-span-2">
                   <label for="estado_evento" class="block text-sm font-medium leading-6 text-gray-900">Estado de evento</label>
                   <div class="mt-2">
-                    <select disabled [(ngModel)]="record.estado_evento" id="estado_evento" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <select [(ngModel)]="record.estado_evento" id="estado_evento" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                         <option *ngFor="let estado_evento of estado_eventos" [value]="estado_evento.id" >{{ estado_evento.nombre  }}</option>
                     </select>
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
@@ -207,7 +239,7 @@
               <div class="sm:col-span-2">
                   <label for="quinta" class="block text-sm font-medium leading-6 text-gray-900">Quinta</label>
                   <div class="mt-2">
-                    <select disabled [(ngModel)]="record.quinta" id="quinta" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <select [(ngModel)]="record.quinta" id="quinta" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                         <option *ngFor="let quinta of quintas" [value]="quinta.id" >{{ quinta.nombre }}</option>
                     </select>
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
@@ -224,8 +256,8 @@
               <div class="sm:col-span-2">
                   <label for="hora_extra" class="block text-sm font-medium leading-6 text-gray-900">Hora extra</label>
                   <div class="mt-2">
-                    <select disabled [(ngModel)]="record.hora_extra" id="hora_extra" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                        <option *ngFor="let hora_extra of hora_extras" [value]="hora_extra.id" >{{ hora_extra.hora_minima + ' - ' + hora_extra.hora_maxima + " : " + hora_extra.costo }}</option>
+                    <select [(ngModel)]="record.hora_extra" id="hora_extra" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <option *ngFor="let hora_extra of hora_extras" [value]="hora_extra.id" >{{ hora_extra.hora_minima + ' - ' + hora_extra.hora_maxima }}</option>
                     </select>
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                         <div *ngFor="let error of errors.hora_extra">
@@ -237,7 +269,10 @@
                     </div>
                   </div>
               </div>
+  
+  
             </div>
+          
         </div>
     
         <div class="mt-6 flex items-center justify-end gap-x-6">
@@ -253,39 +288,7 @@
             </a>
         </div>
 
-        <app-create-title>
-            Opiniones
-        </app-create-title>
-    
-        <div *ngIf="record?.opiniones && record?.opiniones?.length! > 0 else noOpiniones">
-            <table class="table-auto w-full text-center">
-                <thead>
-                <tr>
-                    <th class="font-light">Título</th>
-                    <th class="font-light">Descripción</th>
-                    <th class="font-light">Calificación</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let evento of record?.opiniones">
-                    <td>{{ evento.titulo }}</td>
-                    <td>{{ evento.descripcion }}</td>
-                    <td>{{ evento.calificacion }}</td>
-                    <td>
-                    <a [routerLink]="'/opiniones/' + [evento.id]">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="1" d="M21 12c0 1.2-4 6-9 6s-9-4.8-9-6c0-1.2 4-6 9-6s9 4.8 9 6Z"/>
-                            <path stroke="currentColor" stroke-width="1" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                        </svg>
-                    </a>
-                </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <ng-template #noOpiniones>
-        No hay ningún evento asociado.
-        </ng-template>
+        
         
     </div> 
     <ng-template #elseSubmitted>

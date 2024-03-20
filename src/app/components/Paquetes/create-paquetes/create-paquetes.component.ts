@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaquetesService} from '../../../Services/paquetes.service'; 
 import { Paquetes } from '../../../Models/Paquetes.model'; 
 import { PaquetesErrors } from '../paquetes.errors'; 
@@ -29,7 +29,6 @@ export class CreatePaquetesComponent extends AuthComponent {
   errors : PaquetesErrors | undefined
   sumbitted : boolean = false
   tries : number = 0
-  routeTo: string = '/paquetes'
 
   constructor(private PaquetesService : PaquetesService, router : Router, authService : AuthService) {
     super(authService, router)
@@ -39,23 +38,15 @@ export class CreatePaquetesComponent extends AuthComponent {
     let self = this
     this.tries += 1
     this.sumbitted = true
-    this.paquetes = this.componentForm.value
-
     this.PaquetesService.store(this.paquetes).subscribe({
       next : (data) => {
-        self.router.navigate([self.routeTo])
+        self.router.navigate(['/paquetes'])
       },
       error : (err) => {
         self.errors = err
         self.tries -= 1
       }
     })
+
   }
-
-  componentForm = new FormGroup({
-    nombre: new FormControl(this.paquetes.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-    descripcion: new FormControl(this.paquetes.descripcion, [Validators.required, Validators.minLength(10), Validators.maxLength(255)]),
-    precio: new FormControl(this.paquetes.precio, [Validators.required, Validators.min(0)]),
-  });
-
 }

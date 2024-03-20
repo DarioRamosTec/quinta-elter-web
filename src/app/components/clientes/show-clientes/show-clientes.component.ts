@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { IndextableComponent } from '../../../layout/indextable/indextable.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Cliente } from '../cliente';
 import { ClienteService } from '../cliente.service';
 import { AuthService } from '../../../auth/auth.service';
@@ -14,7 +14,7 @@ import { CreateTitleComponent } from '../../../layout/create-title/create-title.
 @Component({
   selector: 'app-show-clientes',
   standalone: true,
-  imports: [DatePipe, SidebarComponent, IndextableComponent, RouterLink, NgIf, NgFor, LoadingComponent, FormsModule, CreateTitleComponent],
+  imports: [SidebarComponent, IndextableComponent, RouterLink, NgIf, NgFor, LoadingComponent, FormsModule, CreateTitleComponent],
   templateUrl: './show-clientes.component.html',
   styleUrl: './show-clientes.component.css'
 })

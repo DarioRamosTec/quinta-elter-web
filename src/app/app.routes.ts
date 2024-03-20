@@ -70,8 +70,6 @@ import { IndexQuintasComponent } from './components/quintas/index-quintas/index-
 import { CreateQuintasComponent } from './components/quintas/create-quintas/create-quintas.component';
 import { ShowQuintasComponent } from './components/quintas/show-quintas/show-quintas.component';
 import { EditQuintasComponent } from './components/quintas/edit-quintas/edit-quintas.component';
-import { IndexLogsComponent } from './components/logs/index-logs/index-logs.component';
-import { ShowLogsComponent } from './components/logs/show-logs/show-logs.component';
 
 export const routes: Routes = [
     {
@@ -447,18 +445,6 @@ export const routes: Routes = [
         ,component: EditRolesComponent
         ,title: 'Edit Roles'
         ,canActivate: [authOnlyAdminGuard]
-    },
-    {
-        path:'logs'
-        ,component: IndexLogsComponent
-        ,title: 'Index Logs'
-        ,canActivate: [authGuestGuard]
-    },
-    {
-        path:'logs/:id'
-        ,component: ShowLogsComponent
-        ,title: 'Ver Logs'
-        ,canActivate: [authGuestGuard]
     },
     { 
         path: '**', 

@@ -8,29 +8,10 @@
         </a>
     </div>
 
-    <div *ngIf="collection && collection.length > 0 else elseTable">
-        <table class="table-auto w-full text-left">
-            <ng-content select="[head]"></ng-content>
-            <ng-content select="[body]"></ng-content>
-        </table>
-        <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Mostrando <span class="font-semibold text-gray-900 dark:text-white">{{min+1}}-{{quantity}}</span> de <span class="font-semibold text-gray-900 dark:text-white">{{collection.length}}</span></span>
-            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                <li *ngIf="page > 1">
-                    <div (click)="setPage(page-1)" class="cursor-pointer flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</div>
-                </li>
-                <li *ngFor="let num of getMatrix()">
-                    <div *ngIf="num+1 == page else notActualPage" class="flex items-center justify-center px-3 h-8 text-teal-600 border border-gray-300 bg-teal-50 hover:bg-teal-100 hover:text-teal-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ page }}</div>
-                    <ng-template #notActualPage>
-                        <div (click)="setPage(num+1)" class="cursor-pointer flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{num + 1}}</div>
-                    </ng-template>
-                </li>
-                <li *ngIf="page < getMaxPage()">
-                    <div (click)="setPage(page+1)" class="cursor-pointer flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</div>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <table class="table-auto w-full text-left" *ngIf="collection && collection.length > 0 else elseTable">
+        <ng-content select="[head]"></ng-content>
+        <ng-content select="[body]"></ng-content>
+    </table>
     <ng-template #elseTable>
         No hay todavia ningún registro :c
     </ng-template>

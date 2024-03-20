@@ -9,7 +9,7 @@
           <th>Descripción</th>
         </tr>
       </thead>
-      <tbody body id="indexTableBody">
+      <tbody body>
         <tr *ngFor="let tipoEvento of tiposEventos">
           <td>{{ tipoEvento.nombre }}</td>
           <td>{{ tipoEvento.descripcion ?? "Sin datos" }}</td>

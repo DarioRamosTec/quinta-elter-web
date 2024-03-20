@@ -2,7 +2,7 @@ export interface EventosErrors {
     titulo: string[]
     descripcion?: string[]
     fecha_comienzo: string[]
-    hora_comienzo: string[]
+    fecha_final: string[]
     horas_extras: string[]
     costo_horas_extras: string[]
     costo_horas: string[]

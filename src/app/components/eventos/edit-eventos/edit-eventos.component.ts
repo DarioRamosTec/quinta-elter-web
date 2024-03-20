@@ -35,6 +35,13 @@ import { QuintasService } from '../../quintas/quintas.service';
 })
 export class EditEventosComponent  extends AuthComponent {
   record : any = {
+    nombre: undefined,
+    apellido_paterno: undefined,
+    apellido_materno: undefined,
+    fecha_de_nacimiento: undefined,
+    email: undefined,
+    telefono: undefined,
+    genero: undefined,
   }
   errors : EventosErrors | undefined
   submitted : boolean = false
@@ -117,7 +124,12 @@ export class EditEventosComponent  extends AuthComponent {
       titulo: new FormControl(this.record.titulo, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
       descripcion: new FormControl(this.record.descripcion, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
       fecha_comienzo: new FormControl(this.record.fecha_comienzo, [Validators.required]),
-      hora_comienzo: new FormControl(this.record.hora_comienzo, [Validators.required]),
+      fecha_final: new FormControl(this.record.fecha_final, [Validators.required]),
+      horas_extras: new FormControl(this.record.horas_extras, [Validators.required, Validators.min(0)]),
+      costo_horas_extras: new FormControl(this.record.costo_horas_extras, [Validators.required, Validators.min(0)]),
+      costo_horas: new FormControl(this.record.costo_horas, [Validators.required, Validators.min(0)]),
+      costo_fecha: new FormControl(this.record.costo_fecha, [Validators.required, Validators.min(0)]),
+      costo_paquete: new FormControl(this.record.costo_paquete, [Validators.required, Validators.min(0)]),
       discount: new FormControl(this.record.discount, [Validators.required, Validators.min(0)]),
       costo_pagado: new FormControl(this.record.costo_pagado, [Validators.required, Validators.min(0)]),
       paquete: new FormControl(this.record.paquete, [Validators.required]),
@@ -134,7 +146,12 @@ export class EditEventosComponent  extends AuthComponent {
     titulo: new FormControl(this.record.titulo, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
     descripcion: new FormControl(this.record.descripcion, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
     fecha_comienzo: new FormControl(this.record.fecha_comienzo, [Validators.required]),
-    hora_comienzo: new FormControl(this.record.hora_comienzo, [Validators.required]),
+    fecha_final: new FormControl(this.record.fecha_final, [Validators.required]),
+    horas_extras: new FormControl(this.record.horas_extras, [Validators.required, Validators.min(0)]),
+    costo_horas_extras: new FormControl(this.record.costo_horas_extras, [Validators.required, Validators.min(0)]),
+    costo_horas: new FormControl(this.record.costo_horas, [Validators.required, Validators.min(0)]),
+    costo_fecha: new FormControl(this.record.costo_fecha, [Validators.required, Validators.min(0)]),
+    costo_paquete: new FormControl(this.record.costo_paquete, [Validators.required, Validators.min(0)]),
     discount: new FormControl(this.record.discount, [Validators.required, Validators.min(0)]),
     costo_pagado: new FormControl(this.record.costo_pagado, [Validators.required, Validators.min(0)]),
     paquete: new FormControl(this.record.paquete, [Validators.required]),

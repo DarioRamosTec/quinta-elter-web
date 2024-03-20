@@ -1,0 +1,49 @@
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
+    <app-indextable *ngIf="user" [hideCreate]="false" [createRoute]="'create'" [isActive]="!loading && collection != null ? true : false" [collection]="collection">
+        <div bigTitle>
+            {{ title }}
+        </div>
+        <thead head>
+            <tr>
+                <th>Mensaje</th>
+            </tr>
+        </thead>
+        <tbody body id="indexTableBody">
+            <tr *ngFor="let record of collection">
+               <td>
+                    <span [class]="
+                    record.method == 'GET' ? 'text-cyan-400' : 
+                    (record.method == 'DELETE' ? 'text-fuchsia-400' : 
+                    (record.method == 'POST' ? 'text-emerald-400' : 'text-orange-400' 
+                    ))
+                    " class="font-semibold">{{ record.method }}</span>
+               </td> 
+
+                <td>
+                    
+                    <span [class]="
+                    record.user.role == 1 ? 'bg-teal-50' : 
+                    (record.user.role == 2 ? 'bg-yellow-50' : 
+                    (record.user.role == 3 ? 'bg-pink-50' : '' 
+                    ))
+                    " class="">{{ record.user.nombre }}</span> pidió en
+                    <span class="font-semibold">{{ record.endpoint }}</span> con código 
+                    <span class="text-purple-400">{{ record.status }}</span> en tiempo de 
+                    <span class="text-pink-400">{{ record.time }}</span> <span *ngIf="record.response.message">
+                        con mensaje de 
+                        <span class="italic text-zinc-400">"{{ record.response.message }}"</span>
+                    </span>
+                </td>
+
+                <td>
+                    <a [routerLink]="[record._id]">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-width="1" d="M21 12c0 1.2-4 6-9 6s-9-4.8-9-6c0-1.2 4-6 9-6s9 4.8 9 6Z"/>
+                            <path stroke="currentColor" stroke-width="1" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </app-indextable>
+</app-sidebar>

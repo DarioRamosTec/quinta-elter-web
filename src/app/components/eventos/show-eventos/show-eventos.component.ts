@@ -53,7 +53,6 @@ export class ShowEventosComponent extends AuthComponent {
       super(authService, router)
       let self = this
 
-
       paqueteService.index().subscribe(data => {
         this.paquetes = data.data
       })

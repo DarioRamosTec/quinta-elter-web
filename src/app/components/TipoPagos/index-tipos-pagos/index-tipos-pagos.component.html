@@ -9,7 +9,7 @@
                 <th>Descripción</th>
             </tr>
         </thead>
-        <tbody body>
+        <tbody body id="indexTableBody">
             <tr *ngFor="let tipo_pago of tipos_pagos">
                 <td>{{ tipo_pago.nombre }}</td>
                 <td [class]="tipo_pago.descripcion == null ? 'italic text-xs' : ''">

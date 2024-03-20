@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ServiciosService } from '../../../Services/Servicios.service'; 
 import { Servicios} from '../../../Models/Servicios.model'; 
 import { ServiciosErrors } from '../servicios-errors'; 
@@ -27,6 +27,8 @@ export class CreateServiciosComponent extends AuthComponent {
  errors : ServiciosErrors | undefined
  submitted : boolean = false
  tries : number = 0
+ routeTo: string = '/servicios'
+
  constructor(private ServiciosService : ServiciosService, router : Router, authService : AuthService) {
    super(authService, router)
  }
@@ -35,10 +37,11 @@ export class CreateServiciosComponent extends AuthComponent {
    let self = this
    this.tries += 1
    this.submitted = true
-   this.servicios.descripcion = this.servicios.descripcion == null ? undefined : this.servicios .descripcion
-   this .ServiciosService.store(this.servicios).subscribe({
+   this.servicios = this.componentForm.value
+
+   this.ServiciosService.store(this.servicios).subscribe({
      next(value) {
-       self.router.navigate(['/servicios'])
+       self.router.navigate([self.routeTo])
      },
      error(err) {
        self.errors = err.error.errors
@@ -47,4 +50,10 @@ export class CreateServiciosComponent extends AuthComponent {
      },
    })
  }
+
+ componentForm = new FormGroup({
+  nombre: new FormControl(this.servicios.nombre, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+  descripcion: new FormControl(this.servicios.descripcion, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+  });
+
 }

@@ -1,6 +1,6 @@
 <app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
     <app-create-title>
-        Ver paquete
+        Ver
     </app-create-title>
 
     <div class="space-y-12" *ngIf="paquetes != undefined else elseSubmitted">
@@ -13,17 +13,17 @@
               </div>
             </div>
     
-            <div class="sm:col-span-2">
-              <label for="precio" class="block text-sm font-medium leading-6 text-gray-900">Precio</label>
-              <div class="mt-2">
-                <input disabled [(ngModel)]="paquetes.precio" id="precio" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-              </div>
-            </div>
-    
             <div class="sm:col-span-2" *ngIf="paquetes.descripcion">
               <label for="descripcion" class="block text-sm font-medium leading-6 text-gray-900">Descripción</label>
               <div class="mt-2">
                 <input disabled placeholder="Este campo puede estar vacío." [(ngModel)]="paquetes.descripcion" id="descripcion" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+    
+            <div class="sm:col-span-2">
+              <label for="precio" class="block text-sm font-medium leading-6 text-gray-900">Precio</label>
+              <div class="mt-2">
+                <input disabled [(ngModel)]="paquetes.precio" id="precio" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
               </div>
             </div>
 
@@ -42,6 +42,43 @@
                 </button>
             </a>
         </div>
+
+        
+
+        <app-create-title>
+          Eventos
+        </app-create-title>
+    
+        <div *ngIf="paquetes?.eventos && paquetes?.eventos?.length! > 0 else noEventos">
+          <table class="table-auto w-full text-center">
+            <thead>
+              <tr>
+                <th class="font-light">Título</th>
+                <th class="font-light">Fecha de comienzo</th>
+                <th class="font-light">Hora de comienzo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let evento of paquetes?.eventos">
+                <td>{{ evento.titulo }}</td>
+                <td>{{ evento.fecha_comienzo }}</td>
+                <td>{{ evento.hora_comienzo }}</td>
+                <td>
+                  <a [routerLink]="'/eventos/' + [evento.id]">
+                      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-width="1" d="M21 12c0 1.2-4 6-9 6s-9-4.8-9-6c0-1.2 4-6 9-6s9 4.8 9 6Z"/>
+                          <path stroke="currentColor" stroke-width="1" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                      </svg>
+                  </a>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #noEventos>
+          No hay ningún evento asociado.
+        </ng-template>
+
     </div> 
     <ng-template #elseSubmitted>
         <app-loading *ngIf="!notfound else notFound"></app-loading>

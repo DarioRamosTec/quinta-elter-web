@@ -45,14 +45,14 @@
               <tr>
                 <th class="font-light">Título</th>
                 <th class="font-light">Fecha de comienzo</th>
-                <th class="font-light">Fecha de final</th>
+                <th class="font-light">Hora de comienzo</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let evento of tipo_pagos?.eventos">
                 <td>{{ evento.titulo }}</td>
                 <td>{{ evento.fecha_comienzo }}</td>
-                <td>{{ evento.fecha_final }}</td>
+                <td>{{ evento.hora_comienzo }}</td>
                 <td>
                   <a [routerLink]="'/eventos/' + [evento.id]">
                       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

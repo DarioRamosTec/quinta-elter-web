@@ -9,7 +9,7 @@
                 <th>Descripción</th>
             </tr>
         </thead>
-        <tbody body>
+        <tbody body id="indexTableBody">
             <tr *ngFor="let servicio of servicio">
                 <td>{{ servicio.nombre }}</td>
                 <td [class]="servicio.descripcion == null ? 'italic text-xs' : ''">

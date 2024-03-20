@@ -10,12 +10,10 @@
                 <th>Calificación</th>
             </tr>
         </thead>
-        <tbody body>
+        <tbody body id="indexTableBody">
             <tr *ngFor="let opinion of opiniones">
                 <td>{{ opinion.titulo }}</td>
-                <td [class]="opinion.descripcion == null ? 'italic text-xs' : ''">
-                    {{ opinion.descripcion ?? "Sin datos" }}
-                </td>
+                <td>{{ opinion.descripcion }}</td>
                 <td>{{ opinion.calificacion }}</td>
 
                 <td>

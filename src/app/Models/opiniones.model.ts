@@ -1,7 +1,9 @@
 export interface Opiniones {
         id: number;
         titulo: string;
-        descripcion?: String | null
+        descripcion: string
         calificacion: number;
-        quinta: number;
+        evento: number;
+
+        cliente?: number
 }

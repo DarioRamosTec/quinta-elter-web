@@ -1,0 +1,118 @@
+<app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
+    <app-create-title>
+        Ver
+    </app-create-title>
+
+    <div class="space-y-12" *ngIf="record != undefined else elseSubmitted">
+        <div class="border-b border-gray-900/10 pb-12">
+          <div class="mt-10 grid grid-cols-2 gap-x-6 gap-y-8">
+
+            <div class="col-span-1">
+                <label for="user.id" class="block text-sm font-medium leading-6 text-gray-900">
+                    <a [routerLink]="['/usuarios/'+record.user.id]" class="underline decoration-teal-400 decoration-1 hover:text-teal-400 hover:decoration-transparent ">
+                        Usuario</a>
+                    </label>
+                <div class="mt-2">
+                  <select disabled [(ngModel)]="record.user.id" id="user.id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                      <option *ngFor="let usuario of users" [value]="usuario.id" >{{ usuario.nombre + " " + usuario.apellido_paterno + " " + usuario.apellido_materno  }}</option>
+                  </select>
+                </div>
+            </div>
+    
+            <div class="col-span-1">
+              <label for="endpoint" class="block text-sm font-medium leading-6 text-gray-900">Endpoint</label>
+              <div class="mt-2">
+                <input disabled [(ngModel)] ="record.endpoint" id="endpoint" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+
+            <div class="col-span-1">
+                <label for="method" class="block text-sm font-medium leading-6 text-gray-900">Método</label>
+                <div class="mt-2">
+                  <input disabled [(ngModel)] ="record.method" id="method" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div class="">
+                <label for="data" class="block text-sm font-medium leading-6 text-gray-900">Datos mandados</label>
+                <div class="mt-2">
+                  <input placeholder="Ningún dato fue mandado." disabled [(ngModel)] ="record.data" id="data" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div class="col-span-1">
+                <label for="status" class="block text-sm font-medium leading-6 text-gray-900">Código de estado</label>
+                <div class="mt-2">
+                  <input disabled [(ngModel)] ="record.status" id="status" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div class="">
+                <label for="response" class="block text-sm font-medium leading-6 text-gray-900">Datos de respuesta</label>
+                <div class="mt-2">
+                    <select id="response.data" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <option [defaultSelected]="true" *ngIf="this.insideValues(record.response.data).length > 0 else notDatas">Revise los valores de la respuesta</option>
+                        <ng-template #notDatas>
+                            <option>No hay contenido.</option>
+                        </ng-template>
+                        <option *ngFor="let data of this.insideValues(record.response.data)">{{ data }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="">
+                <label for="response" class="block text-sm font-medium leading-6 text-gray-900">Mensaje de respuesta</label>
+                <div class="mt-2">
+                  <input disabled [(ngModel)] ="record.response.message" id="response" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div class="">
+                <label for="response" class="block text-sm font-medium leading-6 text-gray-900">Consulta de respuesta</label>
+                <div class="mt-2">
+                  <input placeholder="No se hizo ninguna consulta." disabled [(ngModel)] ="record.response.query" id="response" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div class="">
+                <label for="response.errors" class="block text-sm font-medium leading-6 text-gray-900">Errores de respuesta</label>
+                <div class="mt-2">
+                    <select id="response.errors" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                        <option [defaultSelected]="true" *ngIf="this.insideErrors(record.response.errors).length > 0 else notErrores">Revise la lista de errores</option>
+                        <ng-template #notErrores>
+                            <option>No hay errores.</option>
+                        </ng-template>
+                        <option *ngFor="let error of this.insideErrors(record.response.errors)">{{ error }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-span-1">
+                <label for="time" class="block text-sm font-medium leading-6 text-gray-900">Hora de petición</label>
+                <div class="mt-2">
+                  <input disabled [(ngModel)] ="record.time" id="time" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+          </div>
+        </div>
+    
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <a [routerLink]="[routeTo]">
+                <button class="text-sm font-semibold leading-6 text-gray-900">Regresar</button>
+            </a>
+        </div>
+        
+    </div> 
+    <ng-template #elseSubmitted>
+        <app-loading *ngIf="!notfound else notFound"></app-loading>
+        <ng-template #notFound>
+          <app-create-title>
+              Tu recurso no fue encontrado o no existe.
+          </app-create-title>
+        </ng-template>
+    </ng-template>
+
+    
+
+</app-sidebar>

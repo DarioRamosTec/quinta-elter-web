@@ -66,117 +66,24 @@
                 </div>
         
                 <div class="sm:col-span-2">
-                <label for="fecha_final" class="block text-sm font-medium leading-6 text-gray-900">Fecha de final</label>
+                <label for="hora_comienzo" class="block text-sm font-medium leading-6 text-gray-900">Hora de comienzo</label>
                 <div class="mt-2">
-                    <input type="date" placeholder="aaaa-dd-mm" formControlName="fecha_final" id="fecha_final" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <input type="time" min="03:00" max="22:00" formControlName="hora_comienzo" id="hora_comienzo" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
-                        <div *ngFor="let error of errors.fecha_final">
+                        <div *ngFor="let error of errors.hora_comienzo">
                             {{ error }}
                         </div>
-                        <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.fecha_final == undefined && tries > 0">
+                        <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.hora_comienzo == undefined && tries > 0">
                             ¡Perfecto!
                         </div>
                     </div>
                 </div>
-                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['fecha_final'].invalid && (componentForm.controls['fecha_final'].dirty || componentForm.controls['fecha_final'].touched)">
-                    <div *ngIf="componentForm.controls['fecha_final'].errors?.['required']">Este campo es requerido.</div>
+                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['hora_comienzo'].invalid && (componentForm.controls['hora_comienzo'].dirty || componentForm.controls['hora_comienzo'].touched)">
+                    <div *ngIf="componentForm.controls['hora_comienzo'].errors?.['required']">Este campo es requerido.</div>
                 </div>
                 </div>
         
-                <div class="sm:col-span-2">
-                <label for="horas_extras" class="block text-sm font-medium leading-6 text-gray-900">Horas extras</label>
-                <div class="mt-2">
-                    <input formControlName="horas_extras" id="horas_extras" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                    <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
-                        <div *ngFor="let error of errors.horas_extras">
-                            {{ error }}
-                        </div>
-                        <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.horas_extras == undefined && tries > 0">
-                            ¡Perfecto!
-                        </div>
-                    </div>
-                </div>
-                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['horas_extras'].invalid && (componentForm.controls['horas_extras'].dirty || componentForm.controls['horas_extras'].touched)">
-                    <div *ngIf="componentForm.controls['horas_extras'].errors?.['required']">Este campo es requerido.</div>
-                    <div *ngIf="componentForm.controls['horas_extras'].errors?.['min']">Este campo debe tener un mínimo de 0.</div>
-                </div>
-                </div>
-        
-                <div class="sm:col-span-2">
-                <label for="costo_horas_extras" class="block text-sm font-medium leading-6 text-gray-900">Costo horas extras</label>
-                <div class="mt-2">
-                    <input formControlName="costo_horas_extras" id="costo_horas_extras" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                    <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
-                        <div *ngFor="let error of errors.costo_horas_extras">
-                            {{ error }}
-                        </div>
-                        <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.costo_horas_extras == undefined && tries > 0">
-                            ¡Perfecto!
-                        </div>
-                    </div>
-                </div>
-                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['costo_horas_extras'].invalid && (componentForm.controls['costo_horas_extras'].dirty || componentForm.controls['costo_horas_extras'].touched)">
-                    <div *ngIf="componentForm.controls['costo_horas_extras'].errors?.['required']">Este campo es requerido.</div>
-                    <div *ngIf="componentForm.controls['costo_horas_extras'].errors?.['min']">Este campo debe tener un mínimo de 0.</div>
-                    </div>
-                </div>
-        
-                <div class="sm:col-span-2">
-                <label for="costo_horas" class="block text-sm font-medium leading-6 text-gray-900">Costo horas</label>
-                <div class="mt-2">
-                    <input formControlName="costo_horas" id="costo_horas" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                    <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
-                        <div *ngFor="let error of errors.costo_horas">
-                            {{ error }}
-                        </div>
-                        <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.costo_horas == undefined && tries > 0">
-                            ¡Perfecto!
-                        </div>
-                    </div>
-                </div>
-                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['costo_horas'].invalid && (componentForm.controls['costo_horas'].dirty || componentForm.controls['costo_horas'].touched)">
-                    <div *ngIf="componentForm.controls['costo_horas'].errors?.['required']">Este campo es requerido.</div>
-                    <div *ngIf="componentForm.controls['costo_horas'].errors?.['min']">Este campo debe tener un mínimo de 0.</div>
-                    </div>
-                </div>
-        
-                <div class="sm:col-span-2">
-                <label for="costo_fecha" class="block text-sm font-medium leading-6 text-gray-900">Costo fecha</label>
-                <div class="mt-2">
-                    <input formControlName="costo_fecha" id="costo_fecha" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                    <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
-                        <div *ngFor="let error of errors.costo_fecha">
-                            {{ error }}
-                        </div>
-                        <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.costo_fecha == undefined && tries > 0">
-                            ¡Perfecto!
-                        </div>
-                    </div>
-                </div>
-                <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['costo_fecha'].invalid && (componentForm.controls['costo_fecha'].dirty || componentForm.controls['costo_fecha'].touched)">
-                    <div *ngIf="componentForm.controls['costo_fecha'].errors?.['required']">Este campo es requerido.</div>
-                    <div *ngIf="componentForm.controls['costo_fecha'].errors?.['min']">Este campo debe tener un mínimo de 0.</div>
-                    </div>
-                </div>
-
-                <div class="sm:col-span-2">
-                    <label for="costo_paquete" class="block text-sm font-medium leading-6 text-gray-900">Costo paquete</label>
-                    <div class="mt-2">
-                    <input formControlName="costo_paquete" id="costo_paquete" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                    <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
-                        <div *ngFor="let error of errors.costo_paquete">
-                            {{ error }}
-                        </div>
-                        <div class="mt-2 text-sm text-teal-600 dark:text-teal-500" *ngIf="errors.costo_paquete == undefined && tries > 0">
-                            ¡Perfecto!
-                        </div>
-                    </div>
-                    </div>
-                    <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['costo_paquete'].invalid && (componentForm.controls['costo_paquete'].dirty || componentForm.controls['costo_paquete'].touched)">
-                        <div *ngIf="componentForm.controls['costo_paquete'].errors?.['required']">Este campo es requerido.</div>
-                        <div *ngIf="componentForm.controls['costo_paquete'].errors?.['min']">Este campo debe tener un mínimo de 0.</div>
-                    </div>
-                </div>
+                
         
                 <div class="sm:col-span-2">
                 <label for="discount" class="block text-sm font-medium leading-6 text-gray-900">Descuento</label>
@@ -340,7 +247,7 @@
                     <label for="hora_extra" class="block text-sm font-medium leading-6 text-gray-900">Hora extra</label>
                     <div class="mt-2">
                     <select formControlName="hora_extra" id="hora_extra" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
-                        <option *ngFor="let hora_extra of hora_extras" [value]="hora_extra.id" >{{ hora_extra.hora_minima + ' - ' + hora_extra.hora_maxima }}</option>
+                        <option *ngFor="let hora_extra of hora_extras" [value]="hora_extra.id" >{{ hora_extra.hora_minima + ' - ' + hora_extra.hora_maxima + " : " + hora_extra.costo }}</option>
                     </select>
                     <div class="mt-2 text-sm text-pink-600 dark:text-pink-500" *ngIf="errors != undefined">
                         <div *ngFor="let error of errors.hora_extra">

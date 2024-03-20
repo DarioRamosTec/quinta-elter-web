@@ -42,6 +42,7 @@ export class EditClientesComponent  extends AuthComponent {
       super(authService, router)
       let self = this
       this.routeId = '/' + activatedRoute.snapshot.params['id']
+      
       service.show(activatedRoute.snapshot.params['id']).subscribe({
         next(data) {
           self.record = data.data

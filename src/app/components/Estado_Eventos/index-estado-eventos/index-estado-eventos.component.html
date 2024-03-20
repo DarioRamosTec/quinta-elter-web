@@ -10,7 +10,7 @@
                 <th>Descripción</th>
             </tr>
         </thead>
-        <tbody body>
+        <tbody body id="indexTableBody">
             <tr *ngFor="let estado_evento of estado_eventos">
                 <td>{{ estado_evento.nombre }}</td>
                 <td [class]="estado_evento.descripcion == null ? 'italic text-xs' : ''">

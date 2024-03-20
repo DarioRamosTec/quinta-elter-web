@@ -20,7 +20,8 @@ export class AuthComponent {
     this.authService.authenticate().subscribe(data => {
       this.user = data
       if (this.user == undefined) {
-        this.router.navigate(['login'])
+        console.log('¡Regresa!')
+        this.router.navigate(['/login'])
       }
     })
   }
@@ -34,5 +35,23 @@ export class AuthComponent {
         this.router.navigate(['home'])
       break;
     }
+  }
+
+  insideErrors(data : any) {
+    let vls : String[] = []
+    for (let obj in data) {
+      for (let obj_ of data[obj]) {
+        vls.push(`${obj}: ${obj_}`)
+      }
+    }
+    return vls
+  }
+
+  insideValues(data : any) {
+    let vls : String[] = []
+    for (let obj in data) {
+      vls.push(`${obj}: ${data[obj]}`)
+    }
+    return vls
   }
 }

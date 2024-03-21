@@ -10,20 +10,13 @@ import {UsersService} from "../Services/users.service";
 import { CommonModule } from '@angular/common';
 
 import { RouterLink } from '@angular/router';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  keyframes
-} from '@angular/animations';
+
 import { LoadingComponent } from '../layout/loading/loading.component';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ FormsModule, CommonModule, RouterLink, LoadingComponent],
+  imports: [FormsModule, CommonModule, RouterLink, LoadingComponent],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
   

@@ -452,13 +452,13 @@ export const routes: Routes = [
         path:'logs'
         ,component: IndexLogsComponent
         ,title: 'Index Logs'
-        ,canActivate: [authGuestGuard]
+        ,canActivate: [authOnlyAdminGuard]
     },
     {
         path:'logs/:id'
         ,component: ShowLogsComponent
         ,title: 'Ver Logs'
-        ,canActivate: [authGuestGuard]
+        ,canActivate: [authOnlyAdminGuard]
     },
     { 
         path: '**', 

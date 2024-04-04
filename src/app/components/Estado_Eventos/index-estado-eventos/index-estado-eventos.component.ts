@@ -94,15 +94,11 @@ constructor(private  EstadosEventosService : EstadosEventosService, private sseS
     })
   }
   mostrarNotificacion(datos: EstadosEventos[]) {
-    // Verifica si el navegador soporta notificaciones y si el permiso ha sido concedido
     if ('Notification' in window && Notification.permission === 'granted') {
-      // Crea una nueva notificación
       const notificacion = new Notification('Nuevo Evento de Estado', {
         body: 'Hay nuevos datos disponibles.',
-        icon: 'path_to_icon' // Opcional: puedes poner un ícono aquí
+        icon: 'path_to_icon' 
       });
-  
-      // Opcional: Agrega un evento click a la notificación
       notificacion.onclick = () => {
         console.log('Notificación clickeada');
       };

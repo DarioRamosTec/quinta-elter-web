@@ -170,7 +170,7 @@ export class AuthService {
     }
   }
   
-  getToken() : String {
+  getToken() : string {
     return this.cookieService.get('tokenElter')
   }
 

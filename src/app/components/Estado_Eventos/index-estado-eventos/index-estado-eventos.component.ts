@@ -44,6 +44,7 @@ constructor(private  EstadosEventosService : EstadosEventosService, private sseS
       }
     })
   }
+  
   override ngOnInit(): void {
     super.ngOnInit();
     if ('Notification' in window) {

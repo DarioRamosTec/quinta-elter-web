@@ -1,0 +1,5 @@
+{
+    "require": {
+        "qruto/laravel-wave": "^0.9.0"
+    }
+}

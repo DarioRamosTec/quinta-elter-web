@@ -7,6 +7,7 @@ import { IndextableComponent } from '../../../layout/indextable/indextable.compo
 import { NgFor, NgIf } from '@angular/common';
 import { Log } from '../log';
 import { LogsService } from '../logs.service';
+import { WebsocketService } from '../../../Services/websocket.service';
 
 @Component({
   selector: 'app-index-logs',
@@ -22,9 +23,12 @@ export class IndexLogsComponent  extends AuthComponent {
   title: string = 'Auditoría'
 
   constructor(private service : LogsService,
-    authService : AuthService, router : Router) {
+    authService : AuthService, router : Router, protected websocketService: WebsocketService) {
     super(authService, router)
     this.index()
+    this.websocketService.hear(() => {
+      this.index()
+    })
   }
 
   index() {

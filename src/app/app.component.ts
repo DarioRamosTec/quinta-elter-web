@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
+import * as Pusher from 'pusher-js';
+import *  as Echo from 'laravel-echo';
 
 @Component({
   selector: 'app-root',

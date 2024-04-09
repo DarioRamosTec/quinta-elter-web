@@ -12,6 +12,9 @@ import { Router, RouterLink } from '@angular/router';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { AuthComponent } from '../../auth/auth/auth.component';
 import { AuthService } from '../../../auth/auth.service';
+import Echo from 'laravel-echo';
+import { WebsocketService } from '../../../Services/websocket.service';
+
 @Component({
   selector: 'app-index-tipos-pagos',
   standalone: true,
@@ -23,10 +26,12 @@ export class IndexTiposPagosComponent  extends AuthComponent{
 tipos_pagos: TipoPagos[] | undefined
 loading: boolean = true
 
-constructor(private TiposPagosService: TipoPagosService, authService: AuthService,router: Router) {
+constructor(private TiposPagosService: TipoPagosService, authService: AuthService,router: Router,
+  protected websocketService : WebsocketService) {
   super(authService, router)
   this.index();
 }
+
 index () {
   let self = this
   let tipo_pagos = undefined
@@ -56,6 +61,7 @@ destroy(id : number) {
     },
     complete() {
     },
-  });
-}
+    });
+  }
+
 }

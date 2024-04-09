@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { AuthNotComponent } from '../components/auth/auth-not/auth-not.component';
-import { Route, Router } from '@angular/router';
-
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {UserLogin} from "../Models/user.model";
-import {UsersService} from "../Services/users.service";
-
+import { UserLogin } from "../Models/user.model";
+import { UsersService } from "../Services/users.service";
 import { CommonModule } from '@angular/common';
-
 import { RouterLink } from '@angular/router';
-
 import { LoadingComponent } from '../layout/loading/loading.component';
 
 @Component({

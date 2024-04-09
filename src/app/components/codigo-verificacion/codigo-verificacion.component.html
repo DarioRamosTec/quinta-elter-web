@@ -37,15 +37,15 @@
                             Por favor ingresa el código de verificación completo.
                         </div>
 
-                        <div class="text-red-500" *ngIf="notfound" [@shake]="notfound">
+                        <div class="text-red-500" *ngIf="notfound">
                             Código incorrecto.
                         </div>
 
-                        <div class="text-red-500" *ngIf="passwordVerify" [@shake]="passwordVerify">
+                        <div class="text-red-500" *ngIf="passwordVerify">
                             Código incorrecto.
                         </div>
 
-                        <div class="text-red-500" *ngIf="error" [@shake]="error">
+                        <div class="text-red-500" *ngIf="error">
                             Error del servidor.
                         </div>
                     </form>

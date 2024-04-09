@@ -34,4 +34,5 @@ import { Modelo } from '../modelo';
     destroy(id: number): Observable<Modelo<EstadosEventos>> {
       return this.http.delete<Modelo<EstadosEventos>>(environment.apiUrl + this.url + '/' + id);
     }
+   
   }

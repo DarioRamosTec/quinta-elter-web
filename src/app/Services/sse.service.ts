@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js'
 import { AuthService } from '../auth/auth.service';
 import { WaveConnector } from 'laravel-wave';
+import { SseClient } from 'ngx-sse-client';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,9 @@ export class SseService {
   //wave: Wave
   //pusher: Pusher
   //echo: Echo
+  funfun: Function | undefined
 
-  constructor(protected authService: AuthService) {
+  constructor(protected authService: AuthService, protected seeService: SseClient) {
     //this.wave = new Wave({
     //  bearerToken: authService.getToken(),
     //} as Options);
@@ -45,6 +47,8 @@ export class SseService {
     //this.echo = new Echo({ broadcaster: WaveConnector });
 
   }
+
+  
 
   getServerSentEvent(): Observable<MessageEvent> {
     const authToken = this.authService.getToken();

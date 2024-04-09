@@ -14,6 +14,9 @@ import { ActivatedRoute,Router, RouterLink } from '@angular/router';
 import { LoadingComponent } from '../../../layout/loading/loading.component';
 import { IndextableComponent } from '../../../layout/indextable/indextable.component';
 import { SseService } from '../../../Services/sse.service';
+import { environment } from '../../../../environments/environment.development';
+import { SseClient } from 'ngx-sse-client';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-index-estado-eventos',
   standalone: true,
@@ -27,9 +30,54 @@ loading : boolean = false
 private sseSubscription: Subscription | undefined
 
 constructor(private  EstadosEventosService : EstadosEventosService, private sseService: SseService,
-  authService: AuthService , router : Router) {
+  authService: AuthService , router : Router, protected sseClient: SseClient) {
     super(authService, router)
     this.index()
+
+    
+
+    
+    /*** 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ` + this.authService.getToken());
+
+    this.sseClient.stream(environment.apiUrl + 'auth/sendEvents', { keepAlive: true, reconnectionDelay: 1_000, responseType: 'event' }, { headers }, 'POST').subscribe((event) => {
+      if (event.type === 'error') {
+        const errorEvent = event as ErrorEvent;
+        console.error(errorEvent.error, errorEvent.message);
+      } else {
+        const messageEvent = event as MessageEvent;
+        console.log(messageEvent.data)
+      }
+    });
+    */
+
+    const evtSource = new EventSource(environment.apiUrl + 'sendEvents');
+
+    const parseMyEvent = (evt: Event) => {
+      const messageEvent = (evt as MessageEvent);  // <== This line is Important!!
+      //const data: MyDataInterface = JSON.parse(messageEvent.data);
+      console.log(evt)
+    }
+
+    evtSource.addEventListener('my-event', parseMyEvent);
+
+    //const eventSource = new EventSource(environment.apiUrl + 'sendEvents');
+
+    //eventSource.onmessage = function(event) {
+      //console.log(event)
+      /** 
+        const data = JSON.parse(event.data);
+        if (data.time) {
+            document.getElementById('time').innerHTML = data.time;
+        }
+        const newElement = document.createElement("li");
+        const eventList = document.getElementById("list");
+
+        newElement.textContent = "message: " + event.data;
+        eventList.appendChild(newElement);
+        */
+    //}
+
   }
 
   index(){
@@ -58,16 +106,12 @@ constructor(private  EstadosEventosService : EstadosEventosService, private sseS
     } else {
       console.log('Las notificaciones no son soportadas en este navegador.');
     }
-    this.sseSubscription = this.sseService.getServerSentEvent().subscribe({
-      next: (event: MessageEvent) => {
-        const nuevosDatos = JSON.parse(event.data);
-        this.estado_eventos = nuevosDatos;
-        this.mostrarNotificacion(nuevosDatos);
-      },
-      error: (error) => {
-        console.error('EventSource failed:', error);
-      }
-    });
+
+    this.sseService.funfun = (data: any) => {
+      //this.estado_eventos = data
+      console.log(data)
+    }
+
   }
   ngOnDestroy() {
     if (this.sseSubscription) {

@@ -32,7 +32,7 @@ export class IndexLogsComponent  extends AuthComponent {
   isUser = 0
 
   constructor(private service : LogsService,
-    authService : AuthService, router : Router, protected websocketService: WebsocketService,
+    authService : AuthService, router : Router,
     protected usersService : UsersService) {
     super(authService, router)
     let self = this 

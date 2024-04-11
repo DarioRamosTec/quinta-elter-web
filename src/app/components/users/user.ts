@@ -1,3 +1,5 @@
+import { Role } from "../roles/role"
+
 export interface User {
     id: number
     nombre: string
@@ -10,4 +12,5 @@ export interface User {
     token_verificacion?: undefined
     role : number
     deleted_at: string | null
+    role_data: Role
 }

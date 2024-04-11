@@ -3,6 +3,7 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../layout/sidebar/sidebar.component';
 import { AuthComponent } from '../components/auth/auth/auth.component';
 import { AuthService } from '../auth/auth.service';
+import { WebsocketService } from '../Services/websocket.service';
 
 @Component({
   selector: 'app-home',

@@ -66,12 +66,18 @@ export class CodigoVerificacionComponent extends AuthNotComponent {
           this.verificationCodeNotValid = true;
           return;
         }
+        this.passwordVerify = true;
         if (error.status == 404) {
-          this.notfound = true;
+          //this.notfound = true;
         } else if (error.status == 401) {
-          this.passwordVerify = true;
+          //this.passwordVerify = true;
+          this.authService.bye().subscribe(data => {
+            this.router.navigate(['login'], {
+              replaceUrl: true
+            })
+          })
         } else {
-          this.error = true;
+          //this.error = true;
         }
       }
     );

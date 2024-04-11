@@ -26,8 +26,7 @@ export class IndexTiposPagosComponent  extends AuthComponent{
 tipos_pagos: TipoPagos[] | undefined
 loading: boolean = true
 
-constructor(private TiposPagosService: TipoPagosService, authService: AuthService,router: Router,
-  protected websocketService : WebsocketService) {
+constructor(private TiposPagosService: TipoPagosService, authService: AuthService,router: Router) {
   super(authService, router)
   this.index();
 }

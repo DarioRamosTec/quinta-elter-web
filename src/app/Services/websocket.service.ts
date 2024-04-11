@@ -15,6 +15,9 @@ declare const window: any;
 })
 export class WebsocketService {
 
+  channelTxt = 'new.log'
+  eventTxt = 'log.created'
+
   constructor() { 
      //window.Pusher = Pusher
      //window.Echo = Echo
@@ -98,8 +101,13 @@ export class WebsocketService {
         cluster: 'us3'
       });
 
-      var channel = pusher.subscribe('new-log')
-      channel.bind('log.created', callback)
-
+      var channel = pusher.subscribe(this.channelTxt)
+      channel.bind(this.eventTxt, callback)
   }
+
+  setTexts(channel: string, event: string) {
+    this.channelTxt = channel
+    this.eventTxt = event
+  }
+
 }

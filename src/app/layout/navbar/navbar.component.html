@@ -5,6 +5,13 @@
         <a [routerLink]="['/']" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="/assets/img/elter.png" class="h-8" alt=""/>
         </a>
+        <div *ngIf="authService.user" class="grid grid-cols-2">
+            <span class="font-semibold">
+                {{ authService.user.nombre }} 
+                <span *ngIf="authService.user.role_data" class="font-extralight text-xs"> - {{ authService.user.role_data.nombre }}</span>
+            </span>
+            <span class="font-light text-sm">{{ authService.user.email }}</span>
+        </div>
         <div class="flex items-center space-x-6 rtl:space-x-reverse">
             <a (click)="logout()" class="cursor-pointer font-normal text-sm text-teal-600 dark:text-teal-500 hover:underline">Cerrar sesión</a>
         </div>

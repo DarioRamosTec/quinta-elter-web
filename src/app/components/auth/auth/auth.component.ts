@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../users/user';
 import { Router } from '@angular/router';
+import { WebsocketService } from '../../../Services/websocket.service';
 
 @Component({
   selector: 'app-auth',
@@ -12,8 +13,15 @@ import { Router } from '@angular/router';
 })
 export class AuthComponent implements OnInit {
   user: User | undefined;
+  websocketService = inject(WebsocketService);
 
-  constructor(protected authService: AuthService, protected router: Router) {}
+  constructor(protected authService: AuthService, protected router: Router) {
+    this.websocketService.setTexts('user-'+authService.user?.id, 'user.updated')
+    this.websocketService.hear(() => {
+      console.log("Se han actualizado los datos del usuario.")
+      this.authenticate();
+    })
+  }
 
   ngOnInit(): void {
     this.user = this.authService.user

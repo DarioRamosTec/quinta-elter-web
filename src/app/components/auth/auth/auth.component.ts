@@ -16,14 +16,14 @@ export class AuthComponent implements OnInit {
   constructor(protected authService: AuthService, protected router: Router) {}
 
   ngOnInit(): void {
-    this.authenticate();
+    this.user = this.authService.user
+    //this.authenticate();
   }
 
   authenticate() {
     this.authService.authenticate().subscribe(data => {
       this.user = data
       if (this.user == undefined) {
-        console.log('¡Regresa!')
         this.router.navigate(['/login'])
       }
     })

@@ -24,11 +24,13 @@ import { TipoPagosService } from '../../../Services/tipo-pagos.service';
 import { EstadosEventosService } from '../../../Services/estado-eventos.service';
 import { HorasExtrasService } from '../../../Services/horas_extras.service';
 import { QuintasService } from '../../quintas/quintas.service';
+import { Pagination } from '../../../Models/pagination';
+import { PageSliderComponent } from '../../../utilities/page-slider/page-slider.component';
 
 @Component({
   selector: 'app-create-eventos',
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor, FormsModule, SidebarComponent, CreateTitleComponent, ReactiveFormsModule, LoadingComponent],
+  imports: [RouterLink, NgIf, NgFor, FormsModule, SidebarComponent, CreateTitleComponent, ReactiveFormsModule, LoadingComponent, PageSliderComponent],
   templateUrl: './create-eventos.component.html',
   styleUrl: './create-eventos.component.css'
 })
@@ -66,9 +68,11 @@ export class CreateEventosComponent extends AuthComponent {
   quintas: Quinta[] | undefined
   hora_extras: HorasExtras[] | undefined
 
+  pagesEstadoEventos: Pagination<EstadosEventos> | undefined
+
   constructor(private service : EventosService,
     router : Router, authService : AuthService, paqueteService : PaquetesService, clientesService : ClienteService, fechasService : FechasService,
-    tiposPagosService : TipoPagosService, estadoEventoService : EstadosEventosService, horasExtrasService : HorasExtrasService,  quintasService : QuintasService) {
+    tiposPagosService : TipoPagosService, protected estadoEventoService : EstadosEventosService, horasExtrasService : HorasExtrasService,  quintasService : QuintasService) {
       super(authService, router)
       paqueteService.index().subscribe(data => {
         this.paquetes = data.data
@@ -82,9 +86,7 @@ export class CreateEventosComponent extends AuthComponent {
       tiposPagosService.index().subscribe(data => {
         this.tipo_pagos = data.data
       })
-      estadoEventoService.index().subscribe(data => {
-        this.estado_eventos = data.data
-      })
+      this.indexEstadoEvento()
       quintasService.index().subscribe(data => {
         this.quintas = data.data
       })
@@ -92,6 +94,22 @@ export class CreateEventosComponent extends AuthComponent {
         this.hora_extras = data.data
       })
 
+  }
+
+  
+
+
+  indexEstadoEvento(page : number | undefined = undefined) {
+    let self = this
+    this.estadoEventoService.indexPage(page).subscribe({
+      next(data){
+        self.pagesEstadoEventos = data.data
+        self.estado_eventos = data.data.data
+      },
+      error(err){
+        self.checkStatus(err.status)
+      }
+    })
   }
 
   submit() {

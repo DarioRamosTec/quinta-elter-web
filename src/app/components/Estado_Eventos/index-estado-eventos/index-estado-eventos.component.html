@@ -1,6 +1,7 @@
 <app-sidebar [role]="user != undefined && user.role ? user.role : undefined">
     <app-indextable *ngIf="user" [hideCreate]="user.role == 3" [createRoute]="'create'"
-        [isActive]="!loading && estado_eventos != null ? true : false" [collection]="estado_eventos">
+        [isActive]="!loading && estado_eventos != null ? true : false" [collection]="estado_eventos"
+        [oldPagination]="false">
         <div bigTitle>
             Estado de evento
         </div>
@@ -50,4 +51,5 @@
             </tr>
         </tbody>
     </app-indextable>
+    <app-page-slider *ngIf="user" [pagination]="pages" (pageEvent)="index($event)" />
 </app-sidebar>

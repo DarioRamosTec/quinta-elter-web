@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {EstadosEventos} from '../Models/estado-eventos.model';
 import { environment } from '../../environments/environment';
 import { Modelo } from '../modelo';
+import { Pagination } from '../Models/pagination';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +18,10 @@ import { Modelo } from '../modelo';
   
     index(): Observable<Modelo<EstadosEventos[]>>{
       return this.http.get<Modelo<EstadosEventos[]>>(environment.apiUrl + this.url);
+    }
+
+    indexPage(page: number = 1): Observable<Modelo<Pagination<EstadosEventos>>>{
+      return this.http.get<Modelo<Pagination<EstadosEventos>>>(environment.apiUrl + this.url + "?page=" + page);
     }
   
     show(id: number): Observable<Modelo<EstadosEventos>> {

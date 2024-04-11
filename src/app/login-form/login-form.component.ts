@@ -61,7 +61,8 @@ export class LoginFormComponent extends AuthNotComponent {
       },
       next(value) {
         self.authService.setTokens(value.data)
-        self.verify()
+        //self.verify()
+        self.router.navigate(['/CodigoVerificacion'])
       }
     });  
   }

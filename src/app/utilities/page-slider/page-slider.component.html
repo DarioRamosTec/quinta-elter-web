@@ -1,0 +1,29 @@
+<div *ngIf="pagination" class="w-full h-full mt-3" aria-label="Table navigation">
+    <main *ngIf="!small else elseNotSmall" class="grid grid-cols-2 gap-x-2">
+        <div class="w-min text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0">
+            Showing <span class="font-semibold text-gray-900 dark:text-white">{{pagination.from}} - {{pagination.to}}</span> from <span class="font-semibold text-gray-900 dark:text-white">{{pagination.total}}</span>
+        </div>
+        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-auto justify-end">
+            <li *ngFor="let link of pagination.links" [class]="link.url == null ? 'hidden' : '' ">
+                <div *ngIf="link.url" (click)="goPage(editQuery(link.url))">
+                    <span [className]="link.active ? 'flex items-center justify-center px-3 h-8 text-teal-600 border border-gray-300 bg-teal-50 hover:bg-teal-100 hover:text-teal-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' : 'cursor-pointer flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white' ">
+                        {{ checkLabel(link.label) }}
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </main>
+    <ng-template #elseNotSmall>
+        <main class="w-full text-end">
+            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-xs h-auto justify-end">
+                <li *ngFor="let link of pagination.links" [class]="link.url == null ? 'hidden' : '' ">
+                    <div *ngIf="link.url" (click)="goPage(editQuery(link.url))">
+                        <span [className]="link.active ? 'flex items-center justify-center p-2 text-teal-600 hover:text-teal-700 dark:text-white' : 'cursor-pointer flex items-center justify-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white p-2' ">
+                            {{ checkLabel(link.label) }}
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </main>
+    </ng-template>
+</div>

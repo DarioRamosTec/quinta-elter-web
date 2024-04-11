@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import * as Pusher from 'pusher-js';
-import *  as Echo from 'laravel-echo';
+import { WaveConnector } from 'laravel-wave';
+import Echo from 'laravel-echo';
+import { AuthService } from './auth/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

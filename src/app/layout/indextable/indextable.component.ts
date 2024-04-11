@@ -1,13 +1,15 @@
 import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
-import { Component, ElementRef, Inject, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { IndexTitleComponent } from '../index-title/index-title.component';
 import { RouterLink } from '@angular/router';
 import { LoadingComponent } from '../loading/loading.component';
+import { PageSliderComponent } from '../../utilities/page-slider/page-slider.component';
+import { Pagination } from '../../Models/pagination';
 
 @Component({
   selector: 'app-indextable',
   standalone: true,
-  imports: [NgFor, NgIf, KeyValuePipe, IndexTitleComponent, RouterLink, LoadingComponent],
+  imports: [NgFor, NgIf, KeyValuePipe, IndexTitleComponent, RouterLink, LoadingComponent, PageSliderComponent],
   templateUrl: './indextable.component.html',
   styleUrl: './indextable.component.css'
 })
@@ -18,6 +20,14 @@ export class IndextableComponent {
   createRoute: String | undefined;
   @Input()
   hideCreate: Boolean = false;
+  @Input()
+  oldPagination = true
+  @Input()
+  paginations: Pagination<Object> | undefined
+  @Output()
+  paginationsMethod(page : number | undefined = undefined) {
+
+  }
   @Input()
   collection: Object[] | undefined;
   page: number = 1

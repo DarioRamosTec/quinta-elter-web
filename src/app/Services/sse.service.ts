@@ -5,8 +5,9 @@ import { environment } from '../../environments/environment';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js'
 import { AuthService } from '../auth/auth.service';
-import { WaveConnector } from 'laravel-wave';
+import { Wave, WaveConnector } from 'laravel-wave';
 import { SseClient } from 'ngx-sse-client';
+import { Options } from 'laravel-wave/dist/echo-broadcaster/wave-connector';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,38 @@ import { SseClient } from 'ngx-sse-client';
 export class SseService {
   url: string = "auth";
   ready: boolean = false;
-  //wave: Wave
+  wave: Wave | undefined
   //pusher: Pusher
   //echo: Echo
   funfun: Function | undefined
 
   constructor(protected authService: AuthService, protected seeService: SseClient) {
     //this.wave = new Wave({
+    //  endpoint: "http://127.0.0.1:8000/" + "wave",
     //  bearerToken: authService.getToken(),
+    //  debug: true,
+    //  auth: {
+    //    headers: {
+    //      'Accept': 'text/event-stream'
+    //    } as any
+    //  }
     //} as Options);
 
+    //this.wave = new Wave({
+    //  endpoint: "http://127.0.0.1:8000/" + "wave",
+    //  debug: true,
+    //  auth: {
+    //    headers: {
+    //      Cache: 'no-cors',
+    //      Cookie: 'XSRF-TOKEN=eyJpdiI6Ikt2Z0YzTVNjam9aN0tRdFlwcjcrZ3c9PSIsInZhbHVlIjoiUkh1dURHbE5LQVhqeGF2alBBL2RPMW9yQ3NWZ1VKMUtRS2Vydm5xbUpqOTg3OVNzU3dpaDdvNFhVQ01VRGl0WHNXdzNMbTdmaXJ6djMvbGxOV1JFRTBKV0wzT3BoT0t5QW9ERmprTEIyL21mcm5BamZxc3FzQkFZNVB3dkdoMFYiLCJtYWMiOiIxYjg5MmJmYTY2YjEwYTNiNDAyYWYwNGNmZTc2YzBhMWMxZjg5NjhhYTAyMjU1NmNkOGM3MjYzNTcwNzFjOTljIiwidGFnIjoiIn0%3D',
+    //    }
+    //  },
+    //  namespace: 'App.Events',
+    //  authEndpoint: ''
+    //} as Options);
+//
+    //console.log(this.wave)
+//
     //this.wave.model('Cliente', '1')
     //.notification('team.invite', (notification: any) => {
     //    console.log(notification);
@@ -48,7 +71,9 @@ export class SseService {
 
   }
 
-  
+  ngOnDestroy() {
+    this.wave = undefined
+  }
 
   getServerSentEvent(): Observable<MessageEvent> {
     const authToken = this.authService.getToken();

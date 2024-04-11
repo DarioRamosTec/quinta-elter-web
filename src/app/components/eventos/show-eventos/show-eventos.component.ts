@@ -28,11 +28,13 @@ import { ServiciosService } from '../../../Services/Servicios.service';
 import { Servicios } from '../../../Models/Servicios.model';
 import { EventoServicio } from '../../eventoServicios/evento-servicio';
 import { EventoServiciosService } from '../../eventoServicios/evento-servicios.service';
+import { Pagination } from '../../../Models/pagination';
+import { PageSliderComponent } from '../../../utilities/page-slider/page-slider.component';
 
 @Component({
   selector: 'app-show-eventos',
   standalone: true,
-  imports: [DatePipe, SidebarComponent, IndextableComponent, RouterLink, NgIf, NgFor, LoadingComponent, FormsModule, CreateTitleComponent],
+  imports: [PageSliderComponent, DatePipe, SidebarComponent, IndextableComponent, RouterLink, NgIf, NgFor, LoadingComponent, FormsModule, CreateTitleComponent],
   templateUrl: './show-eventos.component.html',
   styleUrl: './show-eventos.component.css'
 })
@@ -40,7 +42,7 @@ export class ShowEventosComponent extends AuthComponent {
   record : Evento | undefined
   notfound = false
   routeTo: string = '/eventos'
-  errors: any
+  errors: any | undefined = undefined
   tries = 0
   submiting = false
   id: number | undefined
@@ -55,9 +57,11 @@ export class ShowEventosComponent extends AuthComponent {
 
   servicios : Servicios[] | undefined 
 
+  pagesEstadoEventos: Pagination<EstadosEventos> | undefined
+
   constructor(private service : EventosService,
     router : Router, authService : AuthService, protected activatedRoute : ActivatedRoute, paqueteService : PaquetesService, clientesService : ClienteService, fechasService : FechasService,
-    tiposPagosService : TipoPagosService, estadoEventoService : EstadosEventosService, horasExtrasService : HorasExtrasService,  quintasService : QuintasService,
+    tiposPagosService : TipoPagosService, protected estadoEventoService : EstadosEventosService, horasExtrasService : HorasExtrasService,  quintasService : QuintasService,
     protected serviciosService : ServiciosService, protected eventoServicioService : EventoServiciosService) {
       super(authService, router)
       let self = this
@@ -75,15 +79,13 @@ export class ShowEventosComponent extends AuthComponent {
       tiposPagosService.index().subscribe(data => {
         this.tipo_pagos = data.data
       })
-      estadoEventoService.index().subscribe(data => {
-        this.estado_eventos = data.data
-      })
       quintasService.index().subscribe(data => {
         this.quintas = data.data
       })
       horasExtrasService.index().subscribe(data => {
         this.hora_extras = data.data
       })
+      this.indexEstadoEvento()
 
       service.show(activatedRoute.snapshot.params['id']).subscribe({
         next(data) {
@@ -93,6 +95,19 @@ export class ShowEventosComponent extends AuthComponent {
         error(err) {
           self.notfound = true
         },
+      })
+    }
+
+    indexEstadoEvento(page : number | undefined = undefined) {
+      let self = this
+      this.estadoEventoService.indexPage(page).subscribe({
+        next(data){
+          self.pagesEstadoEventos = data.data
+          self.estado_eventos = data.data.data
+        },
+        error(err){
+          self.checkStatus(err.status)
+        }
       })
     }
 

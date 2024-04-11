@@ -2,11 +2,11 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { IndexCaracteristicasComponent } from './components/caracteristicas/index-caracteristicas/index-caracteristicas.component';
-import { authAdminGuard } from './auth/auth-admin.guard';
-import { authUserGuard } from './auth/auth-user.guard';
-import { authGuestGuard } from './auth/auth-guest.guard';
-import { authGuard } from './auth/auth.guard';
-import { authNotGuard } from './auth/auth-not.guard';
+// import { authAdminGuard } from './auth/auth-admin.guard';
+// import { authUserGuard } from './auth/auth-user.guard';
+// import { authGuestGuard } from './auth/auth-guest.guard';
+// import { authGuard } from './auth/auth.guard';
+// import { authNotGuard } from './auth/auth-not.guard';
 import { IndexClientesComponent } from './components/clientes/index-clientes/index-clientes.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
@@ -15,11 +15,11 @@ import { CodigoVerificacionComponent } from './components/codigo-verificacion/co
 import { CreateTipoEventosComponent } from './components/tipoEventos/create-tipo-eventos/create-tipo-eventos.component';
 import { ShowCaracteristicasComponent } from './components/caracteristicas/show-caracteristicas/show-caracteristicas.component';
 import { EditCaracteristicasComponent } from './components/caracteristicas/edit-caracteristicas/edit-caracteristicas.component';
-import { authVerifiedGuard } from './auth/auth-verified.guard';
+// import { authVerifiedGuard } from './auth/auth-verified.guard';
 import { AuthComponent } from './components/auth/auth/auth.component';
 import { ActivateComponent } from './auth/activate/activate.component';
-import { authActivateGuard } from './auth/auth-activate.guard';
-import { authOnlyAdminGuard } from './auth/auth-only-admin.guard';
+// import { authActivateGuard } from './auth/auth-activate.guard';
+// import { authOnlyAdminGuard } from './auth/auth-only-admin.guard';
 import { IndexTipoEventosComponent } from './components/tipoEventos/index-tipo-eventos/index-tipo-eventos.component';
 import { ShowTipoEventosComponent } from './components/tipoEventos/show-tipo-eventos/show-tipo-eventos.component'
 import { EditTipoEventosComponent } from './components/tipoEventos/edit-tipo-eventos/edit-tipo-eventos.component';
@@ -72,13 +72,19 @@ import { ShowQuintasComponent } from './components/quintas/show-quintas/show-qui
 import { EditQuintasComponent } from './components/quintas/edit-quintas/edit-quintas.component';
 import { IndexLogsComponent } from './components/logs/index-logs/index-logs.component';
 import { ShowLogsComponent } from './components/logs/show-logs/show-logs.component';
+import { authLoginGuard } from './auth/guards/auth-login.guard';
+import { authVerifyGuard } from './auth/guards/auth-verify.guard';
+import { authNexusGuard } from './auth/guards/auth-nexus.guard';
+import { authAdminGuard } from './auth/guards/auth-admin.guard';
+import { authOnlyAdminGuard } from './auth/guards/auth-only-admin.guard';
+import { authUserGuard } from './auth/guards/auth-user.guard';
 
 export const routes: Routes = [
     {
         path: '',
         component: HomeComponent,
         title: 'Home',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     }, 
     {
         path: 'home',
@@ -89,7 +95,7 @@ export const routes: Routes = [
         path: 'caracteristicas',
         component: IndexCaracteristicasComponent,
         title: 'Ver Caracteristicas',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'caracteristicas/create',
@@ -101,7 +107,7 @@ export const routes: Routes = [
         path: 'caracteristicas/:id',
         component: ShowCaracteristicasComponent,
         title: 'Mostrar Caracteristica',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'caracteristicas/:id/edit',
@@ -137,7 +143,7 @@ export const routes: Routes = [
         path: 'clientes',
         component: IndexClientesComponent,
         title: 'Index Clientes',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'clientes/create',
@@ -149,7 +155,7 @@ export const routes: Routes = [
         path: 'clientes/:id',
         component: ShowClientesComponent,
         title: 'Ver Clientes',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'clientes/:id/edit',
@@ -161,43 +167,43 @@ export const routes: Routes = [
         path: 'logout',
         component: NotFoundComponent,
         title: 'Logout',
-        canActivate: [authNotGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'login',
         component: LoginFormComponent,
         title: 'Login',
-        canActivate: [authGuard]
+        canActivate: [authLoginGuard]
     },
     {
         path: 'auth',
         component: AuthComponent,
         pathMatch: 'full',
-        canActivate: [authGuard]
+        canActivate: [authLoginGuard]
     },
     {
         path:'CodigoVerificacion',
         component: CodigoVerificacionComponent,
         title: 'Codigo Verificacion',
-        canActivate: [authVerifiedGuard]
+        canActivate: [authVerifyGuard]
     },
     {
         path: 'register',
         component: RegisterFormComponent,
         title: 'Register',
-        canActivate: [authGuard]
+        canActivate: [authLoginGuard]
     },
     {
         path: 'activate',
         component: ActivateComponent,
         title: 'Activate',
-        canActivate: [authGuard]
+        canActivate: [authLoginGuard]
     },
     {
         path: 'tipo_eventos',
         component: IndexTipoEventosComponent,
         title: 'Index Tipo Evento',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'tipo_eventos/create',
@@ -208,7 +214,7 @@ export const routes: Routes = [
     {
         path: 'tipo_eventos/:id',
         component: ShowTipoEventosComponent,
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'tipo_eventos/:id/edit',
@@ -220,7 +226,7 @@ export const routes: Routes = [
         path: 'servicios',
         component: IndexServiciosComponent,
         title: 'Index Servicios',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'servicios/create',
@@ -231,7 +237,7 @@ export const routes: Routes = [
     {
         path: 'servicios/:id',
         component: ShowServiciosComponent,
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'servicios/:id/edit',
@@ -243,7 +249,7 @@ export const routes: Routes = [
         path: 'tipo_pagos',
         component: IndexTiposPagosComponent,
         title: 'Index Tipos Pagos',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'tipo_pagos/create',
@@ -254,7 +260,7 @@ export const routes: Routes = [
     {
         path: 'tipo_pagos/:id',
         component: ShowTiposPagosComponent,
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'tipo_pagos/:id/edit',
@@ -266,7 +272,7 @@ export const routes: Routes = [
         path: 'paquetes',
         component: IndexPaquetesComponent,
         title: 'Index Paquetes',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'paquetes/create',
@@ -277,7 +283,7 @@ export const routes: Routes = [
     {
         path: 'paquetes/:id',
         component: ShowPaquetesComponent,
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'paquetes/:id/edit',
@@ -289,7 +295,7 @@ export const routes: Routes = [
         path: 'quintas',
         component: IndexQuintasComponent,
         title: 'Index Quintas',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'quintas/create',
@@ -301,7 +307,7 @@ export const routes: Routes = [
         path: 'quintas/:id',
         title: 'Ver Quinta',
         component: ShowQuintasComponent,
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'quintas/:id/edit',
@@ -313,7 +319,7 @@ export const routes: Routes = [
         path: 'estado_eventos',
         component: IndexEstadoEventosComponent,
         title: 'Index Estado Eventos',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'estado_eventos/create',
@@ -324,7 +330,7 @@ export const routes: Routes = [
     {
         path: 'estado_eventos/:id',
         component: ShowEstadoEventosComponent,
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'estado_eventos/:id/edit',
@@ -336,7 +342,7 @@ export const routes: Routes = [
         path: 'eventos',
         component: IndexEventosComponent,
         title: 'Index Eventos',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path: 'eventos/create',
@@ -360,7 +366,7 @@ export const routes: Routes = [
         path:'opiniones',
         component: IndexOpinionesComponent,
         title: 'Index Opiniones',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path:'opiniones/create',
@@ -371,7 +377,7 @@ export const routes: Routes = [
     {
         path:'opiniones/:id',
         component: ShowOpinionesComponent,
-        canActivate: [authGuestGuard]  
+        canActivate: [authNexusGuard]  
     },
     {
         path:'opiniones/:id/edit',
@@ -383,7 +389,7 @@ export const routes: Routes = [
         path:'fechas',
         component: IndexFechaComponent,
         title: 'Index Fechas',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path:'fechas/create',
@@ -394,7 +400,7 @@ export const routes: Routes = [
     {
         path:'fechas/:id',
         component: ShowFechaComponent,
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path:'fechas/:id/edit',
@@ -406,7 +412,7 @@ export const routes: Routes = [
         path:'horas_extras',
         component: IndexHorasExtrasComponent,
         title: 'Index Horas Extras',
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path:'horas_extras/create',
@@ -417,7 +423,7 @@ export const routes: Routes = [
     {
         path:'horas_extras/:id',
         component: ShowHorasExtrasComponent,
-        canActivate: [authGuestGuard]
+        canActivate: [authNexusGuard]
     },
     {
         path:'horas_extras/:id/edit',

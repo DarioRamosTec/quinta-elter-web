@@ -9,4 +9,5 @@ export interface User {
     activado: Boolean
     token_verificacion?: undefined
     role : number
+    deleted_at: string | null
 }

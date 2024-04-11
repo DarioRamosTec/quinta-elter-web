@@ -2,22 +2,26 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { Auth } from './auth';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Modelo } from '../modelo';
 import { User } from '../components/users/user';
 import { Router } from '@angular/router';
-import { UserLogin } from '../Models/user.model';
 import { UsersService } from '../Services/users.service';
+import { VerifyCodeResponse } from '../responses/verify-code-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private user : User | undefined
+  public user : User | undefined
   private url : String = "auth"
   public verified : Boolean = false
+
+  static STATE_NOT_AUTH = 0
+  static STATE_NOT_VERIFY = 1
+  static STATE_AUTH = 2
 
   constructor(private cookieService : CookieService, private http: HttpClient, private router: Router, private usersService : UsersService) { }
 
@@ -177,6 +181,39 @@ export class AuthService {
   getTokenType() : String {
     return this.cookieService.get('tokenType')
   }
+
+  verify(code: string): Observable<VerifyCodeResponse>{
+    return this.http.post<VerifyCodeResponse>(environment.apiUrl + this.url + '/verify-code', { verification_code : code })
+  }
+
+  check(): Observable<number | User>{
+    let self = this
+    return new Observable<number>(ele => {  
+      self.verify(self.getSave()).subscribe({
+        next(value) {
+          self.user = value.data
+          ele.next(AuthService.STATE_AUTH)
+        },
+        error(err) {
+          let error : HttpErrorResponse = err
+          switch (error.status) {
+            case 400:
+            case 422:
+              ele.next(AuthService.STATE_NOT_VERIFY)
+              break
+            case 404:
+              ele.next(AuthService.STATE_NOT_AUTH)
+              self.bye()
+              break
+            default:
+              ele.next(AuthService.STATE_NOT_AUTH)
+              break
+          }
+        },
+      })
+    })
+  }
+
   saveTokenResponse(jwt: string, user: any) {
     if (typeof window !== 'undefined') {
       const userString = JSON.stringify(user);
@@ -184,5 +221,12 @@ export class AuthService {
       localStorage.setItem('access_token', jwt);
       this.router.navigate(['']);
     }
+  }
+
+  role(): number {
+    if (this.user) {
+      return this.user.role
+    }
+    return 0
   }
 }

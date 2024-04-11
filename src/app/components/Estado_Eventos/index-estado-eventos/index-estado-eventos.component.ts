@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone  } from '@angular/core';
 import { SidebarComponent } from '../../../layout/sidebar/sidebar.component';
 import { CreateTitleComponent } from '../../../layout/create-title/create-title.component';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { EstadosEventos} from '../../../Models/estado-eventos.model';
 import { EstadoEventosErrors } from '../estado_eventos-errors';
 import { CommonModule,NgFor, NgIf } from '@angular/common';
 import { Modelo } from '../../../modelo';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthComponent } from '../../auth/auth/auth.component';
 import { AuthService } from '../../../auth/auth.service';
 import { ActivatedRoute,Router, RouterLink } from '@angular/router';
@@ -17,108 +17,76 @@ import { SseService } from '../../../Services/sse.service';
 import { environment } from '../../../../environments/environment.development';
 import { SseClient } from 'ngx-sse-client';
 import { HttpHeaders } from '@angular/common/http';
+import { PageSliderComponent } from '../../../utilities/page-slider/page-slider.component';
+import { Pagination } from '../../../Models/pagination';
+
 @Component({
   selector: 'app-index-estado-eventos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,SidebarComponent, NgFor,NgIf,IndextableComponent,RouterLink,LoadingComponent,CreateTitleComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,SidebarComponent, NgFor, NgIf, IndextableComponent,RouterLink,LoadingComponent,CreateTitleComponent, PageSliderComponent, PageSliderComponent],
   templateUrl: './index-estado-eventos.component.html',
   styleUrl: './index-estado-eventos.component.css'
 })
 export class IndexEstadoEventosComponent extends AuthComponent implements OnInit, OnDestroy{
 estado_eventos : EstadosEventos[] | undefined
 loading : boolean = false
-private sseSubscription: Subscription | undefined
+eventSource: EventSource | undefined
+pages: Pagination<EstadosEventos> | undefined
+lastPage: number | undefined = undefined
+lastUpdated: string | undefined = undefined
 
 constructor(private  EstadosEventosService : EstadosEventosService, private sseService: SseService,
-  authService: AuthService , router : Router, protected sseClient: SseClient) {
+  authService: AuthService , router : Router, protected sseClient: SseClient, protected ngZone: NgZone) {
     super(authService, router)
     this.index()
-
-    
-
-    
-    /*** 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ` + this.authService.getToken());
-
-    this.sseClient.stream(environment.apiUrl + 'auth/sendEvents', { keepAlive: true, reconnectionDelay: 1_000, responseType: 'event' }, { headers }, 'POST').subscribe((event) => {
-      if (event.type === 'error') {
-        const errorEvent = event as ErrorEvent;
-        console.error(errorEvent.error, errorEvent.message);
-      } else {
-        const messageEvent = event as MessageEvent;
-        console.log(messageEvent.data)
-      }
-    });
-    */
-
-    const evtSource = new EventSource(environment.apiUrl + 'sendEvents');
-
-    const parseMyEvent = (evt: Event) => {
-      const messageEvent = (evt as MessageEvent);  // <== This line is Important!!
-      //const data: MyDataInterface = JSON.parse(messageEvent.data);
-      console.log(evt)
-    }
-
-    evtSource.addEventListener('my-event', parseMyEvent);
-
-    //const eventSource = new EventSource(environment.apiUrl + 'sendEvents');
-
-    //eventSource.onmessage = function(event) {
-      //console.log(event)
-      /** 
-        const data = JSON.parse(event.data);
-        if (data.time) {
-            document.getElementById('time').innerHTML = data.time;
-        }
-        const newElement = document.createElement("li");
-        const eventList = document.getElementById("list");
-
-        newElement.textContent = "message: " + event.data;
-        eventList.appendChild(newElement);
-        */
-    //}
-
   }
 
-  index(){
+  index(page : number | undefined = undefined, restart : boolean = true) {
     let self = this
-    this.estado_eventos  = undefined
-    this.EstadosEventosService.index().subscribe({
+    this.estado_eventos = restart ? undefined : this.estado_eventos
+
+    this.EstadosEventosService.indexPage(page == undefined ? this.lastPage : page).subscribe({
       next(data){
-        self.estado_eventos = data.data
+        self.pages = data.data
+        self.estado_eventos = data.data.data
+        self.lastUpdated = data.last_update
       },
       error(err){
         self.checkStatus(err.status)
       }
     })
+
+    this.lastPage = page == undefined ? this.lastPage : page
   }
   
   override ngOnInit(): void {
     super.ngOnInit();
-    if ('Notification' in window) {
-      Notification.requestPermission().then(permission => {
-        if (permission === 'granted') {
-          console.log('Permiso de notificación concedido');
-        } else {
-          console.log('Permiso de notificación denegado');
-        }
-      });
-    } else {
-      console.log('Las notificaciones no son soportadas en este navegador.');
-    }
-
-    this.sseService.funfun = (data: any) => {
-      //this.estado_eventos = data
-      console.log(data)
-    }
-
+    this.hearSSE()
   }
+
+  hearSSE(): void{
+    let self = this
+    this.eventSource = new EventSource('http://127.0.0.1:8000/api/estado_eventos/sse');
+
+    this.eventSource.onmessage = (event) => {
+      if(event.data != null && '"'+this.lastUpdated +'"' != event.data) {
+        this.ngZone.run(() => {
+          console.log("Actualización en proceso.")
+          this.index(undefined, false)
+        });
+      }
+    }
+  }
+  
   ngOnDestroy() {
-    if (this.sseSubscription) {
-      this.sseSubscription.unsubscribe();
+    this.closeSSE()
+  }
+
+  closeSSE() {
+    if (this.eventSource) {
+      this.eventSource.close()
     }
   }
- 
 
   destroy(id : number){
     let self = this
@@ -134,23 +102,8 @@ constructor(private  EstadosEventosService : EstadosEventosService, private sseS
         self.index()
       },
       complete(){
-
       },
     })
   }
-  mostrarNotificacion(datos: EstadosEventos[]) {
-    if ('Notification' in window && Notification.permission === 'granted') {
-      const notificacion = new Notification('Nuevo Evento de Estado', {
-        body: 'Hay nuevos datos disponibles.',
-        icon: 'path_to_icon' 
-      });
-      notificacion.onclick = () => {
-        console.log('Notificación clickeada');
-      };
-    }
-    console.log('Nuevos datos recibidos:', datos);
-  }
   
 }
-
-

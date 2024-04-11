@@ -3,5 +3,6 @@ export interface Modelo<SubModelo> {
     data : SubModelo,
     errors : Object,
     ignore : boolean,
-    query : Object
+    query : Object,
+    last_update: string
 }

@@ -13,7 +13,7 @@ export class AuthNotComponent {
   readyToSee : Boolean = false
 
   constructor(protected authService : AuthService, protected router: Router) {
-    this.authorize()
+    this.readyToSee = true
   }
 
   authorize() {

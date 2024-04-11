@@ -221,6 +221,7 @@
                     <div class="text-sm text-pink-500 p-0 mt-1" *ngIf="componentForm.controls['estado_evento'].invalid && (componentForm.controls['estado_evento'].dirty || componentForm.controls['estado_evento'].touched)">
                         <div *ngIf="componentForm.controls['estado_evento'].errors?.['required']">Este campo es requerido.</div>
                     </div>
+                    <app-page-slider *ngIf="user" [pagination]="pagesEstadoEventos" (pageEvent)="indexEstadoEvento($event)" />
                 </div>
 
                 <div class="sm:col-span-2">

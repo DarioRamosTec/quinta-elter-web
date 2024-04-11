@@ -13,7 +13,7 @@
             <ng-content select="[head]"></ng-content>
             <ng-content select="[body]"></ng-content>
         </table>
-        <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+        <nav *ngIf="oldPagination else elseNewPagination" class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
             <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Mostrando <span class="font-semibold text-gray-900 dark:text-white">{{min+1}}-{{quantity}}</span> de <span class="font-semibold text-gray-900 dark:text-white">{{collection.length}}</span></span>
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                 <li *ngIf="page > 1">
@@ -30,6 +30,9 @@
                 </li>
             </ul>
         </nav>
+        <ng-template #elseNewPagination>
+            <app-page-slider *ngIf="paginations" [pagination]="paginations" (pageEvent)="paginationsMethod($event)"></app-page-slider>
+        </ng-template>
     </div>
     <ng-template #elseTable>
         No hay todavia ningún registro :c

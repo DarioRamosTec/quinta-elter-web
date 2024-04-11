@@ -1,7 +1,13 @@
 <app-sidebar [role]="user != undefined && user.role ? user.role : undefined ">
-    <app-indextable *ngIf="user" [hideCreate]="false" [createRoute]="'create'" [isActive]="!loading && collection != null ? true : false" [collection]="collection">
+    <app-indextable [oldPagination]="false" *ngIf="user" [hideCreate]="false" [createRoute]="'create'" [isActive]="!loading && collection != null ? true : false" [collection]="collection">
         <div bigTitle>
             {{ title }}
+            <td class="font-normal">
+                <select (change)="changeUsuario($event)" class="block w-min rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6">
+                    <option value="" selected>Todos</option>
+                    <option *ngFor="let usuario of users" [value]="usuario.id" >{{ usuario.nombre }} - {{ usuario.email }}</option>
+                </select>
+            </td>
         </div>
         <thead head>
             <tr>
@@ -46,4 +52,6 @@
             </tr>
         </tbody>
     </app-indextable>
+
+    <app-page-slider *ngIf="user" [pagination]="pageCollection" (pageEvent)="indexPage($event)" />
 </app-sidebar>

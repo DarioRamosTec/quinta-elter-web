@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {EstadosEventos} from '../Models/estado-eventos.model';
 import { environment } from '../../environments/environment';
@@ -25,6 +25,10 @@ import { Modelo } from '../modelo';
   
     store(data: EstadosEventos): Observable<Modelo<EstadosEventos>> {
       return this.http.post<Modelo<EstadosEventos>>(environment.apiUrl + this.url,data);
+    }
+
+    storeVikki(data: EstadosEventos): Observable<HttpResponse<Modelo<EstadosEventos>>> {
+      return this.http.post<Modelo<EstadosEventos>>(environment.apiUrl + this.url,data, {observe: 'response'});
     }
 
     update(data: EstadosEventos, id: number): Observable<Modelo<EstadosEventos>> {

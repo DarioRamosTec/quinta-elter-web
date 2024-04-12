@@ -70,7 +70,7 @@ export class IndexOpinionesComponent extends AuthComponent {
       .subscribe({
         next: (data) => {
           this.opiniones = data.data;
-          console.log('Opiniones actualizadas.');
+          //console.log('Opiniones actualizadas.');
         },
         error: (error) => {
           console.error('Error al obtener las opiniones:', error);

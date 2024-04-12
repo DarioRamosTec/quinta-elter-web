@@ -32,7 +32,7 @@
                     (record.user.role == 2 ? 'bg-yellow-50' : 
                     (record.user.role == 3 ? 'bg-pink-50' : '' 
                     ))
-                    " class="">{{ record.user.nombre }}</span> pidió en
+                    " class="">{{ record.user.email }}</span> pidió en
                     <span class="font-semibold">{{ record.endpoint }}</span> con código 
                     <span class="text-purple-400">{{ record.status }}</span> en tiempo de 
                     <span class="text-pink-400">{{ record.time }}</span> <span *ngIf="record.response.message">

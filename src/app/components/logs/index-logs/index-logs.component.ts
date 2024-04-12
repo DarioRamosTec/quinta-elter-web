@@ -45,14 +45,16 @@ export class IndexLogsComponent  extends AuthComponent {
         self.checkStatus(err.status)
       },
     })
-    this.websocketService.hear(() => {
+    /** 
+    this.websocketService.reset('new.log', 'log.created', () => {
       if (this.isUser > 0) {
         this.indexPageUser(undefined, this.isUser)
       } else {
         this.indexPage()
       }
-      console.log("Evento de websocket.")
+      console.log("Evento de websocket." + this.isUser)
     })
+    */
   }
 
   index() {
@@ -99,7 +101,7 @@ export class IndexLogsComponent  extends AuthComponent {
     let self = this
     this.collection = undefined
 
-    this.service.indexPage(page == undefined ? this.numberPage : page).subscribe({
+    this.service.indexPageUser(page == undefined ? this.numberPage : page, this.isUser).subscribe({
       next(data){
         self.pageCollection = data.data
         self.collection = data.data.data

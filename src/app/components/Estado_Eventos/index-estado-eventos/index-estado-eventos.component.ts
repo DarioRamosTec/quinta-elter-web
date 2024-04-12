@@ -66,12 +66,12 @@ constructor(private  EstadosEventosService : EstadosEventosService, private sseS
 
   hearSSE(): void{
     let self = this
-    this.eventSource = new EventSource('http://127.0.0.1:8000/api/estado_eventos/sse');
+    this.eventSource = new EventSource( environment.apiUrl + 'estado_eventos/sse');
 
     this.eventSource.onmessage = (event) => {
       if(event.data != null && '"'+this.lastUpdated +'"' != event.data) {
         this.ngZone.run(() => {
-          console.log("Actualización en proceso.")
+          //console.log("Actualización en proceso.")
           this.index(undefined, false)
         });
       }

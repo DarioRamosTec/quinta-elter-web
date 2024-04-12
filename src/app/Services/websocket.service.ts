@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Echo from 'laravel-echo';
 
-import Pusher from 'pusher-js';
+import Pusher, { Channel } from 'pusher-js';
  
 declare const window: any;
 
@@ -17,6 +17,8 @@ export class WebsocketService {
 
   channelTxt = 'new.log'
   eventTxt = 'log.created'
+  channel: Channel | undefined
+  pusher: Pusher | undefined
 
   constructor() { 
      //window.Pusher = Pusher
@@ -100,14 +102,25 @@ export class WebsocketService {
       let pusher = new Pusher('18c108787e7afba7e65c', {
         cluster: 'us3'
       });
+      this.pusher = pusher
 
       var channel = pusher.subscribe(this.channelTxt)
       channel.bind(this.eventTxt, callback)
+      this.channel = channel
   }
 
   setTexts(channel: string, event: string) {
     this.channelTxt = channel
     this.eventTxt = event
   }
+
+  reset(channel: string, event: string, callback: Function) {
+    if (this.channel && this.pusher) {
+      this.channel?.unbind()
+      this.channel?.unsubscribe()
+      this.channel = this.pusher.subscribe(channel)
+      this.channel.bind(event, callback)
+    }
+  } 
 
 }

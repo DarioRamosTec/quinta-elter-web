@@ -8,8 +8,8 @@
                 <th>Nombre</th>
                 <th>Apellido paterno</th>
                 <th>Correo</th>
-                <th>Estado</th>
                 <th>Rol</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody body id="indexTableBody">
@@ -17,7 +17,7 @@
                 <td>{{ record.nombre }}</td>
                 <td>{{ record.apellido_paterno }}</td>
                 <td>{{ record.email }}</td>
-                <td class="font-bold">{{ record.role_data.nombre }}</td>
+                <td class="font-light">{{ record.role_data.nombre }}</td>
                 <td [classList]="record.deleted_at != null ? 'text-pink-700' : record.activado ? 'text-teal-700' : 'text-purple-700' ">{{ record.deleted_at != null ? "Inactivo" : record.activado ? 'Verificado' : 'Aún sin verificar' }}</td>
 
                 <td>

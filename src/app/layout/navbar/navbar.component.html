@@ -5,7 +5,7 @@
         <a [routerLink]="['/']" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="/assets/img/elter.png" class="h-8" alt=""/>
         </a>
-        <div *ngIf="authService.user" class="grid grid-cols-2">
+        <div *ngIf="authService.user" class="grid grid-cols-2 space-x-2">
             <span class="font-semibold">
                 {{ authService.user.nombre }} 
                 <span *ngIf="authService.user.role_data" class="font-extralight text-xs"> - {{ authService.user.role_data.nombre }}</span>

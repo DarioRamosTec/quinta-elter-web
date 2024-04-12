@@ -18,7 +18,7 @@ export class AuthComponent implements OnInit {
   constructor(protected authService: AuthService, protected router: Router) {
     this.websocketService.setTexts('user-'+authService.user?.id, 'user.updated')
     this.websocketService.hear(() => {
-      console.log("Se han actualizado los datos del usuario.")
+      //console.log("Se han actualizado los datos del usuario.")
       this.authenticate();
     })
   }
@@ -33,6 +33,8 @@ export class AuthComponent implements OnInit {
       this.user = data
       if (this.user == undefined) {
         this.router.navigate(['/login'])
+      } else {
+        window.location.reload();
       }
     })
   }

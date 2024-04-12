@@ -24,7 +24,7 @@ export class LogsService  {
   }
 
   indexPageUser(page: number = 1, id: number) : Observable<Modelo<Pagination<Log>>> {
-    return this.http.get<Modelo<Pagination<Log>>>(environment.apiUrl + this.url  + (id ? '/user/' + id : '') + "?page=" + page);
+    return this.http.get<Modelo<Pagination<Log>>>(environment.apiUrl + this.url  + (id && id > 0 ? '/user/' + id : '') + "?page=" + page);
   }
 
   show(id: number) : Observable<Modelo<Log>> {
